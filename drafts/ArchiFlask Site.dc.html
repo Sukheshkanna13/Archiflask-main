@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#ffffff;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;color:#1d1d1f;overflow-x:clip;}
+  ::selection{background:#1d1d1f;color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  input,button{font-family:inherit;}
+  @keyframes afRise{0%{transform:translateY(26px);}100%{transform:translateY(0);}}
+  @keyframes afFloatA{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+  @keyframes afFloatB{0%,100%{transform:translateY(0);}50%{transform:translateY(10px);}}
+  @keyframes afQ{0%,100%{opacity:.5;}8%,20%{opacity:1;}}
+  @keyframes afPing{0%{transform:scale(.6);opacity:.7;}100%{transform:scale(2.4);opacity:0;}}
+  @keyframes afSpin{to{transform:rotate(360deg);}}
+  @keyframes afSpinR{to{transform:rotate(-360deg);}}
+  @keyframes afHint{0%,100%{transform:translateY(0);opacity:.5;}50%{transform:translateY(6px);opacity:1;}}
+  @keyframes afReveal{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- mobile (same theme, optimized) ---------- */
+  @media (max-width:760px){
+    nav#af-nav{padding:12px 16px !important;}
+    #af-nav > div:last-child > a:not(:last-child){display:none !important;}
+    #af-nav > div:last-child > a:last-child{margin-left:0 !important;}
+
+    #af-hero{height:150vh !important;}
+    #af-skel{width:100% !important;left:0 !important;right:auto !important;opacity:.26 !important;}
+    #af-hero-pin > div[style*="0 40px"]{padding:0 20px !important;}
+    #af-hero-pin h1{font-size:42px !important;line-height:1.05 !important;}
+    #af-hero-pin p{font-size:16.5px !important;}
+    #af-hero-pin div[style*="bottom:120px"]{display:none !important;}
+
+    main > section:not(#af-hero){padding-top:72px !important;padding-bottom:72px !important;padding-left:20px !important;padding-right:20px !important;}
+    h1{font-size:42px !important;}
+    h2{font-size:32px !important;line-height:1.15 !important;}
+    h3{font-size:21px !important;}
+
+    [style*="repeat(5"],[style*="repeat(4"],[style*="repeat(3"],[style*="1fr 1fr"],[style*="1.05fr"],[style*="0.95fr"],[style*="0.85fr"],[style*="1.15fr"]{grid-template-columns:1fr !important;}
+
+    #af-deck{height:auto !important;}
+    #af-deck .af-card{position:static !important;transform:none !important;left:auto !important;top:auto !important;margin:0 0 14px 0 !important;width:100% !important;height:auto !important;box-shadow:0 10px 26px rgba(0,0,0,.08) !important;}
+
+    footer > div{flex-direction:column !important;}
+  }
+</style>
+<script src="https://unpkg.com/three@0.137.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/motion@11.11.17/dist/motion.js"></script>
+<script src="image-slot.js"></script>
+</helmet>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#f5f5f7"></rect>
+    <rect x="30" y="30" width="40" height="40" rx="9" fill="#1d1d1f"></rect>
+    <text x="50" y="58" font-family="Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#ffffff" text-anchor="middle">AF</text>
+  </svg>
+</template>
+
+<div style="position:relative;width:100%;min-height:100vh;background:#ffffff;">
+
+<!-- ===================== NAV ===================== -->
+<nav id="af-nav" style="position:fixed;top:0;left:0;right:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid rgba(0,0,0,0);transition:background .35s ease,backdrop-filter .35s ease,border-color .35s ease;">
+  <a onClick="{{ goHome }}" style="display:flex;align-items:center;gap:11px;cursor:pointer;">
+    <span style="position:relative;display:inline-block;width:26px;height:26px;">
+      <span style="position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:6px;border:2px solid #1d1d1f;"></span>
+      <span style="position:absolute;left:7px;top:7px;width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:inset 0 1px 0 rgba(255,255,255,.22);"></span>
+    </span>
+    <span style="font-size:20px;font-weight:600;letter-spacing:-0.02em;">ArchiFlask</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:2px;font-size:14.5px;font-weight:500;">
+    <a data-nav="home" onClick="{{ goHome }}" style="padding:8px 14px;border-radius:980px;cursor:pointer;color:#6e6e73;transition:color .2s ease,background .2s ease;" style-hover="background:#f5f5f7;">Home</a>
+    <a data-nav="about" onClick="{{ goAbout }}" style="padding:8px 14px;border-radius:980px;cursor:pointer;color:#6e6e73;transition:color .2s ease,background .2s ease;" style-hover="background:#f5f5f7;">About</a>
+    <a data-nav="impact" onClick="{{ goImpact }}" style="padding:8px 14px;border-radius:980px;cursor:pointer;color:#6e6e73;transition:color .2s ease,background .2s ease;" style-hover="background:#f5f5f7;">Impact</a>
+    <a data-nav="blog" onClick="{{ goBlog }}" style="padding:8px 14px;border-radius:980px;cursor:pointer;color:#6e6e73;transition:color .2s ease,background .2s ease;" style-hover="background:#f5f5f7;">Blog</a>
+    <a onClick="{{ goDemo }}" style="margin-left:6px;padding:8px 16px;border-radius:980px;cursor:pointer;color:#1d1d1f;border:1px solid rgba(0,0,0,.14);background:#fff;">Book a Demo</a>
+    <a onClick="{{ goStarted }}" style="margin-left:4px;padding:9px 20px;border-radius:980px;cursor:pointer;color:#fff;font-weight:500;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:0 1px 2px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.2);">Get Started</a>
+  </div>
+</nav>
+
+<!-- ===================== GLOBAL PENCIL RAIL (all pages) ===================== -->
+<!-- drawn line sits BEHIND all page content -->
+<div id="af-rail-back" style="position:fixed;inset:0;z-index:1;pointer-events:none;">
+  <svg id="af-rail-svg" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;">
+    <path id="af-rail-path" d="" fill="none" stroke="#9a9aa0" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0" stroke-dashoffset="0" style="opacity:.12;"></path>
+  </svg>
+</div>
+<!-- pencil rides above content (below nav) -->
+<div id="af-rail" style="position:fixed;inset:0;z-index:250;pointer-events:none;">
+  <canvas id="af-pencil-rail" style="position: absolute; inset: 0; width: 100%; height: 100%; transition: opacity .25s ease; left: 0px; top: 28px"></canvas>
+</div>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<main style="position:relative;z-index:2;">
+
+  <!-- ===================== HERO : PENCIL DRAWS THE LINE ===================== -->
+  <section id="af-hero" style="position:relative;height:215vh;background:transparent;">
+    <div id="af-hero-pin" style="position:sticky;top:0;height:100vh;overflow:hidden;">
+
+      <!-- blueprint grid backdrop (right) -->
+      <div data-parallax="0.05" style="position:absolute;right:0;top:0;width:64%;height:100%;z-index:0;background-image:linear-gradient(rgba(0,0,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.045) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(72% 70% at 72% 42%,#000,transparent);mask-image:radial-gradient(72% 70% at 72% 42%,#000,transparent);pointer-events:none;"></div>
+      <!-- live 3D skeletal structure (bottom-right) -->
+      <canvas id="af-skel" style="position:absolute;right:0;top:0;width:58%;height:100%;z-index:1;pointer-events:none;"></canvas>
+      <!-- floating caption pinned bottom-right -->
+      <div style="position:absolute;right:40px;bottom:120px;z-index:2;display:flex;align-items:center;gap:11px;padding:11px 16px;border-radius:16px;background:rgba(255,255,255,.66);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border:1px solid rgba(0,0,0,.07);box-shadow:0 12px 34px rgba(0,0,0,.07);">
+        <span style="position:relative;width:9px;height:9px;flex:none;"><span style="position:absolute;inset:0;border-radius:50%;background:#1d1d1f;"></span><span style="position:absolute;inset:0;border-radius:50%;background:#1d1d1f;animation:afPing 2s ease-out infinite;"></span></span>
+        <div><div style="font-size:12.5px;font-weight:700;letter-spacing:-0.01em;">One firm, fully modelled</div><div style="font-size:11px;color:#86868b;">drawings · effort · site · clients · profit</div></div>
+      </div>
+
+      <!-- headline (pinned) -->
+      <div style="position:relative;z-index:2;height:100%;max-width:1240px;margin:0 auto;padding:0 40px;display:flex;align-items:center;">
+        <div style="max-width:660px;">
+          <div style="animation:afRise .7s cubic-bezier(.16,1,.3,1) both;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#86868b;">Architecture · Construction · Software</div>
+          <h1 style="animation:afRise .8s cubic-bezier(.16,1,.3,1) .06s both;margin:18px 0 0;font-size:72px;line-height:1.0;font-weight:600;letter-spacing:-0.038em;">Run your firm<br>on a system.<br><span style="background:linear-gradient(120deg,#9a9aa0,#1d1d1f 65%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Not on memory.</span></h1>
+          <p style="animation:afRise .8s cubic-bezier(.16,1,.3,1) .14s both;margin:28px 0 0;max-width:520px;font-size:20px;line-height:1.5;color:#6e6e73;">ArchiFlask is the operating platform for design, construction &amp; PMC firms — projects, drawings, teams, site activity, approvals and profitability, in one place.</p>
+          <div style="animation:afRise .8s cubic-bezier(.16,1,.3,1) .22s both;margin-top:34px;display:flex;gap:14px;align-items:center;">
+            <button onClick="{{ goDemo }}" style="border:0;cursor:pointer;font-size:16px;font-weight:500;padding:14px 30px;border-radius:980px;color:#fff;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:0 2px 10px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.22);">Book a Demo</button>
+            <button onClick="{{ goDemo }}" style="cursor:pointer;font-size:16px;font-weight:500;padding:14px 28px;border-radius:980px;color:#1d1d1f;background:#fff;border:1px solid rgba(0,0,0,.12);">Get Started</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- scroll hint -->
+      <div style="position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;">
+        <span style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#aeaeb2;">Scroll to explore</span>
+        <span style="width:22px;height:22px;border-right:2px solid #c2c2c9;border-bottom:2px solid #c2c2c9;transform:rotate(45deg);animation:afHint 1.8s ease-in-out infinite;"></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT / NUMBERS (editorial) ===================== -->
+  <section id="af-about" style="padding:110px 40px;background:#fff;border-top:1px solid rgba(0,0,0,.06);">
+    <div style="max-width:1240px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:14px;font-weight:600;color:#86868b;">02 — About ArchiFlask</div>
+          <h2 style="margin:14px 0 0;font-size:60px;line-height:1.0;font-weight:600;letter-spacing:-0.03em;">We give firms control.</h2>
+        </div>
+        <button onClick="{{ goDemo }}" style="cursor:pointer;font-size:15px;font-weight:500;padding:12px 22px;border-radius:980px;border:1px solid rgba(0,0,0,.14);background:#f5f5f7;color:#1d1d1f;display:inline-flex;align-items:center;gap:8px;">Become a Client <span style="font-size:17px;">→</span></button>
+      </div>
+      <div style="margin-top:22px;height:1px;background:rgba(0,0,0,.1);"></div>
+
+      <div style="margin-top:52px;display:grid;grid-template-columns:1.05fr 0.95fr;gap:64px;align-items:start;">
+        <!-- left: copy + stat cards -->
+        <div>
+          <p data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;max-width:560px;font-size:26px;line-height:1.35;font-weight:500;letter-spacing:-0.01em;color:#1d1d1f;"><span style="color:#1d1d1f;">A solid system</span> <span style="color:#aeaeb2;">aligned with how design and construction firms actually work is what lets a practice scale — without losing control of a single project.</span></p>
+
+          <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s;margin:40px 0 16px;font-size:13px;font-weight:700;letter-spacing:.06em;color:#86868b;">SOME NUMBERS ABOUT US</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;padding:24px;border-radius:20px;background:#f5f5f7;min-height:172px;">
+              <div data-count="100" data-suffix="+" style="font-size:52px;font-weight:600;letter-spacing:-0.03em;">100+</div>
+              <div style="margin-top:6px;max-width:130px;font-size:14px;line-height:1.4;color:#86868b;">Firms &amp; teams running on ArchiFlask across India.</div>
+              <canvas class="af-mini" data-shape="octa" style="position:absolute;right:8px;bottom:8px;width:96px;height:96px;pointer-events:none;"></canvas>
+            </div>
+            <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .07s,transform .8s cubic-bezier(.16,1,.3,1) .07s;position:relative;overflow:hidden;padding:24px;border-radius:20px;background:#f5f5f7;min-height:172px;">
+              <div data-count="30" data-suffix="+" style="font-size:52px;font-weight:600;letter-spacing:-0.03em;">30+</div>
+              <div style="margin-top:6px;max-width:140px;font-size:14px;line-height:1.4;color:#86868b;">Live projects a single firm runs at once.</div>
+              <canvas class="af-mini" data-shape="box" style="position:absolute;right:8px;bottom:8px;width:96px;height:96px;pointer-events:none;"></canvas>
+            </div>
+            <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;position:relative;overflow:hidden;padding:24px;border-radius:20px;background:#f5f5f7;min-height:172px;">
+              <div data-count="15" data-suffix="+" style="font-size:52px;font-weight:600;letter-spacing:-0.03em;">15+</div>
+              <div style="margin-top:6px;max-width:150px;font-size:14px;line-height:1.4;color:#86868b;">Years our founders have run real projects.</div>
+              <canvas class="af-mini" data-shape="tetra" style="position:absolute;right:8px;bottom:8px;width:96px;height:96px;pointer-events:none;"></canvas>
+            </div>
+            <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .21s,transform .8s cubic-bezier(.16,1,.3,1) .21s;position:relative;overflow:hidden;padding:24px;border-radius:20px;background:linear-gradient(135deg,#2c2c2e,#1c1c1e);color:#fff;min-height:172px;box-shadow:inset 0 1px 0 rgba(255,255,255,.1);">
+              <div style="font-size:52px;font-weight:600;letter-spacing:-0.03em;">4</div>
+              <div style="margin-top:6px;max-width:150px;font-size:14px;line-height:1.4;color:rgba(255,255,255,.65);">Domains: residential, commercial, interiors, infrastructure.</div>
+              <canvas class="af-mini" data-shape="ico" data-color="light" style="position:absolute;right:8px;bottom:8px;width:96px;height:96px;pointer-events:none;"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- right: orbit diagram -->
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);">
+          <div style="position:relative;width:100%;max-width:480px;margin:0 auto;aspect-ratio:1/1;">
+            <div style="position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 38% 32%,#fafafa,#ececef 70%);box-shadow:inset 0 0 60px rgba(0,0,0,.04);"></div>
+            <div style="position:absolute;inset:16%;border-radius:50%;background:radial-gradient(circle at 40% 34%,#ffffff,#e4e4e9);box-shadow:0 30px 60px rgba(0,0,0,.06);"></div>
+            <div style="position:absolute;inset:6%;border-radius:50%;border:1px dashed rgba(0,0,0,.12);animation:afSpin 60s linear infinite;"></div>
+            <div style="position:absolute;inset:30%;border-radius:50%;border:1px dashed rgba(0,0,0,.10);animation:afSpinR 45s linear infinite;"></div>
+            <!-- nodes -->
+            <div style="position:absolute;left:74%;top:14%;display:flex;align-items:center;gap:8px;"><span style="width:11px;height:11px;border-radius:50%;background:#1d1d1f;box-shadow:0 0 0 5px rgba(29,29,31,.10);"></span><span style="font-size:14px;font-weight:600;">Documentation</span></div>
+            <div style="position:absolute;left:8%;top:46%;display:flex;align-items:center;gap:8px;"><span style="font-size:14px;font-weight:600;">Profitability</span><span style="width:11px;height:11px;border-radius:50%;background:#1d1d1f;box-shadow:0 0 0 5px rgba(29,29,31,.10);"></span></div>
+            <div style="position:absolute;left:44%;top:80%;display:flex;align-items:center;gap:8px;"><span style="width:11px;height:11px;border-radius:50%;background:#1d1d1f;box-shadow:0 0 0 5px rgba(29,29,31,.10);"></span><span style="font-size:14px;font-weight:600;">Operations</span></div>
+            <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);text-align:center;"><div style="font-size:13px;font-weight:700;letter-spacing:.04em;color:#86868b;">ONE SYSTEM</div><div style="font-size:22px;font-weight:600;letter-spacing:-0.02em;">ArchiFlask</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- logo wall — infinite Motion marquee -->
+      <div data-reveal="" style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin-top:72px;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);">
+        <div id="af-logo-track" style="display:flex;width:max-content;will-change:transform;">
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Studio·Co</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">BuildWorks</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Atelier 9</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">PMC Group</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Vastu Labs</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Form &amp; Co</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Studio·Co</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">BuildWorks</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Atelier 9</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">PMC Group</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Vastu Labs</div>
+          <div style="flex:none;padding:30px 56px;font-size:18px;font-weight:700;color:#c2c2c9;">Form &amp; Co</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATEMENT (inline image-pills) ===================== -->
+  <section style="padding:120px 40px;background:#f5f5f7;">
+    <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);max-width:1020px;margin:0 auto;text-align:center;">
+      <h2 style="margin:0;font-size:56px;line-height:1.18;font-weight:600;letter-spacing:-0.03em;">Numbers don't lie — so we track every
+        <image-slot id="af-pill1" shape="pill" placeholder="img" style="display:inline-block;vertical-align:middle;width:96px;height:50px;margin:0 6px;"></image-slot> hour,
+        every <image-slot id="af-pill2" shape="pill" placeholder="img" style="display:inline-block;vertical-align:middle;width:96px;height:50px;margin:0 6px;"></image-slot> rupee, and every
+        <image-slot id="af-pill3" shape="pill" placeholder="img" style="display:inline-block;vertical-align:middle;width:96px;height:50px;margin:0 6px;"></image-slot> revision — and turn them into
+        <span style="background:linear-gradient(120deg,#9a9aa0,#1d1d1f 70%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">calculated growth.</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- ===================== PROBLEM ===================== -->
+  <section style="padding:120px 24px;background:#fff;">
+    <div style="max-width:1040px;margin:0 auto;">
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;text-align:center;font-size:52px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;max-width:820px;margin-left:auto;margin-right:auto;text-wrap:balance;">Most firms don't have a problem with talent.<br><span style="color:#86868b;">They have a problem with system.</span></h2>
+      <p data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;margin:24px auto 0;max-width:640px;text-align:center;font-size:19px;line-height:1.55;color:#6e6e73;">As a firm grows, the cracks show up in the same three places every time. ArchiFlask closes those gaps so you can take on more without breaking.</p>
+      <div style="margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);padding:30px;border-radius:22px;background:#f5f5f7;">
+          <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#48484a,#1c1c1e);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);"><span style="width:18px;height:14px;border:2px solid #fff;border-radius:3px;"></span></div>
+          <h3 style="margin:20px 0 8px;font-size:22px;font-weight:600;letter-spacing:-0.01em;">Documentation</h3>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#6e6e73;">Drawings get lost across revisions. Nobody can say what changed between R0 and R1, or why.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;padding:30px;border-radius:22px;background:#f5f5f7;">
+          <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#48484a,#1c1c1e);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);"><span style="font-size:20px;font-weight:700;color:#fff;">₹</span></div>
+          <h3 style="margin:20px 0 8px;font-size:22px;font-weight:600;letter-spacing:-0.01em;">Profitability</h3>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#6e6e73;">Effort and money leak on rework nobody tracked. The real cost of a project stays invisible.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .2s,transform .9s cubic-bezier(.16,1,.3,1) .2s;padding:30px;border-radius:22px;background:#f5f5f7;">
+          <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#48484a,#1c1c1e);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);"><span style="width:16px;height:16px;border:2px solid #fff;border-radius:50%;"></span></div>
+          <h3 style="margin:20px 0 8px;font-size:22px;font-weight:600;letter-spacing:-0.01em;">Operations</h3>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#6e6e73;">The owner becomes the single point everything routes through — and growth stalls there.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 5 QUESTIONS ===================== -->
+  <section style="padding:120px 24px;background:#f5f5f7;">
+    <div style="max-width:1040px;margin:0 auto;text-align:center;">
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">The morning check</div>
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s;margin:14px 0 0;font-size:48px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;">The five things you need to know<br>before 9 a.m. — on one screen.</h2>
+      <div style="margin-top:18px;font-size:13px;font-weight:600;color:#aeaeb2;">Hover the deck to fan it out →</div>
+      <div id="af-deck" style="position:relative;height:330px;max-width:1000px;margin:30px auto 0;">
+        <div class="af-card" data-i="0" style="position:absolute;left:50%;top:46px;margin-left:-110px;width:220px;height:204px;box-sizing:border-box;transform:translateX(-264px) translateY(40px) rotate(-12deg);transform-origin:50% 130%;cursor:pointer;padding:24px;border-radius:20px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.10);border:1px solid rgba(0,0,0,.05);"><div style="font-size:13px;font-weight:700;color:#1d1d1f;">01</div><div style="margin-top:14px;font-size:18px;font-weight:600;line-height:1.3;">What's due today?</div><div style="margin-top:8px;font-size:14px;color:#86868b;">Today's priorities.</div></div>
+        <div class="af-card" data-i="1" style="position:absolute;left:50%;top:46px;margin-left:-110px;width:220px;height:204px;box-sizing:border-box;transform:translateX(-132px) translateY(20px) rotate(-6deg);transform-origin:50% 130%;cursor:pointer;padding:24px;border-radius:20px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.10);border:1px solid rgba(0,0,0,.05);"><div style="font-size:13px;font-weight:700;color:#1d1d1f;">02</div><div style="margin-top:14px;font-size:18px;font-weight:600;line-height:1.3;">Which projects slipped?</div><div style="margin-top:8px;font-size:14px;color:#86868b;">Missed-deadline flags.</div></div>
+        <div class="af-card" data-i="2" style="position:absolute;left:50%;top:46px;margin-left:-110px;width:220px;height:204px;box-sizing:border-box;transform:translateX(0px) translateY(0px) rotate(0deg);transform-origin:50% 130%;cursor:pointer;padding:24px;border-radius:20px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.10);border:1px solid rgba(0,0,0,.05);"><div style="font-size:13px;font-weight:700;color:#1d1d1f;">03</div><div style="margin-top:14px;font-size:18px;font-weight:600;line-height:1.3;">Who's working on what?</div><div style="margin-top:8px;font-size:14px;color:#86868b;">Team allocation.</div></div>
+        <div class="af-card" data-i="3" style="position:absolute;left:50%;top:46px;margin-left:-110px;width:220px;height:204px;box-sizing:border-box;transform:translateX(132px) translateY(20px) rotate(6deg);transform-origin:50% 130%;cursor:pointer;padding:24px;border-radius:20px;background:#fff;box-shadow:0 16px 40px rgba(0,0,0,.10);border:1px solid rgba(0,0,0,.05);"><div style="font-size:13px;font-weight:700;color:#1d1d1f;">04</div><div style="margin-top:14px;font-size:18px;font-weight:600;line-height:1.3;">Where are my commercials?</div><div style="margin-top:8px;font-size:14px;color:#86868b;">Financial snapshot.</div></div>
+        <div class="af-card" data-i="4" style="position:absolute;left:50%;top:46px;margin-left:-110px;width:220px;height:204px;box-sizing:border-box;transform:translateX(264px) translateY(40px) rotate(12deg);transform-origin:50% 130%;cursor:pointer;padding:24px;border-radius:20px;background:linear-gradient(135deg,#2c2c2e,#1c1c1e);color:#fff;box-shadow:0 22px 50px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.12);"><div style="font-size:13px;font-weight:700;color:#fff;">05</div><div style="margin-top:14px;font-size:18px;font-weight:600;line-height:1.3;">What needs my approval?</div><div style="margin-top:8px;font-size:14px;color:rgba(255,255,255,.65);">Pending queue.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section style="padding:120px 24px;background:#fff;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;font-size:48px;line-height:1.08;font-weight:600;letter-spacing:-0.025em;max-width:680px;">Everything a project needs, from enquiry to handover.</h2>
+
+      <div style="margin-top:64px;display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86868b;">01 · Documentation</div>
+          <h3 style="margin:14px 0 12px;font-size:32px;font-weight:600;letter-spacing:-0.02em;line-height:1.15;">Drawings &amp; change-request documentation</h3>
+          <p style="margin:0;font-size:18px;line-height:1.55;color:#6e6e73;">Every drawing, every revision, every reason it changed — in one trail. See exactly what moved between R0 and R1, compared automatically. No manual checking.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);box-shadow:0 24px 60px rgba(0,0,0,.08);background:#fff;">
+          <image-slot id="af-feat-drawings" shape="rect" placeholder="Drop: drawing revision compare (R0 → R1) screen" style="width:100%;height:360px;display:block;"></image-slot>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);box-shadow:0 24px 60px rgba(0,0,0,.08);background:#fff;">
+          <image-slot id="af-feat-effort" shape="rect" placeholder="Drop: task &amp; effort-tracking screen" style="width:100%;height:360px;display:block;"></image-slot>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86868b;">02 · Profitability</div>
+          <h3 style="margin:14px 0 12px;font-size:32px;font-weight:600;letter-spacing:-0.02em;line-height:1.15;">Task management &amp; effort tracking</h3>
+          <p style="margin:0;font-size:18px;line-height:1.55;color:#6e6e73;">Track effort to the hour, across every project, per person. Know which projects are eating more time than you quoted — before they eat the margin.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);padding:28px;border-radius:22px;background:#f5f5f7;">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86868b;">03</div>
+          <h3 style="margin:12px 0 8px;font-size:21px;font-weight:600;letter-spacing:-0.01em;">Geo-tagged attendance</h3>
+          <p style="margin:0;font-size:15.5px;line-height:1.5;color:#6e6e73;">On-site presence logged with location — not honour system.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;padding:28px;border-radius:22px;background:#f5f5f7;">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86868b;">04</div>
+          <h3 style="margin:12px 0 8px;font-size:21px;font-weight:600;letter-spacing:-0.01em;">Leads &amp; enquiry tracking</h3>
+          <p style="margin:0;font-size:15.5px;line-height:1.5;color:#6e6e73;">Capture and follow enquiries so new business never falls through.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .2s,transform .9s cubic-bezier(.16,1,.3,1) .2s;padding:28px;border-radius:22px;background:#f5f5f7;">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86868b;">05</div>
+          <h3 style="margin:12px 0 8px;font-size:21px;font-weight:600;letter-spacing:-0.01em;">Geo-tagged site visits</h3>
+          <p style="margin:0;font-size:15.5px;line-height:1.5;color:#6e6e73;">Site updates with photos and video, pinned to location and time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAPABILITIES ===================== -->
+  <section style="padding:120px 24px;background:#f5f5f7;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;text-align:center;font-size:48px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;">Built for how design and construction<br>firms actually work.</h2>
+      <div style="margin-top:54px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:24px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.05);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">Automatic revision compare</h4><p style="margin:0;font-size:14.5px;color:#86868b;line-height:1.5;">R0 vs R1, side by side, change highlighted.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .06s,transform .8s cubic-bezier(.16,1,.3,1) .06s;padding:24px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.05);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">Change-request tickets</h4><p style="margin:0;font-size:14.5px;color:#86868b;line-height:1.5;">Nothing gets actioned without a record.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .12s,transform .8s cubic-bezier(.16,1,.3,1) .12s;padding:24px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.05);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">Concept planning &amp; sketching</h4><p style="margin:0;font-size:14.5px;color:#86868b;line-height:1.5;">Built in, from the first idea.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .18s,transform .8s cubic-bezier(.16,1,.3,1) .18s;padding:24px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.05);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">Screen-sharing</h4><p style="margin:0;font-size:14.5px;color:#86868b;line-height:1.5;">Between team members, in context.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:24px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.05);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">Calendar</h4><p style="margin:0;font-size:14.5px;color:#86868b;line-height:1.5;">Meetings and reminders, the way you work.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .06s,transform .8s cubic-bezier(.16,1,.3,1) .06s;padding:24px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.05);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">Team leaderboard</h4><p style="margin:0;font-size:14.5px;color:#86868b;line-height:1.5;">Surface and reward real output.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .12s,transform .8s cubic-bezier(.16,1,.3,1) .12s;padding:24px;border-radius:18px;background:#fff;border:1px solid rgba(0,0,0,.05);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">Geo-tagged site media</h4><p style="margin:0;font-size:14.5px;color:#86868b;line-height:1.5;">Photos &amp; video, pinned to place and time.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .18s,transform .8s cubic-bezier(.16,1,.3,1) .18s;padding:24px;border-radius:18px;background:linear-gradient(135deg,#2c2c2e,#1c1c1e);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.12);"><h4 style="margin:0 0 7px;font-size:17px;font-weight:600;">A client app of their own</h4><p style="margin:0;font-size:14.5px;color:rgba(255,255,255,.66);line-height:1.5;">Web &amp; mobile access for your clients.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOR CLIENTS ===================== -->
+  <section style="padding:120px 24px;background:linear-gradient(180deg,#1c1c1e,#000);color:#fff;overflow:hidden;position:relative;">
+    <div data-parallax="0.04" style="position:absolute;top:-120px;right:-80px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(120,120,128,.22),transparent 65%);pointer-events:none;"></div>
+    <div style="max-width:1040px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+      <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);">For your clients</div>
+        <h2 style="margin:16px 0 16px;font-size:46px;line-height:1.08;font-weight:600;letter-spacing:-0.025em;">Your clients stop chasing.<br>You stop reporting.</h2>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:rgba(255,255,255,.7);">ArchiFlask gives your client their own window into the project — progress, updates, and deliverables, on web and mobile. No more endless mail chains or "any update?" messages. Transparency becomes a feature you sell, not a chore you manage.</p>
+      </div>
+      <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .12s,transform .9s cubic-bezier(.16,1,.3,1) .12s;display:flex;justify-content:center;">
+        <div style="width:240px;border-radius:34px;background:#0a0a0a;border:1px solid rgba(255,255,255,.12);padding:10px;box-shadow:0 40px 90px rgba(0,0,0,.5);">
+          <div style="border-radius:26px;overflow:hidden;background:#f5f5f7;">
+            <image-slot id="af-client-app" shape="rect" placeholder="Drop: client mobile app screen" style="width:100%;height:420px;display:block;"></image-slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== IMPACT ===================== -->
+  <section style="padding:120px 24px;background:#f5f5f7;">
+    <div style="max-width:1040px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);text-align:center;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#86868b;">Impact</div>
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s;margin:14px 0 48px;text-align:center;font-size:46px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;">The way a firm runs is the thing it fixes.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);padding:34px;border-radius:22px;background:#fff;border:1px solid rgba(0,0,0,.06);">
+          <div style="font-size:13px;font-weight:700;color:#86868b;">DRAWING CHAOS AT SCALE</div>
+          <p style="margin:16px 0 0;font-size:18px;line-height:1.55;color:#1d1d1f;">A firm running 30+ live projects was losing time hunting for the right drawing and the reason behind each change. Now they pull up any drawing, its full revision history, and what drove every change — in a couple of clicks.</p>
+          <div style="margin-top:14px;font-size:13px;color:#aeaeb2;">Anonymised</div>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;padding:34px;border-radius:22px;background:#fff;border:1px solid rgba(0,0,0,.06);">
+          <div style="font-size:13px;font-weight:700;color:#86868b;">EFFORT NO ONE COULD SEE</div>
+          <p style="margin:16px 0 0;font-size:18px;line-height:1.55;color:#1d1d1f;">A firm couldn't see where the team's hours were going across projects. With effort tracking, they now see every person's effort down to the hour, per project — spotting overruns and reallocating people who are free.</p>
+          <div style="margin-top:14px;font-size:13px;color:#aeaeb2;">Anonymised</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRICING ===================== -->
+  <section id="af-pricing" style="padding:120px 24px;background:#fff;border-top:1px solid rgba(0,0,0,.06);">
+    <div style="max-width:1260px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);text-align:center;max-width:720px;margin:0 auto;">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">Pricing</div>
+        <h2 style="margin:14px 0 0;font-size:52px;line-height:1.08;font-weight:600;letter-spacing:-0.03em;">Simple pricing that scales with the firm.</h2>
+        <p style="margin:18px auto 0;font-size:19px;line-height:1.55;color:#6e6e73;">Start free with no end date. Upgrade per user when you're ready to grow — billed monthly, or yearly for a discount.</p>
+      </div>
+
+      <div style="margin-top:60px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;align-items:stretch;">
+
+        <!-- FREE -->
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;padding:30px 26px;border-radius:24px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Free</div>
+          <div style="margin:14px 0 4px;display:flex;align-items:baseline;gap:3px;"><span style="font-size:22px;font-weight:600;">₹</span><span style="font-size:48px;font-weight:600;letter-spacing:-0.03em;">0</span><span style="font-size:15px;color:#86868b;margin-left:4px;">/ mo</span></div>
+          <div style="font-size:14px;color:#86868b;line-height:1.4;">For trying ArchiFlask on a single project.</div>
+          <div style="margin:22px 0 22px;height:1px;background:rgba(0,0,0,.08);"></div>
+          <div style="display:flex;flex-direction:column;gap:13px;flex:1;">
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;margin-top:0;">✓</span><span>1 Administrator</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>1 Team Member</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>1 Mobile App Account</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>1 Project</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>500MB Cloud Storage</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#c2c2c9;"><span style="flex:none;">—</span><span style="text-decoration:line-through;">Additional Storage</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#c2c2c9;"><span style="flex:none;">—</span><span style="text-decoration:line-through;">Additional Users</span></div>
+          </div>
+          <button onClick="{{ goStarted }}" style="margin-top:24px;width:100%;cursor:pointer;font-size:15px;font-weight:600;padding:13px;border-radius:980px;color:#1d1d1f;background:#fff;border:1px solid rgba(0,0,0,.14);">Get Started</button>
+        </div>
+
+        <!-- ARCHITECT -->
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .07s,transform .8s cubic-bezier(.16,1,.3,1) .07s;display:flex;flex-direction:column;padding:30px 26px;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.12);box-shadow:0 18px 44px rgba(0,0,0,.05);">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Architect</div>
+          <div style="margin:14px 0 4px;display:flex;align-items:baseline;gap:6px;"><span style="font-size:18px;color:#aeaeb2;text-decoration:line-through;">₹949</span><span style="font-size:48px;font-weight:600;letter-spacing:-0.03em;">₹600</span></div>
+          <div style="font-size:13.5px;color:#86868b;">+GST / user / month</div>
+          <div style="margin-top:8px;font-size:13px;color:#6e6e73;"><span style="text-decoration:line-through;color:#aeaeb2;">₹7200</span> <span style="font-weight:600;color:#1d1d1f;">₹6480</span> / user / yr <span style="font-weight:600;">(10% off)</span></div>
+          <div style="margin:22px 0 22px;height:1px;background:rgba(0,0,0,.08);"></div>
+          <div style="display:flex;flex-direction:column;gap:13px;flex:1;">
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Unlimited Projects</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Unlimited Mobile Logins</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>2GB Cloud Storage</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Project Schedule &amp; Payments</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Drawings, GFC &amp; 3D Views</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Change Requests &amp; MoM</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Site Visits &amp; Photos</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Concept Plan &amp; Layout Render</span></div>
+            <div style="margin-top:2px;font-size:13px;color:#aeaeb2;">Add Storage — 10GB @ ₹275/mo</div>
+          </div>
+          <button onClick="{{ goStarted }}" style="margin-top:24px;width:100%;cursor:pointer;font-size:15px;font-weight:600;padding:13px;border-radius:980px;color:#fff;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:0 2px 10px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.2);">Get Started</button>
+        </div>
+
+        <!-- BUILDER / PMC -->
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;position:relative;display:flex;flex-direction:column;padding:34px 26px 30px;border-radius:24px;background:linear-gradient(160deg,#2c2c2e,#1c1c1e);color:#fff;box-shadow:0 30px 70px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.1);">
+          <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:980px;background:#fff;color:#1d1d1f;box-shadow:0 6px 18px rgba(0,0,0,.25);">Most Popular</div>
+          <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);">Builder / PMC</div>
+          <div style="margin:14px 0 4px;display:flex;align-items:baseline;gap:6px;"><span style="font-size:18px;color:rgba(255,255,255,.4);text-decoration:line-through;">₹1499</span><span style="font-size:48px;font-weight:600;letter-spacing:-0.03em;">₹999</span></div>
+          <div style="font-size:13.5px;color:rgba(255,255,255,.6);">+GST / user / month</div>
+          <div style="margin-top:8px;font-size:13px;color:rgba(255,255,255,.7);"><span style="text-decoration:line-through;color:rgba(255,255,255,.4);">₹11998</span> <span style="font-weight:600;color:#fff;">₹10190</span> / user / yr <span style="font-weight:600;">(15% off)</span></div>
+          <div style="margin:22px 0 22px;height:1px;background:rgba(255,255,255,.16);"></div>
+          <div style="display:flex;flex-direction:column;gap:13px;flex:1;">
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>Everything in Architect Plan</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>Material Request &amp; Inventory</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>Labor Attendance</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>On-Site Changes</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>Expense Planning</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>Purchase Orders</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>Work Orders</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;color:#fff;"><span style="flex:none;font-weight:700;">✓</span><span>Bill Of Quantity</span></div>
+            <div style="margin-top:2px;font-size:13px;color:rgba(255,255,255,.5);">Add Storage — 10GB @ ₹275/mo</div>
+          </div>
+          <button onClick="{{ goStarted }}" style="margin-top:24px;width:100%;cursor:pointer;font-size:15px;font-weight:600;padding:13px;border-radius:980px;color:#1d1d1f;background:#fff;border:0;box-shadow:0 2px 12px rgba(0,0,0,.3);">Get Started</button>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .21s,transform .8s cubic-bezier(.16,1,.3,1) .21s;display:flex;flex-direction:column;padding:30px 26px;border-radius:24px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Enterprise</div>
+          <div style="margin:14px 0 4px;font-size:44px;font-weight:600;letter-spacing:-0.03em;">Custom</div>
+          <div style="font-size:14px;color:#86868b;line-height:1.4;">For larger teams and bespoke needs.</div>
+          <div style="margin:22px 0 22px;height:1px;background:rgba(0,0,0,.08);"></div>
+          <div style="display:flex;flex-direction:column;gap:13px;flex:1;">
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>25+ Users</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Customized Storage plans</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Customized additional user charges</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Customized additional Storage charges</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Dedicated Account Manager</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>Dedicated support plans</span></div>
+            <div style="display:flex;gap:9px;align-items:flex-start;font-size:14.5px;line-height:1.4;"><span style="flex:none;font-weight:700;">✓</span><span>On-Site support if required</span></div>
+          </div>
+          <button onClick="{{ goDemo }}" style="margin-top:24px;width:100%;cursor:pointer;font-size:15px;font-weight:600;padding:13px;border-radius:980px;color:#1d1d1f;background:#fff;border:1px solid rgba(0,0,0,.14);">Contact Sales</button>
+        </div>
+
+      </div>
+      <p style="margin-top:24px;text-align:center;font-size:13.5px;color:#aeaeb2;">All paid plans are +GST per user. Add 10GB cloud storage to any business plan for ₹275/mo. The Free plan never expires.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL CTA ===================== -->
+  <section style="padding:130px 24px 200px;background:#fff;text-align:center;">
+    <div style="max-width:760px;margin:0 auto;">
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;font-size:64px;line-height:1.05;font-weight:600;letter-spacing:-0.03em;">See it on your own projects.</h2>
+      <p data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;margin:22px auto 0;max-width:520px;font-size:20px;line-height:1.5;color:#6e6e73;">Book a 20-minute demo — our team walks you through it, then you can get started free.</p>
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .18s,transform .9s cubic-bezier(.16,1,.3,1) .18s;margin-top:34px;display:flex;gap:14px;justify-content:center;">
+        <div style="position:relative;display:inline-flex;">
+          <span style="position:absolute;inset:-14px;border-radius:980px;border:1.5px dashed rgba(0,0,0,.18);pointer-events:none;"></span>
+          <button id="af-demo-end" onClick="{{ goDemo }}" style="position:relative;border:0;cursor:pointer;font-size:17px;font-weight:500;padding:15px 34px;border-radius:980px;color:#fff;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:0 2px 12px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.22);">Book a Demo</button>
+        </div>
+        <button onClick="{{ goDemo }}" style="cursor:pointer;font-size:17px;font-weight:500;padding:15px 32px;border-radius:980px;color:#1d1d1f;background:#fff;border:1px solid rgba(0,0,0,.12);">Get Started</button>
+      </div>
+      <div style="margin-top:38px;display:flex;flex-direction:column;align-items:center;gap:7px;opacity:.55;">
+        <span style="width:9px;height:9px;border-radius:50%;background:#1d1d1f;"></span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#aeaeb2;">End of the line</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+</sc-if>
+
+<!-- ===================== BOOK A DEMO PAGE ===================== -->
+<sc-if value="{{ isDemo }}" hint-placeholder-val="{{ false }}">
+<main style="position:relative;z-index:2;padding:150px 24px 100px;background:radial-gradient(120% 70% at 50% 0%,#f5f5f7,#fff 60%);min-height:100vh;">
+  <div style="max-width:1080px;margin:0 auto;">
+
+    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div style="display:inline-block;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#86868b;">Book a Demo</div>
+      <h1 style="margin:14px 0 0;font-size:62px;line-height:1.05;font-weight:600;letter-spacing:-0.03em;">Book a 20-minute demo.</h1>
+      <p style="margin:18px auto 0;max-width:560px;font-size:20px;line-height:1.5;color:#6e6e73;">We walk you through ArchiFlask on your kind of projects — then you can start free, no end date.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:28px;align-items:start;">
+      <div style="padding:34px;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.07);box-shadow:0 20px 50px rgba(0,0,0,.06);">
+        <h3 style="margin:0 0 18px;font-size:21px;font-weight:600;letter-spacing:-0.01em;">What to expect</h3>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:12px;"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#48484a,#1c1c1e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">1</span><div><div style="font-size:15.5px;font-weight:600;">A live walkthrough</div><div style="font-size:14.5px;color:#86868b;line-height:1.5;">On your kind of projects — residential, commercial, interiors or infra.</div></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#48484a,#1c1c1e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">2</span><div><div style="font-size:15.5px;font-weight:600;">Your questions answered</div><div style="font-size:14.5px;color:#86868b;line-height:1.5;">Onboarding, your team size, how the client app works.</div></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:none;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#48484a,#1c1c1e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">3</span><div><div style="font-size:15.5px;font-weight:600;">Start free, same day</div><div style="font-size:14.5px;color:#86868b;line-height:1.5;">No end date · 1 project · 2 users (1 admin + 1 team).</div></div></div>
+        </div>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(0,0,0,.08);font-size:14px;color:#6e6e73;line-height:1.5;">After you submit, our team reaches out within a day by call or WhatsApp.</div>
+      </div>
+
+      <form onSubmit="{{ submit }}" style="padding:34px;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.07);box-shadow:0 20px 50px rgba(0,0,0,.06);">
+        <h3 style="margin:0 0 6px;font-size:21px;font-weight:600;letter-spacing:-0.01em;">Pick a time</h3>
+        <p style="margin:0 0 18px;font-size:14px;color:#86868b;">June 2026 · IST</p>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;">
+          <div style="text-align:center;font-size:11px;font-weight:700;color:#aeaeb2;padding-bottom:4px;">M</div><div style="text-align:center;font-size:11px;font-weight:700;color:#aeaeb2;padding-bottom:4px;">T</div><div style="text-align:center;font-size:11px;font-weight:700;color:#aeaeb2;padding-bottom:4px;">W</div><div style="text-align:center;font-size:11px;font-weight:700;color:#aeaeb2;padding-bottom:4px;">T</div><div style="text-align:center;font-size:11px;font-weight:700;color:#aeaeb2;padding-bottom:4px;">F</div><div style="text-align:center;font-size:11px;font-weight:700;color:#aeaeb2;padding-bottom:4px;">S</div><div style="text-align:center;font-size:11px;font-weight:700;color:#aeaeb2;padding-bottom:4px;">S</div>
+          <div></div><div></div><div></div>
+          <button type="button" disabled="" style="border:1px solid rgba(0,0,0,.08);background:transparent;color:#d2d2d7;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:not-allowed;">19</button>
+          <button type="button" disabled="" style="border:1px solid rgba(0,0,0,.08);background:transparent;color:#d2d2d7;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:not-allowed;">20</button>
+          <button type="button" disabled="" style="border:1px solid rgba(0,0,0,.08);background:transparent;color:#d2d2d7;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:not-allowed;">21</button>
+          <button type="button" disabled="" style="border:1px solid rgba(0,0,0,.08);background:transparent;color:#d2d2d7;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:not-allowed;">22</button>
+          <button type="button" data-day="Mon 23" onClick="{{ pickDay }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:pointer;">23</button>
+          <button type="button" data-day="Tue 24" onClick="{{ pickDay }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:pointer;">24</button>
+          <button type="button" data-day="Wed 25" onClick="{{ pickDay }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:pointer;">25</button>
+          <button type="button" data-day="Thu 26" onClick="{{ pickDay }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:pointer;">26</button>
+          <button type="button" data-day="Fri 27" onClick="{{ pickDay }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:pointer;">27</button>
+          <button type="button" disabled="" style="border:1px solid rgba(0,0,0,.08);background:transparent;color:#d2d2d7;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:not-allowed;">28</button>
+          <button type="button" disabled="" style="border:1px solid rgba(0,0,0,.08);background:transparent;color:#d2d2d7;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:not-allowed;">29</button>
+          <button type="button" data-day="Mon 30" onClick="{{ pickDay }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:11px 0;font-size:14px;font-weight:500;cursor:pointer;">30</button>
+        </div>
+        <div style="margin-top:20px;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#86868b;">Time slot</div>
+        <div style="margin-top:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+          <button type="button" data-slot="10:00 AM" onClick="{{ pickSlot }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:10px 0;font-size:13.5px;font-weight:600;cursor:pointer;">10:00</button>
+          <button type="button" data-slot="11:30 AM" onClick="{{ pickSlot }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:10px 0;font-size:13.5px;font-weight:600;cursor:pointer;">11:30</button>
+          <button type="button" data-slot="2:00 PM" onClick="{{ pickSlot }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:10px 0;font-size:13.5px;font-weight:600;cursor:pointer;">2:00</button>
+          <button type="button" data-slot="4:30 PM" onClick="{{ pickSlot }}" style="border:1px solid rgba(0,0,0,.1);background:transparent;color:#1d1d1f;border-radius:11px;padding:10px 0;font-size:13.5px;font-weight:600;cursor:pointer;">4:30</button>
+        </div>
+        <div style="margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <input name="name" placeholder="Your name" required="" style="width:100%;padding:13px 15px;border:1px solid rgba(0,0,0,.12);border-radius:12px;font-size:15px;outline:none;background:#fafafa;">
+          <input name="firm" placeholder="Firm name" style="width:100%;padding:13px 15px;border:1px solid rgba(0,0,0,.12);border-radius:12px;font-size:15px;outline:none;background:#fafafa;">
+          <input name="email" type="email" placeholder="Work email" required="" style="width:100%;padding:13px 15px;border:1px solid rgba(0,0,0,.12);border-radius:12px;font-size:15px;outline:none;background:#fafafa;">
+          <input name="phone" placeholder="Phone / WhatsApp" style="width:100%;padding:13px 15px;border:1px solid rgba(0,0,0,.12);border-radius:12px;font-size:15px;outline:none;background:#fafafa;">
+        </div>
+        <button type="submit" style="margin-top:18px;width:100%;border:0;cursor:pointer;font-size:16px;font-weight:600;padding:15px;border-radius:14px;color:#fff;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:0 2px 10px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.2);">Confirm my demo</button>
+        <p style="margin:12px 0 0;text-align:center;font-size:12.5px;color:#aeaeb2;">By booking you agree to be contacted about ArchiFlask.</p>
+      </form>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:560px;margin:40px auto;text-align:center;padding:48px 40px;border-radius:28px;background:#fff;border:1px solid rgba(0,0,0,.07);box-shadow:0 30px 70px rgba(0,0,0,.1);animation:afRise .6s cubic-bezier(.16,1,.3,1) both;">
+      <div style="width:62px;height:62px;margin:0 auto;border-radius:50%;background:linear-gradient(135deg,#48484a,#1c1c1e);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);"><span style="display:block;width:20px;height:11px;border-left:3px solid #fff;border-bottom:3px solid #fff;transform:rotate(-45deg) translateY(-2px);"></span></div>
+      <h1 style="margin:24px 0 0;font-size:38px;font-weight:600;letter-spacing:-0.025em;">You're booked{{ whoLabel }}.</h1>
+      <p style="margin:16px auto 0;max-width:420px;font-size:18px;line-height:1.55;color:#6e6e73;">Our team will reach out within a day by call or WhatsApp to confirm your slot and set up your free workspace.</p>
+      <button onClick="{{ goHome }}" style="margin-top:30px;border:0;cursor:pointer;font-size:16px;font-weight:500;padding:13px 28px;border-radius:980px;color:#1d1d1f;background:#f5f5f7;">← Back to home</button>
+    </div>
+    </sc-if>
+
+  </div>
+</main>
+</sc-if>
+
+<!-- ===================== ABOUT PAGE ===================== -->
+<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+<main style="position:relative;z-index:2;">
+
+  <!-- ABOUT HERO -->
+  <section style="padding:178px 24px 96px;background:radial-gradient(120% 70% at 50% 0%,#f5f5f7,#fff 62%);text-align:center;">
+    <div style="max-width:920px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">About ArchiFlask</div>
+      <h1 data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .06s,transform .9s cubic-bezier(.16,1,.3,1) .06s;margin:16px 0 0;font-size:66px;line-height:1.02;font-weight:600;letter-spacing:-0.035em;text-wrap:balance;">Built by people who have actually run the projects.</h1>
+      <p data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .14s,transform .9s cubic-bezier(.16,1,.3,1) .14s;margin:26px auto 0;max-width:640px;font-size:20px;line-height:1.5;color:#6e6e73;">ArchiFlask is the operating platform for design, construction &amp; PMC firms — born from two friends who lived the chaos of running real projects, and set out to fix it with a system.</p>
+    </div>
+  </section>
+
+  <!-- ORIGIN STORY -->
+  <section style="padding:104px 24px;background:#fff;">
+    <div style="max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.02fr 0.98fr;gap:64px;align-items:center;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">Our story</div>
+        <h2 style="margin:14px 0 22px;font-size:44px;line-height:1.08;font-weight:600;letter-spacing:-0.028em;">A friendship that goes back to childhood.</h2>
+        <p style="margin:0 0 18px;font-size:18px;line-height:1.6;color:#3a3a3c;">One of us built software; the other designed and delivered residential villas. After collaborating on several projects — including our own homes and family developments — we ran straight into the same wall over and over: managing communication, approvals, site updates, documents, and coordination.</p>
+        <p style="margin:0 0 18px;font-size:18px;line-height:1.6;color:#3a3a3c;">The turning point was realising these frustrations weren't ours alone. They were everywhere in architecture and construction. So we set out to solve them with technology.</p>
+        <p style="margin:0;font-size:18px;line-height:1.6;color:#1d1d1f;font-weight:500;">That conviction became ArchiFlask — a platform built to bring clarity, collaboration, and control to every project.</p>
+      </div>
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity 1s cubic-bezier(.16,1,.3,1) .1s,transform 1s cubic-bezier(.16,1,.3,1) .1s;border-radius:24px;overflow:hidden;border:1px solid rgba(0,0,0,.07);box-shadow:0 24px 60px rgba(0,0,0,.08);background:#fff;">
+        <image-slot id="af-about-story" shape="rect" placeholder="Drop: founders / studio / early project photo" style="width:100%;height:440px;display:block;"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PRODUCT -->
+  <section style="padding:114px 24px;background:#f5f5f7;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);text-align:center;max-width:760px;margin:0 auto;">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">The product</div>
+        <h2 style="margin:14px 0 0;font-size:46px;line-height:1.08;font-weight:600;letter-spacing:-0.028em;">One platform for the whole firm.</h2>
+        <p style="margin:18px auto 0;font-size:19px;line-height:1.55;color:#6e6e73;">ArchiFlask brings projects, clients, teams, drawings, site activity, approvals and profitability into one place — so a growing firm runs on a system instead of memory. It's the Standard Operating Procedure for design and construction practices.</p>
+      </div>
+      <div style="margin-top:56px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);padding:32px;border-radius:22px;background:#fff;border:1px solid rgba(0,0,0,.05);">
+          <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#48484a,#1c1c1e);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);"><span style="width:16px;height:16px;border:2px solid #fff;border-radius:50%;"></span></div>
+          <h3 style="margin:20px 0 8px;font-size:22px;font-weight:600;letter-spacing:-0.01em;">Clarity</h3>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#6e6e73;">Every drawing, revision and decision in one trail. The whole firm sees the same picture.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;padding:32px;border-radius:22px;background:#fff;border:1px solid rgba(0,0,0,.05);">
+          <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#48484a,#1c1c1e);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);"><span style="width:18px;height:14px;border:2px solid #fff;border-radius:3px;"></span></div>
+          <h3 style="margin:20px 0 8px;font-size:22px;font-weight:600;letter-spacing:-0.01em;">Collaboration</h3>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#6e6e73;">Teams, clients and the site stay in sync — on web and mobile, with their own access.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .2s,transform .9s cubic-bezier(.16,1,.3,1) .2s;padding:32px;border-radius:22px;background:#fff;border:1px solid rgba(0,0,0,.05);">
+          <div style="width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#48484a,#1c1c1e);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.2);"><span style="font-size:20px;font-weight:700;color:#fff;">₹</span></div>
+          <h3 style="margin:20px 0 8px;font-size:22px;font-weight:600;letter-spacing:-0.01em;">Control</h3>
+          <p style="margin:0;font-size:16px;line-height:1.55;color:#6e6e73;">Effort, deadlines and profitability tracked to the hour and the rupee — per project, per person.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDERS -->
+  <section style="padding:114px 24px;background:#fff;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);text-align:center;">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">The founders</div>
+        <h2 style="margin:14px 0 0;font-size:46px;line-height:1.08;font-weight:600;letter-spacing:-0.028em;">Fifteen years of real projects, behind one platform.</h2>
+      </div>
+      <div style="margin-top:54px;display:grid;grid-template-columns:1fr 1fr;gap:22px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);padding:34px;border-radius:24px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <image-slot id="af-founder-1" shape="circle" placeholder="photo" style="width:84px;height:84px;flex:none;display:block;"></image-slot>
+            <div>
+              <div style="font-size:22px;font-weight:600;letter-spacing:-0.01em;">Sivaraman Arunachalam</div>
+              <div style="margin-top:3px;font-size:14.5px;font-weight:600;color:#86868b;">Co-Founder &amp; CEO</div>
+            </div>
+          </div>
+          <p style="margin:22px 0 0;font-size:16.5px;line-height:1.6;color:#3a3a3c;">15+ years as an architect and interior designer, with a deep, lived understanding of the problems firms face. ArchiFlask — Wallzehn's first product — grew directly out of that experience, and its early success led him to build a technology company solving workflow problems across industries.</p>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;padding:34px;border-radius:24px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <div style="display:flex;align-items:center;gap:18px;">
+            <image-slot id="af-founder-2" shape="circle" placeholder="photo" style="width:84px;height:84px;flex:none;display:block;"></image-slot>
+            <div>
+              <div style="font-size:22px;font-weight:600;letter-spacing:-0.01em;">Hari Kumaravelu</div>
+              <div style="margin-top:3px;font-size:14.5px;font-weight:600;color:#86868b;">Co-Founder</div>
+            </div>
+          </div>
+          <p style="margin:22px 0 0;font-size:16.5px;line-height:1.6;color:#3a3a3c;">A solution architect with 15+ years in IT, driven by a lifelong fascination with how things work. He builds products that solve complex problems and deliver real, simplifying value to the people who use them.</p>
+        </div>
+      </div>
+      <div data-reveal="" style="opacity:0;transform:translateY(20px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .15s,transform .9s cubic-bezier(.16,1,.3,1) .15s;margin-top:26px;text-align:center;font-size:14.5px;color:#86868b;">A product of Wallzehn Technologies Pvt. Ltd.</div>
+    </div>
+  </section>
+
+  <!-- VISION -->
+  <section style="padding:120px 24px;background:linear-gradient(180deg,#1c1c1e,#000);color:#fff;text-align:center;">
+    <div style="max-width:900px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);">Our vision</div>
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s;margin:22px 0 0;font-size:44px;line-height:1.18;font-weight:600;letter-spacing:-0.025em;text-wrap:balance;">ArchiFlask becomes the daily operating standard — the SOP — for design, construction, and PMC firms, in India and globally.</h2>
+    </div>
+  </section>
+
+  <!-- ABOUT CTA -->
+  <section style="padding:120px 24px 200px;background:#fff;text-align:center;">
+    <div style="max-width:720px;margin:0 auto;">
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;font-size:56px;line-height:1.05;font-weight:600;letter-spacing:-0.03em;">See ArchiFlask on your projects.</h2>
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .12s,transform .9s cubic-bezier(.16,1,.3,1) .12s;margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <button id="af-demo-end" onClick="{{ goDemo }}" style="border:0;cursor:pointer;font-size:17px;font-weight:500;padding:15px 34px;border-radius:980px;color:#fff;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:0 2px 12px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.22);">Book a Demo</button>
+        <button onClick="{{ goStarted }}" style="cursor:pointer;font-size:17px;font-weight:500;padding:15px 32px;border-radius:980px;color:#1d1d1f;background:#fff;border:1px solid rgba(0,0,0,.12);">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</sc-if>
+
+<!-- ===================== IMPACT PAGE ===================== -->
+<sc-if value="{{ isImpact }}" hint-placeholder-val="{{ false }}">
+<main style="position:relative;z-index:2;">
+
+  <!-- IMPACT HERO -->
+  <section style="padding:178px 24px 96px;background:radial-gradient(120% 70% at 50% 0%,#f5f5f7,#fff 62%);text-align:center;">
+    <div style="max-width:920px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">Impact</div>
+      <h1 data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .06s,transform .9s cubic-bezier(.16,1,.3,1) .06s;margin:16px 0 0;font-size:66px;line-height:1.02;font-weight:600;letter-spacing:-0.035em;text-wrap:balance;">Real change, on real projects.</h1>
+      <p data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .14s,transform .9s cubic-bezier(.16,1,.3,1) .14s;margin:26px auto 0;max-width:660px;font-size:20px;line-height:1.5;color:#6e6e73;">ArchiFlask works the same way across residential, commercial, interiors, and infrastructure — because the way a firm runs is the thing it fixes.</p>
+    </div>
+  </section>
+
+  <!-- OUTCOME STRIP -->
+  <section style="padding:104px 24px;background:#fff;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <h2 data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0 0 48px;font-size:40px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;max-width:560px;">What firms get back, in the first weeks.</h2>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:26px;border-radius:20px;background:#f5f5f7;"><div style="font-size:13px;font-weight:700;color:#86868b;">01</div><p style="margin:14px 0 0;font-size:16px;line-height:1.45;font-weight:500;">Cut client approval delays.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .07s,transform .8s cubic-bezier(.16,1,.3,1) .07s;padding:26px;border-radius:20px;background:#f5f5f7;"><div style="font-size:13px;font-weight:700;color:#86868b;">02</div><p style="margin:14px 0 0;font-size:16px;line-height:1.45;font-weight:500;">Surfaced the real cost of revisions and rework.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;padding:26px;border-radius:20px;background:#f5f5f7;"><div style="font-size:13px;font-weight:700;color:#86868b;">03</div><p style="margin:14px 0 0;font-size:16px;line-height:1.45;font-weight:500;">Made profitability visible per project.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .21s,transform .8s cubic-bezier(.16,1,.3,1) .21s;padding:26px;border-radius:20px;background:#f5f5f7;"><div style="font-size:13px;font-weight:700;color:#86868b;">04</div><p style="margin:14px 0 0;font-size:16px;line-height:1.45;font-weight:500;">Held deadlines without slippage.</p></div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .28s,transform .8s cubic-bezier(.16,1,.3,1) .28s;padding:26px;border-radius:20px;background:linear-gradient(135deg,#2c2c2e,#1c1c1e);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.1);"><div style="font-size:13px;font-weight:700;color:rgba(255,255,255,.55);">05</div><p style="margin:14px 0 0;font-size:16px;line-height:1.45;font-weight:500;">Ran projects and teams from the pocket.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section style="padding:114px 24px;background:#f5f5f7;">
+    <div style="max-width:1100px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);text-align:center;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">Field stories</div>
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s;margin:14px 0 48px;text-align:center;font-size:46px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;">The way a firm runs is the thing it fixes.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);padding:38px;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.06);">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.06em;color:#86868b;">DRAWING CHAOS AT SCALE</div>
+          <p style="margin:18px 0 0;font-size:18px;line-height:1.6;color:#1d1d1f;">A firm running 30+ live projects was losing time hunting for drawings, the right revision, and the reason behind each change. After ArchiFlask, they pull up any drawing, its full revision history, and what drove each change — in a couple of clicks.</p>
+          <div style="margin-top:18px;font-size:13px;color:#aeaeb2;">Anonymised</div>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;padding:38px;border-radius:24px;background:#fff;border:1px solid rgba(0,0,0,.06);">
+          <div style="font-size:13px;font-weight:700;letter-spacing:.06em;color:#86868b;">EFFORT NO ONE COULD SEE</div>
+          <p style="margin:18px 0 0;font-size:18px;line-height:1.6;color:#1d1d1f;">A firm couldn't see where the team's hours were going across multiple projects. With task management and effort tracking, they now see every person's effort down to the hour, per project — which lets them spot projects running over their planned effort and reallocate people who are free.</p>
+          <div style="margin-top:18px;font-size:13px;color:#aeaeb2;">Anonymised</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section style="padding:114px 24px;background:#fff;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);text-align:center;max-width:680px;margin:0 auto;">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">Reviews</div>
+        <h2 style="margin:14px 0 0;font-size:46px;line-height:1.08;font-weight:600;letter-spacing:-0.028em;">What firm owners say.</h2>
+      </div>
+      <div style="margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:30px;border-radius:22px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <p style="margin:0;font-size:17.5px;line-height:1.55;font-weight:500;letter-spacing:-0.01em;">"We stopped losing drawings the week we switched. Any revision, the reason it changed — two clicks."</p>
+          <div style="margin-top:20px;font-size:14px;color:#86868b;">Principal Architect · Residential studio</div>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .07s,transform .8s cubic-bezier(.16,1,.3,1) .07s;padding:30px;border-radius:22px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <p style="margin:0;font-size:17.5px;line-height:1.55;font-weight:500;letter-spacing:-0.01em;">"For the first time I can see which projects are actually making money — before they go sideways."</p>
+          <div style="margin-top:20px;font-size:14px;color:#86868b;">Founder · Interior design firm</div>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;padding:30px;border-radius:22px;background:linear-gradient(135deg,#2c2c2e,#1c1c1e);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.1);">
+          <p style="margin:0;font-size:17.5px;line-height:1.55;font-weight:500;letter-spacing:-0.01em;">"My clients stopped calling for updates. They just open the app and follow the project."</p>
+          <div style="margin-top:20px;font-size:14px;color:rgba(255,255,255,.6);">Partner · Architecture practice</div>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:30px;border-radius:22px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <p style="margin:0;font-size:17.5px;line-height:1.55;font-weight:500;letter-spacing:-0.01em;">"Site attendance used to be an honour system. Now it's geo-tagged and I actually trust it."</p>
+          <div style="margin-top:20px;font-size:14px;color:#86868b;">Director · Construction &amp; PMC</div>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .07s,transform .8s cubic-bezier(.16,1,.3,1) .07s;padding:30px;border-radius:22px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <p style="margin:0;font-size:17.5px;line-height:1.55;font-weight:500;letter-spacing:-0.01em;">"Onboarding my team of nine took an afternoon. By the next morning we were running on it."</p>
+          <div style="margin-top:20px;font-size:14px;color:#86868b;">Principal · Multidisciplinary firm</div>
+        </div>
+        <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;padding:30px;border-radius:22px;background:#f5f5f7;border:1px solid rgba(0,0,0,.05);">
+          <p style="margin:0;font-size:17.5px;line-height:1.55;font-weight:500;letter-spacing:-0.01em;">"I run the whole firm from my phone now, between site visits. Nothing slips."</p>
+          <div style="margin-top:20px;font-size:14px;color:#86868b;">Builder · Infrastructure projects</div>
+        </div>
+      </div>
+      <div data-reveal="" style="opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .12s,transform .9s cubic-bezier(.16,1,.3,1) .12s;margin-top:24px;text-align:center;font-size:13px;color:#aeaeb2;">Representative of feedback from firms using ArchiFlask. Named case studies coming soon.</div>
+    </div>
+  </section>
+
+  <!-- DOMAINS -->
+  <section style="padding:90px 24px;background:#f5f5f7;border-top:1px solid rgba(0,0,0,.06);">
+    <div style="max-width:1100px;margin:0 auto;text-align:center;">
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">Works across every domain</div>
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s;margin-top:24px;display:flex;flex-wrap:wrap;justify-content:center;gap:14px;">
+        <span style="padding:12px 26px;border-radius:980px;background:#fff;border:1px solid rgba(0,0,0,.08);font-size:18px;font-weight:600;letter-spacing:-0.01em;">Residential</span>
+        <span style="padding:12px 26px;border-radius:980px;background:#fff;border:1px solid rgba(0,0,0,.08);font-size:18px;font-weight:600;letter-spacing:-0.01em;">Commercial</span>
+        <span style="padding:12px 26px;border-radius:980px;background:#fff;border:1px solid rgba(0,0,0,.08);font-size:18px;font-weight:600;letter-spacing:-0.01em;">Interiors</span>
+        <span style="padding:12px 26px;border-radius:980px;background:#fff;border:1px solid rgba(0,0,0,.08);font-size:18px;font-weight:600;letter-spacing:-0.01em;">Infrastructure</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACT CTA -->
+  <section style="padding:120px 24px 200px;background:#fff;text-align:center;">
+    <div style="max-width:720px;margin:0 auto;">
+      <h2 data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);margin:0;font-size:56px;line-height:1.05;font-weight:600;letter-spacing:-0.03em;">See the same change on your firm.</h2>
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .12s,transform .9s cubic-bezier(.16,1,.3,1) .12s;margin-top:32px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <button id="af-demo-end" onClick="{{ goDemo }}" style="border:0;cursor:pointer;font-size:17px;font-weight:500;padding:15px 34px;border-radius:980px;color:#fff;background:linear-gradient(135deg,#48484a,#1c1c1e);box-shadow:0 2px 12px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.22);">Book a Demo</button>
+        <button onClick="{{ goStarted }}" style="cursor:pointer;font-size:17px;font-weight:500;padding:15px 32px;border-radius:980px;color:#1d1d1f;background:#fff;border:1px solid rgba(0,0,0,.12);">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</sc-if>
+
+<!-- ===================== BLOG PAGE ===================== -->
+<sc-if value="{{ isBlog }}" hint-placeholder-val="{{ false }}">
+<main style="position:relative;z-index:2;">
+
+  <!-- BLOG HERO -->
+  <section style="padding:178px 24px 70px;background:radial-gradient(120% 70% at 50% 0%,#f5f5f7,#fff 62%);text-align:center;">
+    <div style="max-width:920px;margin:0 auto;">
+      <div data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86868b;">Blog</div>
+      <h1 data-reveal="" style="opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .06s,transform .9s cubic-bezier(.16,1,.3,1) .06s;margin:16px 0 0;font-size:66px;line-height:1.02;font-weight:600;letter-spacing:-0.035em;text-wrap:balance;">Running, scaling, and systematising a firm.</h1>
+      <p data-reveal="" style="opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .14s,transform .9s cubic-bezier(.16,1,.3,1) .14s;margin:26px auto 0;max-width:640px;font-size:20px;line-height:1.5;color:#6e6e73;">Practical writing for firm owners on running, scaling, and systematising a design or construction practice.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section style="padding:60px 24px 40px;background:#fff;">
+    <div style="max-width:1140px;margin:0 auto;">
+      <a onClick="{{ goBlog }}" data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);cursor:pointer;display:grid;grid-template-columns:1.05fr 0.95fr;gap:0;border-radius:26px;overflow:hidden;border:1px solid rgba(0,0,0,.08);box-shadow:0 24px 60px rgba(0,0,0,.07);background:#fff;">
+        <image-slot id="af-blog-feat" shape="rect" placeholder="Drop: featured article cover" style="width:100%;height:420px;display:block;"></image-slot>
+        <div style="padding:48px 44px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#86868b;">Featured · Growth</div>
+          <h2 style="margin:16px 0 0;font-size:38px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;">How to scale an architecture firm without losing control of your projects.</h2>
+          <p style="margin:18px 0 0;font-size:17px;line-height:1.6;color:#6e6e73;">You can't grow a practice you're running out of your head, your inbox, and a dozen WhatsApp groups. Here's how firm owners move from memory to a system — and what changes when they do.</p>
+          <div style="margin-top:24px;display:flex;align-items:center;gap:14px;font-size:14px;color:#aeaeb2;"><span>8 min read</span><span style="width:4px;height:4px;border-radius:50%;background:#c2c2c9;"></span><span>June 2026</span></div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- POST GRID -->
+  <section style="padding:30px 24px 120px;background:#fff;">
+    <div style="max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+
+      <a onClick="{{ goBlog }}" data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);background:#fff;">
+        <image-slot id="af-blog-1" shape="rect" placeholder="cover" style="width:100%;height:200px;display:block;"></image-slot>
+        <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Documentation</div>
+          <h3 style="margin:12px 0 0;font-size:21px;line-height:1.25;font-weight:600;letter-spacing:-0.015em;">Drawing revision management: end the hunt for the right R-number.</h3>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#6e6e73;flex:1;">Why drawings get lost at scale — and how an automatic R0-vs-R1 trail keeps every change accountable.</p>
+          <div style="margin-top:20px;font-size:13px;color:#aeaeb2;">6 min read</div>
+        </div>
+      </a>
+
+      <a onClick="{{ goBlog }}" data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .07s,transform .8s cubic-bezier(.16,1,.3,1) .07s;cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);background:#fff;">
+        <image-slot id="af-blog-2" shape="rect" placeholder="cover" style="width:100%;height:200px;display:block;"></image-slot>
+        <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Profitability</div>
+          <h3 style="margin:12px 0 0;font-size:21px;line-height:1.25;font-weight:600;letter-spacing:-0.015em;">Where project margin actually leaks in a design firm.</h3>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#6e6e73;flex:1;">Rework nobody tracked, effort nobody quoted. Tracking time to the hour shows where the money really goes.</p>
+          <div style="margin-top:20px;font-size:13px;color:#aeaeb2;">5 min read</div>
+        </div>
+      </a>
+
+      <a onClick="{{ goBlog }}" data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);background:#fff;">
+        <image-slot id="af-blog-3" shape="rect" placeholder="cover" style="width:100%;height:200px;display:block;"></image-slot>
+        <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Operations</div>
+          <h3 style="margin:12px 0 0;font-size:21px;line-height:1.25;font-weight:600;letter-spacing:-0.015em;">From WhatsApp groups to an operating system: a firm owner's playbook.</h3>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#6e6e73;flex:1;">A practical path off scattered chats and spreadsheets toward one source of truth the whole firm trusts.</p>
+          <div style="margin-top:20px;font-size:13px;color:#aeaeb2;">7 min read</div>
+        </div>
+      </a>
+
+      <a onClick="{{ goBlog }}" data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);background:#fff;">
+        <image-slot id="af-blog-4" shape="rect" placeholder="cover" style="width:100%;height:200px;display:block;"></image-slot>
+        <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Field</div>
+          <h3 style="margin:12px 0 0;font-size:21px;line-height:1.25;font-weight:600;letter-spacing:-0.015em;">Geo-tagged site attendance: replacing the honour system on site.</h3>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#6e6e73;flex:1;">Logging presence with location — and what reliable field data does for billing and accountability.</p>
+          <div style="margin-top:20px;font-size:13px;color:#aeaeb2;">4 min read</div>
+        </div>
+      </a>
+
+      <a onClick="{{ goBlog }}" data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .07s,transform .8s cubic-bezier(.16,1,.3,1) .07s;cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);background:#fff;">
+        <image-slot id="af-blog-5" shape="rect" placeholder="cover" style="width:100%;height:200px;display:block;"></image-slot>
+        <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Clients</div>
+          <h3 style="margin:12px 0 0;font-size:21px;line-height:1.25;font-weight:600;letter-spacing:-0.015em;">Why a client portal wins more repeat business than any pitch.</h3>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#6e6e73;flex:1;">Giving clients their own window into the project turns transparency from a chore into something you sell.</p>
+          <div style="margin-top:20px;font-size:13px;color:#aeaeb2;">5 min read</div>
+        </div>
+      </a>
+
+      <a onClick="{{ goBlog }}" data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;cursor:pointer;display:flex;flex-direction:column;border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);background:#fff;">
+        <image-slot id="af-blog-6" shape="rect" placeholder="cover" style="width:100%;height:200px;display:block;"></image-slot>
+        <div style="padding:26px 24px 28px;display:flex;flex-direction:column;flex:1;">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b;">Growth</div>
+          <h3 style="margin:12px 0 0;font-size:21px;line-height:1.25;font-weight:600;letter-spacing:-0.015em;">The SOP mindset: building a practice that runs without you.</h3>
+          <p style="margin:12px 0 0;font-size:15px;line-height:1.55;color:#6e6e73;flex:1;">Why the firms that scale cleanly are the ones that turned how they work into a documented standard.</p>
+          <div style="margin-top:20px;font-size:13px;color:#aeaeb2;">6 min read</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- BLOG CTA -->
+  <section style="padding:30px 24px 200px;background:#fff;text-align:center;">
+    <div data-reveal="" style="opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);max-width:820px;margin:0 auto;padding:56px 40px;border-radius:28px;background:linear-gradient(160deg,#2c2c2e,#1c1c1e);color:#fff;box-shadow:0 30px 70px rgba(0,0,0,.2);">
+      <h2 style="margin:0;font-size:40px;line-height:1.1;font-weight:600;letter-spacing:-0.025em;">Less reading about systems. More running on one.</h2>
+      <p style="margin:18px auto 0;max-width:520px;font-size:18px;line-height:1.55;color:rgba(255,255,255,.7);">Book a 20-minute demo and see ArchiFlask on your own projects.</p>
+      <div style="margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <button id="af-demo-end" onClick="{{ goDemo }}" style="border:0;cursor:pointer;font-size:16px;font-weight:600;padding:14px 32px;border-radius:980px;color:#1d1d1f;background:#fff;">Book a Demo</button>
+        <button onClick="{{ goStarted }}" style="cursor:pointer;font-size:16px;font-weight:500;padding:14px 30px;border-radius:980px;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3);">Get Started</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+</sc-if>
+
+<!-- ===================== FOOTER ===================== -->
+<footer style="position:relative;z-index:2;padding:64px 24px 48px;background:#000;color:#fff;">
+  <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:32px;">
+    <div>
+      <div style="display:flex;align-items:center;gap:11px;">
+        <span style="position:relative;display:inline-block;width:26px;height:26px;">
+          <span style="position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:6px;border:2px solid #fff;"></span>
+          <span style="position:absolute;left:7px;top:7px;width:18px;height:18px;border-radius:6px;background:linear-gradient(135deg,#8e8e93,#48484a);"></span>
+        </span>
+        <span style="font-size:20px;font-weight:600;letter-spacing:-0.02em;">ArchiFlask</span>
+      </div>
+      <p style="margin:16px 0 0;max-width:300px;font-size:14.5px;line-height:1.5;color:rgba(255,255,255,.55);">The operating platform for design, construction, and PMC firms. Pan-India.</p>
+    </div>
+    <div style="display:flex;gap:64px;flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:14.5px;">
+        <span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">Company</span>
+        <a onClick="{{ goHome }}" style="cursor:pointer;color:rgba(255,255,255,.75);">Home</a>
+        <a onClick="{{ goAbout }}" style="cursor:pointer;color:rgba(255,255,255,.75);">About</a>
+        <a onClick="{{ goImpact }}" style="cursor:pointer;color:rgba(255,255,255,.75);">Impact</a>
+        <a onClick="{{ goBlog }}" style="cursor:pointer;color:rgba(255,255,255,.75);">Blog</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;font-size:14.5px;">
+        <span style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);">Get started</span>
+        <a onClick="{{ goDemo }}" style="cursor:pointer;color:rgba(255,255,255,.75);">Book a Demo</a>
+        <a onClick="{{ goStarted }}" style="cursor:pointer;color:rgba(255,255,255,.75);">Get Started</a>
+        <a onClick="{{ goHome }}" style="cursor:pointer;color:rgba(255,255,255,.75);">Pricing</a>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1100px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.45);">
+    <span>© 2026 ArchiFlask. All rights reserved.</span>
+    <span>A product of Wallzehn Technologies Pvt. Ltd.</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;motionIntensity&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;expressive&quot;,&quot;calm&quot;],&quot;default&quot;:&quot;calm&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { page: 'home', submitted: false, who: '' };
+    this._raf = null;
+
+    this.pickDay = (e) => {
+      const t = e.currentTarget;
+      t.parentNode.querySelectorAll('[data-day]').forEach(d => {
+        d.style.background = 'transparent'; d.style.color = '#1d1d1f'; d.style.borderColor = 'rgba(0,0,0,0.1)';
+      });
+      t.style.background = 'linear-gradient(135deg,#48484a,#1c1c1e)';
+      t.style.color = '#fff'; t.style.borderColor = 'transparent';
+      t.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,.2)';
+    };
+    this.pickSlot = (e) => {
+      const t = e.currentTarget;
+      t.parentNode.querySelectorAll('[data-slot]').forEach(d => {
+        d.style.background = 'transparent'; d.style.color = '#1d1d1f'; d.style.borderColor = 'rgba(0,0,0,0.1)';
+      });
+      t.style.background = 'linear-gradient(135deg,#48484a,#1c1c1e)';
+      t.style.color = '#fff'; t.style.borderColor = 'transparent';
+      t.style.boxShadow = 'inset 0 1px 0 rgba(255,255,255,.2)';
+    };
+    this.submit = (e) => {
+      e.preventDefault();
+      let who = '';
+      try { who = (new FormData(e.target)).get('name') || ''; } catch (err) {}
+      who = String(who).trim().split(' ')[0];
+      this.setState({ submitted: true, who: who });
+      window.scrollTo(0, 0);
+      this._reinit();
+    };
+    // Get Started → external sign-up redirect (configured later).
+    this.goStarted = () => { /* TODO: window.location.href = '<app sign-up URL>'; */ };
+  }
+
+  go(p) { return () => { this.setState({ page: p, submitted: false }); window.scrollTo(0, 0); this._reinit(); }; }
+
+  _reinit() { clearTimeout(this._reTimer); this._reTimer = setTimeout(() => this._init(), 40); }
+
+  componentDidMount() {
+    this._lastPage = this.state.page; this._lastSub = this.state.submitted;
+    this._init(); this._initRail();
+  }
+  componentDidUpdate() {
+    if (this._lastPage !== this.state.page || this._lastSub !== this.state.submitted) {
+      this._lastPage = this.state.page; this._lastSub = this.state.submitted; this._reinit();
+    }
+  }
+  componentWillUnmount() { this._teardown(); this._teardownRail(); }
+
+  _teardown() {
+    if (this._io) { this._io.disconnect(); this._io = null; }
+    if (this._onScroll) { window.removeEventListener('scroll', this._onScroll); this._onScroll = null; }
+    if (this._onResize) { window.removeEventListener('resize', this._onResize); this._onResize = null; }
+    if (this._fs1) { clearTimeout(this._fs1); this._fs1 = null; }
+    if (this._fs2) { clearTimeout(this._fs2); this._fs2 = null; }
+    if (this._threeTimer) { clearTimeout(this._threeTimer); this._threeTimer = null; }
+    if (this._miniTimer) { clearTimeout(this._miniTimer); this._miniTimer = null; }
+    if (this._mqTimer) { clearTimeout(this._mqTimer); this._mqTimer = null; }
+    if (this._miniRAF) { try { cancelAnimationFrame(this._miniRAF); } catch (e) {} this._miniRAF = null; }
+    if (this._minis) { this._minis.forEach(m => { try { m.rnd.dispose(); } catch (e) {} }); this._minis = null; }
+    if (this._marquee) { try { this._marquee.stop(); } catch (e) {} this._marquee = null; }
+    if (this._hero) {
+      if (this._hero.raf) { try { cancelAnimationFrame(this._hero.raf); } catch (e) {} }
+      if (this._hero.renderer) { try { this._hero.renderer.dispose(); } catch (e) {} }
+    }
+    this._hero = null; this._lineTotal = null;
+  }
+
+  _init() {
+    this._teardown();
+    this._calm = (this.props.motionIntensity === 'calm');
+    this._navHi();
+
+    // Reveal + count-up via !important inline styles. WAAPI doesn't apply in this runtime,
+    // but !important inline survives the runtime's per-render re-apply of template styles.
+    const io = new IntersectionObserver((es) => {
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        if (!el.__revealed) {
+          el.__revealed = true;
+          // !important inline survives the runtime's per-render re-apply of template styles.
+          el.style.setProperty('opacity', '1', 'important');
+          el.style.setProperty('transform', 'none', 'important');
+          if (el.hasAttribute('data-count') && !el.__counted) { el.__counted = true; this._count(el); }
+        }
+        io.unobserve(el);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+    this._io = io;
+    setTimeout(() => { document.querySelectorAll('[data-reveal]').forEach(el => { if (!el.__revealed) io.observe(el); }); }, 50);
+
+    this._onScroll = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => { this._raf = null; this._scroll(); });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._scroll();
+
+    if (this.state.page === 'home') {
+      this._initHero();
+      this._initMini();
+      this._initDeck();
+      setTimeout(() => this._initMarquee(), 160);
+    }
+
+    this._fs1 = setTimeout(() => {
+      document.querySelectorAll('[style*="afRise"]').forEach(el => {
+        el.style.animation = 'none'; el.style.opacity = '1'; el.style.transform = 'none';
+      });
+    }, 1000);
+  }
+
+  _navHi() {
+    const pg = this.state.page;
+    document.querySelectorAll('[data-nav]').forEach(a => {
+      const on = a.getAttribute('data-nav') === pg;
+      a.style.setProperty('color', on ? '#1d1d1f' : '#6e6e73', 'important');
+      a.style.setProperty('background', on ? '#f5f5f7' : 'transparent', 'important');
+      a.style.setProperty('font-weight', on ? '600' : '500', 'important');
+    });
+  }
+
+  _scroll() {
+    const sy = window.scrollY || window.pageYOffset || 0;
+    const nav = document.getElementById('af-nav');
+    if (nav) {
+      // !important inline survives the runtime's per-render re-apply of template styles.
+      if (sy > 18) {
+        nav.style.setProperty('background', 'rgba(255,255,255,0.72)', 'important');
+        nav.style.setProperty('backdrop-filter', 'saturate(180%) blur(20px)', 'important');
+        nav.style.setProperty('-webkit-backdrop-filter', 'saturate(180%) blur(20px)', 'important');
+        nav.style.setProperty('border-bottom-color', 'rgba(0,0,0,0.08)', 'important');
+      } else {
+        nav.style.setProperty('background', 'rgba(255,255,255,0)', 'important');
+        nav.style.setProperty('backdrop-filter', 'none', 'important');
+        nav.style.setProperty('-webkit-backdrop-filter', 'none', 'important');
+        nav.style.setProperty('border-bottom-color', 'rgba(0,0,0,0)', 'important');
+      }
+    }
+    this._heroFrame();
+    if (this._calm) return;
+    document.querySelectorAll('[data-parallax]').forEach(el => {
+      const sp = parseFloat(el.getAttribute('data-parallax')) || 0;
+      el.style.transform = 'translate3d(0,' + (sy * sp).toFixed(1) + 'px,0)';
+    });
+  }
+
+  _heroFrame() {
+    const section = document.getElementById('af-hero');
+    if (!section) return;
+    const sRect = section.getBoundingClientRect();
+    const scrollable = Math.max(1, sRect.height - window.innerHeight);
+    let p = Math.max(0, Math.min(1, (-sRect.top) / scrollable));
+    const h = this._hero;
+    if (!h || !h.renderer) return;
+    const tm = (performance.now() - (h.t0 || 0)) / 1000;
+    const cf = this._calm ? 0.4 : 1;
+    const W = h.canvas.clientWidth || 600, H = h.canvas.clientHeight || 500;
+    (h.items || []).forEach((it) => {
+      // start enlarged + overlapping, then shrink as the page scrolls
+      const sc = it.base * (it.start - p * it.shrink);
+      it.g.scale.set(sc, sc, sc);
+      // pieces drift slightly apart as they shrink — flowing toward the next section
+      it.g.position.set(W * (it.fx + (it.dx || 0) * p), H * (it.fy + (it.dy || 0) * p), 0);
+      it.g.rotation.x = it.rx + (it.rxScroll || 0) * p;
+      it.g.rotation.y = it.ry0 + p * it.rySpan + tm * it.spin * cf;
+      it.g.rotation.z = (it.rz0 || 0) + p * (it.rzSpan || 0);
+    });
+    if (h.nodes) {
+      const lit = Math.round(p * (h.nodes.length - 1));
+      for (let i = 0; i < h.nodes.length; i++) {
+        h.nodes[i].material.color.setHex(i <= lit ? 0x1d1d1f : 0xcfcfd4);
+      }
+    }
+    h.renderer.render(h.scene, h.cam);
+  }
+
+  _initHero() {
+    const canvas = document.getElementById('af-skel');
+    if (!canvas) return;
+    const start = () => {
+      if (this.state.page !== 'home') return;
+      if (!window.THREE) { this._threeTimer = setTimeout(start, 90); return; }
+      this._buildSkeleton(canvas);
+    };
+    start();
+  }
+
+  _buildSkeleton(canvas) {
+    const THREE = window.THREE;
+    const W = canvas.clientWidth || canvas.offsetWidth || 600;
+    const H = canvas.clientHeight || canvas.offsetHeight || 500;
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    } catch (e) { return; }
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    renderer.setSize(W, H, false);
+
+    const scene = new THREE.Scene();
+    const cam = new THREE.OrthographicCamera(0, W, 0, H, -4000, 4000);
+    cam.position.z = 1200;
+
+    const V = (x, y, z) => new THREE.Vector3(x, y, z);
+    const lineMat = (c, o) => new THREE.LineBasicMaterial({ color: c == null ? 0x9a9aa0 : c, transparent: true, opacity: o == null ? 0.55 : o });
+    const seg = (arr, c, o) => new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(arr), lineMat(c, o));
+    const ringLine = (arr, c, o) => new THREE.Line(new THREE.BufferGeometry().setFromPoints(arr), lineMat(c, o));
+    const ng = new THREE.SphereGeometry(4.0, 12, 12);
+    const addNodes = (g, vecs, dark) => vecs.forEach(v => {
+      const sp = new THREE.Mesh(ng, new THREE.MeshBasicMaterial({ color: dark ? 0x1d1d1f : 0xcfcfd4 }));
+      sp.position.copy(v); g.add(sp);
+    });
+
+    // ---------- main lattice ----------
+    const latt = new THREE.Group();
+    const nx = 3, ny = 4, nz = 3, sx = 80, sy = 76, sz = 80;
+    const pos = (i, j, k) => V((i - (nx - 1) / 2) * sx, ((ny - 1) / 2 - j) * sy, (k - (nz - 1) / 2) * sz);
+    const pts = [];
+    for (let i = 0; i < nx; i++) for (let k = 0; k < nz; k++) for (let j = 0; j < ny; j++) {
+      const a = pos(i, j, k);
+      if (j < ny - 1) { pts.push(a, pos(i, j + 1, k)); }
+      if (i < nx - 1) { pts.push(a, pos(i + 1, j, k)); }
+      if (k < nz - 1) { pts.push(a, pos(i, j, k + 1)); }
+    }
+    pts.push(pos(0, 0, 0), pos(nx - 1, ny - 1, 0));
+    pts.push(pos(0, ny - 1, nz - 1), pos(nx - 1, 0, nz - 1));
+    latt.add(seg(pts, 0x9a9aa0, 0.55));
+    const nodes = [];
+    for (let i = 0; i < nx; i++) for (let k = 0; k < nz; k++) for (let j = 0; j < ny; j++) {
+      const sp = new THREE.Mesh(ng, new THREE.MeshBasicMaterial({ color: 0xcfcfd4 }));
+      sp.position.copy(pos(i, j, k)); latt.add(sp); nodes.push(sp);
+    }
+
+    // ---------- compass ----------
+    const comp = new THREE.Group();
+    const ring = (R) => { const a = []; for (let i = 0; i <= 64; i++) { const t = i / 64 * Math.PI * 2; a.push(V(Math.cos(t) * R, Math.sin(t) * R, 0)); } return a; };
+    comp.add(ringLine(ring(72), 0x9a9aa0, 0.6));
+    comp.add(ringLine(ring(60), 0x9a9aa0, 0.45));
+    const cticks = [];
+    for (let i = 0; i < 16; i++) { const t = i / 16 * Math.PI * 2; const r0 = (i % 4 === 0) ? 50 : 63; cticks.push(V(Math.cos(t) * r0, Math.sin(t) * r0, 0), V(Math.cos(t) * 72, Math.sin(t) * 72, 0)); }
+    comp.add(seg(cticks, 0x9a9aa0, 0.5));
+    comp.add(seg([
+      V(0, 92, 0), V(20, 0, 12), V(20, 0, 12), V(0, -92, 0),
+      V(0, -92, 0), V(-20, 0, -12), V(-20, 0, -12), V(0, 92, 0),
+      V(0, 92, 0), V(0, -92, 0)
+    ], 0x1d1d1f, 0.85));
+    addNodes(comp, [V(0, 0, 0)], true);
+
+    // ---------- blueprint house ----------
+    const bld = new THREE.Group();
+    const bw = 64, bh = 48, bd = 56, rh = 42;
+    bld.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(bw, bh, bd)), lineMat(0x9a9aa0, 0.6)));
+    bld.add(seg([
+      V(-bw / 2, -bh / 2, -bd / 2), V(0, -(bh / 2 + rh), -bd / 2),
+      V(bw / 2, -bh / 2, -bd / 2), V(0, -(bh / 2 + rh), -bd / 2),
+      V(-bw / 2, -bh / 2, bd / 2), V(0, -(bh / 2 + rh), bd / 2),
+      V(bw / 2, -bh / 2, bd / 2), V(0, -(bh / 2 + rh), bd / 2),
+      V(0, -(bh / 2 + rh), -bd / 2), V(0, -(bh / 2 + rh), bd / 2)
+    ], 0x9a9aa0, 0.6));
+    addNodes(bld, [V(0, -(bh / 2 + rh), -bd / 2), V(0, -(bh / 2 + rh), bd / 2)], true);
+
+    // ---------- site map / plot plan ----------
+    const site = new THREE.Group();
+    const plan = new THREE.Group();
+    const gw = 188, gd = 150, stp = 31;
+    const gl = [];
+    for (let x = -gw / 2; x <= gw / 2 + 0.1; x += stp) gl.push(V(x, 0, -gd / 2), V(x, 0, gd / 2));
+    for (let z = -gd / 2; z <= gd / 2 + 0.1; z += stp) gl.push(V(-gw / 2, 0, z), V(gw / 2, 0, z));
+    plan.add(seg(gl, 0x9a9aa0, 0.28));
+    const rect = (x0, z0, x1, z1) => [V(x0, 0.5, z0), V(x1, 0.5, z0), V(x1, 0.5, z0), V(x1, 0.5, z1), V(x1, 0.5, z1), V(x0, 0.5, z1), V(x0, 0.5, z1), V(x0, 0.5, z0)];
+    let plots = [];
+    plots = plots.concat(rect(-74, -54, -16, 6));
+    plots = plots.concat(rect(8, -46, 70, 34));
+    plots = plots.concat(rect(-64, 26, 24, 60));
+    plan.add(seg(plots, 0x1d1d1f, 0.7));
+    plan.rotation.x = -1.04;
+    site.add(plan);
+
+    // ---------- drafting set square ----------
+    const tri = new THREE.Group();
+    const A = V(-62, -46, 0), B = V(62, -46, 0), C = V(-62, 78, 0);
+    const ccx = (A.x + B.x + C.x) / 3, ccy = (A.y + B.y + C.y) / 3;
+    const ins = (p) => V(ccx + (p.x - ccx) * 0.5, ccy + (p.y - ccy) * 0.5, 0);
+    const Ai = ins(A), Bi = ins(B), Ci = ins(C);
+    tri.add(seg([A, B, B, C, C, A, Ai, Bi, Bi, Ci, Ci, Ai], 0x9a9aa0, 0.6));
+    addNodes(tri, [A, B, C], true);
+
+    // ---------- neural / AI skeletal brain — the SINGLE hero element ----------
+    const brain = new THREE.Group();
+    const layers = [
+      [V(-150, 72, 12), V(-150, 18, 40), V(-150, -36, -22), V(-150, -90, 26)],
+      [V(-74, 108, -26), V(-74, 54, 36), V(-74, 2, -46), V(-74, -52, 30), V(-74, -104, -8)],
+      [V(0, 124, 20), V(0, 66, -36), V(0, 10, 42), V(0, -46, -32), V(0, -104, 24), V(0, -150, -6)],
+      [V(74, 108, -22), V(74, 54, 34), V(74, 2, -42), V(74, -52, 28), V(74, -104, -10)],
+      [V(150, 72, 14), V(150, 18, -38), V(150, -36, 24), V(150, -90, -18)]
+    ];
+    const bseg = [];
+    for (let l = 0; l < layers.length - 1; l++) {
+      layers[l].forEach(a => layers[l + 1].forEach(b => bseg.push(a, b)));
+    }
+    brain.add(seg(bseg, 0x9a9aa0, 0.26));
+    const bng = new THREE.SphereGeometry(4.4, 14, 14);
+    layers.forEach((ly, li) => ly.forEach(v => {
+      const mid = li >= 1 && li <= 3;
+      const sp = new THREE.Mesh(bng, new THREE.MeshBasicMaterial({ color: mid ? 0x1d1d1f : 0xcfcfd4 }));
+      sp.position.copy(v); brain.add(sp);
+    }));
+
+    // only the AI brain is shown in the hero now (no more overlapping pieces)
+    scene.add(brain);
+
+    // single centered element — gentle shrink + rotate on scroll
+    const items = [
+      { g: brain, fx: 0.50, fy: 0.46, base: 1.16, start: 1.18, shrink: 0.5, spin: 0.12, rx: -0.18, rxScroll: 0, ry0: -0.35, rySpan: 1.3, rz0: 0, rzSpan: 0.16, dx: 0, dy: -0.02 }
+    ];
+
+    this._hero = { renderer, scene, cam, items, nodes, canvas, t0: performance.now() };
+    this._heroFrame();
+
+    this._onResize = () => {
+      const h = this._hero; if (!h) return;
+      const w2 = canvas.clientWidth || 600, h2 = canvas.clientHeight || 500;
+      h.renderer.setSize(w2, h2, false);
+      h.cam.right = w2; h.cam.bottom = h2; h.cam.updateProjectionMatrix();
+      this._heroFrame();
+    };
+    window.addEventListener('resize', this._onResize);
+
+    const tick = () => {
+      if (!this._hero) return;
+      this._heroFrame();
+      this._hero.raf = requestAnimationFrame(tick);
+    };
+    tick();
+  }
+
+  _initMini() {
+    if (!window.THREE) { this._miniTimer = setTimeout(() => this._initMini(), 90); return; }
+    const THREE = window.THREE;
+    const cvs = document.querySelectorAll('.af-mini');
+    if (!cvs.length) return;
+    this._minis = [];
+    cvs.forEach((cv) => {
+      const W = cv.clientWidth || 96, H = cv.clientHeight || 96;
+      let rnd;
+      try { rnd = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: true }); }
+      catch (e) { return; }
+      rnd.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      rnd.setSize(W, H, false);
+      const scene = new THREE.Scene();
+      const cam = new THREE.PerspectiveCamera(42, W / H, 1, 100); cam.position.z = 4.4;
+      const light = cv.getAttribute('data-color') === 'light';
+      const lcol = light ? 0xb8b8bf : 0x9a9aa0, ncol = light ? 0xf2f2f4 : 0x1d1d1f;
+      const shape = cv.getAttribute('data-shape');
+      let geo;
+      if (shape === 'box') geo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+      else if (shape === 'tetra') geo = new THREE.TetrahedronGeometry(1.4);
+      else if (shape === 'ico') geo = new THREE.IcosahedronGeometry(1.3, 0);
+      else geo = new THREE.OctahedronGeometry(1.3);
+      const g = new THREE.Group();
+      g.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: lcol, transparent: true, opacity: 0.85 })));
+      const nm = new THREE.MeshBasicMaterial({ color: ncol });
+      const ng2 = new THREE.SphereGeometry(0.075, 8, 8);
+      const pos = geo.attributes.position, seen = {};
+      for (let i = 0; i < pos.count; i++) {
+        const x = +pos.getX(i).toFixed(2), y = +pos.getY(i).toFixed(2), z = +pos.getZ(i).toFixed(2);
+        const k = x + ',' + y + ',' + z; if (seen[k]) continue; seen[k] = 1;
+        const sp = new THREE.Mesh(ng2, nm); sp.position.set(x, y, z); g.add(sp);
+      }
+      scene.add(g);
+      this._minis.push({ rnd, scene, cam, g });
+    });
+    const loop = () => {
+      if (!this._minis) return;
+      const t = performance.now() / 1000;
+      this._minis.forEach((m, i) => {
+        m.g.rotation.y = t * 0.5 + i * 1.3;
+        m.g.rotation.x = Math.sin(t * 0.4 + i) * 0.3 + 0.35;
+        m.rnd.render(m.scene, m.cam);
+      });
+      this._miniRAF = requestAnimationFrame(loop);
+    };
+    loop();
+  }
+
+  _initMarquee() {
+    const track = document.getElementById('af-logo-track');
+    if (!track) return;
+    if (!window.Motion) { this._mqTimer = setTimeout(() => this._initMarquee(), 120); return; }
+    const half = track.scrollWidth / 2;
+    if (half < 10) { this._mqTimer = setTimeout(() => this._initMarquee(), 120); return; }
+    if (this._marquee) { try { this._marquee.stop(); } catch (e) {} }
+    this._marquee = window.Motion.animate(
+      track,
+      { transform: ['translateX(0px)', 'translateX(' + (-half) + 'px)'] },
+      { duration: 26, easing: 'linear', repeat: Infinity }
+    );
+  }
+
+  _initDeck() {
+    const deck = document.getElementById('af-deck');
+    if (!deck) return;
+    const cards = Array.prototype.slice.call(deck.querySelectorAll('.af-card'));
+    if (!cards.length) return;
+    const base = (i) => ({ x: (i - 2) * 132, y: Math.abs(i - 2) * 20, r: (i - 2) * 6, s: 1 });
+    const spread = (i) => ({ x: (i - 2) * 188, y: 0, r: 0, s: 1 });
+    const apply = (el, t) => {
+      if (window.Motion) {
+        window.Motion.animate(el, { x: t.x, y: t.y, rotate: t.r, scale: t.s }, { duration: 0.5, easing: [0.16, 1, 0.3, 1] });
+      } else {
+        el.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1)';
+        el.style.transform = 'translateX(' + t.x + 'px) translateY(' + t.y + 'px) rotate(' + t.r + 'deg) scale(' + t.s + ')';
+      }
+    };
+    let hovered = -1;
+    const render = () => {
+      cards.forEach((el, i) => {
+        let t;
+        if (hovered < 0) { t = base(i); }
+        else { t = spread(i); if (i === hovered) { t.y = -32; t.s = 1.06; } }
+        el.style.zIndex = (i === hovered) ? 50 : (hovered < 0 ? (10 - Math.abs(i - 2)) : 10);
+        apply(el, t);
+      });
+    };
+    cards.forEach((el, i) => {
+      el.addEventListener('mouseenter', () => { hovered = i; render(); });
+    });
+    deck.addEventListener('mouseleave', () => { hovered = -1; render(); });
+  }
+
+  _initRail() {
+    if (this._railBuilt) return;
+    const canvas = document.getElementById('af-pencil-rail');
+    const svg = document.getElementById('af-rail-svg');
+    const path = document.getElementById('af-rail-path');
+    if (!canvas || !svg || !path) return;
+    this._rail = { canvas, svg, path, mx: 0.5, my: 0.4, tmx: 0.5, tmy: 0.4 };
+    this._railMouse = (e) => {
+      this._rail.tmx = e.clientX / Math.max(1, window.innerWidth);
+      this._rail.tmy = e.clientY / Math.max(1, window.innerHeight);
+    };
+    window.addEventListener('mousemove', this._railMouse, { passive: true });
+    this._railResize = () => this._railLayout();
+    window.addEventListener('resize', this._railResize);
+    const start = () => {
+      if (!window.THREE) { this._railTimer = setTimeout(start, 90); return; }
+      this._buildRailPencil();
+      this._railBuilt = true;
+    };
+    start();
+  }
+
+  _railLayout() {
+    const r = this._rail; if (!r) return;
+    const W = window.innerWidth, H = window.innerHeight;
+    r.W = W; r.H = H;
+    r.cx = W * 0.5;
+    r.amp = Math.min(W * 0.14, 170);
+    r.freq = 1.7;
+    r.svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    if (r.renderer) {
+      r.renderer.setSize(W, H, false);
+      r.cam.right = W; r.cam.bottom = H; r.cam.updateProjectionMatrix();
+    }
+  }
+
+  _buildRailPencil() {
+    const THREE = window.THREE;
+    const canvas = this._rail.canvas;
+    let renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true }); }
+    catch (e) { return; }
+    renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+    const scene = new THREE.Scene();
+    const cam = new THREE.OrthographicCamera(0, window.innerWidth, 0, window.innerHeight, -5000, 5000);
+    cam.position.z = 2000;
+
+    const inner = new THREE.Group();
+    const LEN = 225, R = 14; // body reduced ~25%
+    const edgeMat = new THREE.LineBasicMaterial({ color: 0x48484a, transparent: true, opacity: 1 });
+    // hexagonal barrel
+    inner.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(R, R, LEN, 6)), edgeMat));
+    // sharpened wood cone (wireframe), apex pointing DOWN/forward
+    const cone = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.ConeGeometry(R, 52, 6)), edgeMat);
+    cone.rotation.x = Math.PI; cone.position.y = -(LEN / 2) - 26; inner.add(cone);
+    // metal ferrule + eraser cap (wireframe)
+    const ferrule = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(R, R, 14, 6)), edgeMat);
+    ferrule.position.y = LEN / 2 + 7; inner.add(ferrule);
+    const cap = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.CylinderGeometry(R * 0.92, R * 0.92, 18, 12)), edgeMat);
+    cap.position.y = LEN / 2 + 23; inner.add(cap);
+    // solid graphite point so it clearly reads as a pencil
+    const lead = new THREE.Mesh(new THREE.ConeGeometry(R * 0.34, 24, 10), new THREE.MeshBasicMaterial({ color: 0x111113 }));
+    lead.rotation.x = Math.PI; lead.position.y = -(LEN / 2) - 42; inner.add(lead);
+    // joint nodes at the hex corners
+    const nodeMat = new THREE.MeshBasicMaterial({ color: 0x1d1d1f });
+    const ng = new THREE.SphereGeometry(3.4, 10, 10);
+    for (let s = 0; s < 6; s++) {
+      const a = s / 6 * Math.PI * 2;
+      [LEN / 2, -LEN / 2].forEach((yy) => {
+        const sp = new THREE.Mesh(ng, nodeMat);
+        sp.position.set(Math.cos(a) * R, yy, Math.sin(a) * R);
+        inner.add(sp);
+      });
+    }
+
+    inner.position.y = (LEN / 2) + 53;
+    inner.rotation.x = 0.5;
+    const pencil = new THREE.Group();
+    pencil.add(inner);
+    scene.add(pencil);
+    Object.assign(this._rail, { renderer, scene, cam, pencil, inner });
+    this._railLayout();
+    const loop = () => { if (!this._rail) return; this._railFrame(); this._rail.raf = requestAnimationFrame(loop); };
+    loop();
+  }
+
+  _railFrame() {
+    const r = this._rail; if (!r || !r.renderer) return;
+    const vw = r.W || window.innerWidth, vh = r.H || window.innerHeight;
+    const sy = window.scrollY || window.pageYOffset || 0;
+    const docH = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+
+    // the pencil enters once the hero is scrolled past...
+    const hero = document.getElementById('af-hero');
+    let gate = hero ? Math.max(0, hero.offsetTop + hero.offsetHeight - vh * 1.05) : 0;
+
+    // ...and its journey ENDS exactly at the final "Book a Demo" button.
+    const btn = document.getElementById('af-demo-end');
+    let btnDocY = docH;
+    if (btn) { const b = btn.getBoundingClientRect(); btnDocY = b.top + sy + b.height * 0.5; }
+    let endScroll = Math.min(btnDocY - vh * 0.62, docH - vh);
+    endScroll = Math.max(endScroll, gate + 1);
+
+    const p = Math.max(0, Math.min(1, (sy - gate) / (endScroll - gate)));
+    const vis = Math.max(0, Math.min(1, (sy - gate) / Math.max(1, vh * 0.5)));
+
+    // the line is drawn in viewport space, ending where the button currently sits
+    const btnViewY = btnDocY - sy;
+    const topY = vh * 0.06;
+    const endY = Math.max(topY + 60, Math.min(btnViewY, vh * 0.94));
+    const span = endY - topY;
+
+    const N = 90, pts = [];
+    let d = '', tot = 0, prev = null;
+    for (let i = 0; i <= N; i++) {
+      const t = i / N;
+      const x = r.cx + r.amp * Math.cos(t * Math.PI * r.freq);
+      const y = topY + t * span;
+      pts.push([x, y]);
+      d += (i ? 'L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+      if (prev) tot += Math.hypot(x - prev[0], y - prev[1]);
+      prev = [x, y];
+    }
+    r.path.setAttribute('d', d);
+    r.path.style.strokeDasharray = tot;
+    r.path.style.strokeDashoffset = (tot * (1 - p)).toFixed(1);
+
+    // pencil rides the front of the drawn line
+    const idx = p * N, i0 = Math.floor(idx), i1 = Math.min(N, i0 + 1), fr = idx - i0;
+    const tx = pts[i0][0] + (pts[i1][0] - pts[i0][0]) * fr;
+    const ty = pts[i0][1] + (pts[i1][1] - pts[i0][1]) * fr;
+    if (r.px == null) { r.px = tx; r.py = ty; }
+    r.px += (tx - r.px) * 0.16;
+    r.py += (ty - r.py) * 0.16;
+    r.pencil.position.set(r.px, r.py, 0);
+
+    // steady writing rake along the path tangent
+    const dx = pts[i1][0] - pts[i0][0], dy = (pts[i1][1] - pts[i0][1]) || 1;
+    let ang = Math.atan2(-dy, -dx) - Math.PI / 2 + 0.22;
+    if (r.pa == null) r.pa = ang;
+    let da = ang - r.pa;
+    while (da > Math.PI) da -= Math.PI * 2;
+    while (da < -Math.PI) da += Math.PI * 2;
+    r.pa += da * 0.12;
+    r.pencil.rotation.z = r.pa;
+
+    // slow continuous barrel spin as it travels
+    r.spin = (r.spin || 0) + 0.014;
+    r.inner.rotation.y = r.spin;
+
+    r.canvas.style.opacity = (0.55 * vis).toFixed(3);
+    r.path.style.opacity = (0.12 * vis).toFixed(3);
+    r.renderer.render(r.scene, r.cam);
+  }
+
+  _teardownRail() {
+    if (this._railTimer) { clearTimeout(this._railTimer); this._railTimer = null; }
+    if (this._railMouse) { window.removeEventListener('mousemove', this._railMouse); this._railMouse = null; }
+    if (this._railResize) { window.removeEventListener('resize', this._railResize); this._railResize = null; }
+    if (this._rail) {
+      if (this._rail.raf) { try { cancelAnimationFrame(this._rail.raf); } catch (e) {} }
+      if (this._rail.renderer) { try { this._rail.renderer.dispose(); } catch (e) {} }
+    }
+    this._rail = null; this._railBuilt = false;
+  }
+
+  _count(el) {
+    const t = parseFloat(el.getAttribute('data-count')) || 0;
+    const suf = el.getAttribute('data-suffix') || '';
+    const dur = 1200, st = performance.now();
+    const step = (now) => {
+      let p = Math.min(1, (now - st) / dur);
+      p = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(t * p) + suf;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const pg = s.page;
+    const nc = (k) => (pg === k ? '#1d1d1f' : '#6e6e73');
+    const nb = (k) => (pg === k ? '#f5f5f7' : 'transparent');
+    const nw = (k) => (pg === k ? '600' : '500');
+    return {
+      navColor: { home: nc('home'), about: nc('about'), impact: nc('impact'), blog: nc('blog') },
+      navBg: { home: nb('home'), about: nb('about'), impact: nb('impact'), blog: nb('blog') },
+      navWeight: { home: nw('home'), about: nw('about'), impact: nw('impact'), blog: nw('blog') },
+      isHome: s.page === 'home', isDemo: s.page === 'demo',
+      isAbout: s.page === 'about', isImpact: s.page === 'impact', isBlog: s.page === 'blog',
+      goHome: this.go('home'), goDemo: this.go('demo'),
+      goAbout: this.go('about'), goImpact: this.go('impact'), goBlog: this.go('blog'),
+      goStarted: this.goStarted,
+      submitted: s.submitted, notSubmitted: !s.submitted,
+      whoLabel: s.who ? (', ' + s.who) : '',
+      pickDay: this.pickDay, pickSlot: this.pickSlot, submit: this.submit
+    };
+  }
+}
+</script>
+</body>
+</html>

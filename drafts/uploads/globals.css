@@ -1,0 +1,130 @@
+
+@font-face {
+font-display: auto;
+font-family: 'Plus Jakarta Sans';
+font-style: normal;
+font-weight: 400;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F9937c543843678c4f3611a949466a91bbb4f0ea9.woff2?generation=1781852923599068&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Plus Jakarta Sans';
+font-style: normal;
+font-weight: 500;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F6ca4230b0f3816eda3f8d9ec76c9554f9e8f4c40.woff2?generation=1781852923614223&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Plus Jakarta Sans';
+font-style: normal;
+font-weight: 600;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2Ff2d3933a127c7a3227987af43dec58ad9f7d0203.woff2?generation=1781852923576128&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Plus Jakarta Sans';
+font-style: normal;
+font-weight: 700;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2Fcbc262e826d6a9f1d1fd51229b43992c11f82844.woff2?generation=1781852923615803&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2Fbf0a5dde2c3c1514b28883122246202983504ab9.woff2?generation=1778686572676307&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F660f0bc34c224fafd350e81d928738ea93b9e79b.woff2?generation=1781852923586438&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F40287704e943af7ab3f6572e57710e7868980544.woff2?generation=1781612858446584&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F8dda95e9f70d1398d53b9d730136adbce4ee5b53.woff2?generation=1781852923585573&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Freigeist Con';
+font-style: normal;
+font-weight: 400;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2Fc2ff24bc811e652d67c5914a0d2ea50c3ef017e0.woff2?generation=1781852923580557&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Freigeist Con';
+font-style: normal;
+font-weight: 700;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F335564d581decf46e51d8c9e6f360094d174d0b8.woff2?generation=1781852923557639&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: auto;
+font-family: 'Freigeist Con';
+font-style: italic;
+font-weight: 700;
+font-stretch: normal;
+unicode-range: U+0-10FFFF;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2Fc73d723d3e1c5b366ce4eed983bb878608a6ffc6.woff2?generation=1781852923612968&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: swap;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-stretch: normal;
+unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F1dc044f4824fd5af6bfed67fee48be70fa069f3f.woff2?generation=1777994825250475&alt=media') format('woff2');
+}
+
+@font-face {
+font-display: swap;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-stretch: normal;
+unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+src: url('https://storage.googleapis.com/download/storage/v1/b/prd-storytodesign.appspot.com/o/h2d-ext-asset%2F1dc044f4824fd5af6bfed67fee48be70fa069f3f.woff2?generation=1777994825250475&alt=media') format('woff2');
+}
