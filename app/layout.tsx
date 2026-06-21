@@ -1,5 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Nav } from "@/components/layout/Nav";
+import { Footer } from "@/components/layout/Footer";
+import { PencilRailClient } from "@/components/three/PencilRailClient";
+import { PageTransition } from "@/components/motion/PageTransition";
 
 export const metadata: Metadata = {
   title: "ArchiFlask — Run your firm on a system",
@@ -10,7 +14,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Nav />
+        <PencilRailClient />
+        <PageTransition>{children}</PageTransition>
+        <Footer />
+      </body>
     </html>
   );
 }
