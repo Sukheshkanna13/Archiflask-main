@@ -1,1 +1,102 @@
 @import "tailwindcss";
+
+@theme {
+  --color-ink: #1d1d1f;
+  --color-ink-2: #3a3a3c;
+  --color-gray: #6e6e73;
+  --color-gray-2: #86868b;
+  --color-gray-3: #aeaeb2;
+  --color-gray-4: #c2c2c9;
+  --color-line: #9a9aa0;
+  --color-node-dim: #cfcfd4;
+  --color-surface: #f5f5f7;
+  --radius-pill: 980px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+:root {
+  --grad-dark: linear-gradient(135deg, #48484a, #1c1c1e);
+  --grad-panel: linear-gradient(135deg, #2c2c2e, #1c1c1e);
+  --grad-text: linear-gradient(120deg, #9a9aa0, #1d1d1f 65%);
+  --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.08);
+  --inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: var(--color-ink);
+  overflow-x: clip;
+}
+::selection {
+  background: #1d1d1f;
+  color: #fff;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+input,
+button {
+  font-family: inherit;
+}
+
+@keyframes afRise {
+  0% {
+    transform: translateY(26px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes afPing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes afSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes afSpinR {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes afHint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
