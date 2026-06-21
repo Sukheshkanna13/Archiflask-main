@@ -127,7 +127,7 @@ export type PricingTier = {
   priceCurrency?: boolean;
   pricePeriod?: string;
   subline?: string;
-  yearly?: string;
+  yearly?: { strike: string; now: string; suffix: string };
   blurb?: string;
   features: PriceFeature[];
   addon?: string;
@@ -161,7 +161,7 @@ export const PRICING: PricingTier[] = [
     priceStrike: "₹949",
     price: "₹600",
     subline: "+GST / user / month",
-    yearly: "₹7200 ₹6480 / user / yr (10% off)",
+    yearly: { strike: "₹7200", now: "₹6480", suffix: "/ user / yr (10% off)" },
     features: [
       { text: "Unlimited Projects" },
       { text: "Unlimited Mobile Logins" },
@@ -182,7 +182,7 @@ export const PRICING: PricingTier[] = [
     priceStrike: "₹1499",
     price: "₹999",
     subline: "+GST / user / month",
-    yearly: "₹11998 ₹10190 / user / yr (15% off)",
+    yearly: { strike: "₹11998", now: "₹10190", suffix: "/ user / yr (15% off)" },
     features: [
       { text: "Everything in Architect Plan" },
       { text: "Material Request & Inventory" },
