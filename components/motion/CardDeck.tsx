@@ -8,6 +8,7 @@ export function CardDeck() {
   const [hovered, setHovered] = useState(-1);
   return (
     <div
+      className="af-deck"
       onMouseLeave={() => setHovered(-1)}
       style={{ position: "relative", height: 330, maxWidth: 1000, margin: "30px auto 0" }}
     >
@@ -24,6 +25,7 @@ export function CardDeck() {
         return (
           <motion.div
             key={i}
+            className="af-card"
             onMouseEnter={() => setHovered(i)}
             animate={t}
             transition={{ duration: 0.5, ease: EASE_OUT }}
