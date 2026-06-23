@@ -12,7 +12,7 @@ export function Questions() {
           <h2 style={{ margin: 0, fontSize: 48, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em" }}>
             The five things you need to know
             <br />
-            before 9 a.m. — on one screen.
+            before 9 a.m., on one screen.
           </h2>
         </Reveal>
         <div style={{ marginTop: 18, fontSize: 13, fontWeight: 600, color: "#aeaeb2" }}>Hover the deck to fan it out →</div>

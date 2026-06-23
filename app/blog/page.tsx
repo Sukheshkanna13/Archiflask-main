@@ -4,7 +4,7 @@ import { Grid } from "@/components/sections/blog/Grid";
 import { BlogCta } from "@/components/sections/blog/BlogCta";
 
 export const metadata = {
-  title: "Blog — ArchiFlask",
+  title: "Blog, ArchiFlask",
   description: "Practical writing for firm owners on running, scaling, and systematising a design or construction practice.",
 };
 

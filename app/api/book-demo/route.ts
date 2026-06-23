@@ -40,7 +40,7 @@ export async function POST(req: Request) {
       await resend.emails.send({
         from: "ArchiFlask <onboarding@resend.dev>",
         to,
-        subject: `New demo booking — ${body.name}`,
+        subject: `New demo booking, ${body.name}`,
         text: summary,
       });
     } catch (e) {

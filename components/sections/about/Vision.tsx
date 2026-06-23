@@ -9,7 +9,7 @@ export function Vision() {
         </Reveal>
         <Reveal delay={0.08} y={30} style={{ marginTop: 22 }}>
           <h2 style={{ margin: 0, fontSize: 44, lineHeight: 1.18, fontWeight: 600, letterSpacing: "-0.025em", textWrap: "balance" }}>
-            ArchiFlask becomes the daily operating standard — the SOP — for design, construction, and PMC firms, in India and globally.
+            ArchiFlask becomes the daily operating standard, the SOP, for design, construction, and PMC firms, in India and globally.
           </h2>
         </Reveal>
       </div>

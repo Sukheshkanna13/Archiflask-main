@@ -1,7 +1,7 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
 
-const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/book-demo";
+const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/get-started";
 
 export function BottomCta({ heading }: { heading: string }) {
   return (

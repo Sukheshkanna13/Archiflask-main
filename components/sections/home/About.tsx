@@ -10,7 +10,7 @@ export function About() {
       <div style={{ maxWidth: 1240, margin: "0 auto" }}>
         <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
           <div>
-            <div style={{ fontSize: 14, fontWeight: 600, color: "#86868b" }}>02 — About ArchiFlask</div>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#86868b" }}>02, About ArchiFlask</div>
             <h2 style={{ margin: "14px 0 0", fontSize: 60, lineHeight: 1.0, fontWeight: 600, letterSpacing: "-0.03em" }}>
               We give firms control.
             </h2>
@@ -26,7 +26,7 @@ export function About() {
             <Reveal style={{ margin: 0, maxWidth: 560, fontSize: 26, lineHeight: 1.35, fontWeight: 500, letterSpacing: "-0.01em" }}>
               <span style={{ color: "#1d1d1f" }}>A solid system</span>{" "}
               <span style={{ color: "#aeaeb2" }}>
-                aligned with how design and construction firms actually work is what lets a practice scale — without losing
+                aligned with how design and construction firms actually work is what lets a practice scale, without losing
                 control of a single project.
               </span>
             </Reveal>

@@ -14,7 +14,7 @@ export function ImpactHero() {
           </h1>
         </Reveal>
         <Reveal delay={0.14} y={24} style={{ margin: "26px auto 0", maxWidth: 660, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
-          ArchiFlask works the same way across residential, commercial, interiors, and infrastructure — because the way a firm runs is the thing it fixes.
+          ArchiFlask works the same way across residential, commercial, interiors, and infrastructure, because the way a firm runs is the thing it fixes.
         </Reveal>
       </div>
     </section>

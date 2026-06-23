@@ -6,7 +6,7 @@ import { Vision } from "@/components/sections/about/Vision";
 import { BottomCta } from "@/components/sections/shared/BottomCta";
 
 export const metadata = {
-  title: "About — ArchiFlask",
+  title: "About, ArchiFlask",
   description: "Built by people who have actually run the projects. The story behind ArchiFlask and Wallzehn Technologies.",
 };
 

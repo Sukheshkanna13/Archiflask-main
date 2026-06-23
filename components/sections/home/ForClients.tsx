@@ -18,7 +18,7 @@ export function ForClients() {
             You stop reporting.
           </h2>
           <p style={{ margin: 0, fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,.7)" }}>
-            ArchiFlask gives your client their own window into the project — progress, updates, and deliverables, on web and mobile. No more endless mail chains or &quot;any update?&quot; messages. Transparency becomes a feature you sell, not a chore you manage.
+            ArchiFlask gives your client their own window into the project, progress, updates, and deliverables, on web and mobile. No more endless mail chains or &quot;any update?&quot; messages. Transparency becomes a feature you sell, not a chore you manage.
           </p>
         </Reveal>
         <Reveal y={30} delay={0.12} style={{ display: "flex", justifyContent: "center" }}>

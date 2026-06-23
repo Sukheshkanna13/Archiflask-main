@@ -14,7 +14,7 @@ export function AboutHero() {
           </h1>
         </Reveal>
         <Reveal delay={0.14} y={24} style={{ margin: "26px auto 0", maxWidth: 640, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
-          ArchiFlask is the operating platform for design, construction &amp; PMC firms — born from two friends who lived the chaos of running real projects, and set out to fix it with a system.
+          ArchiFlask is the operating platform for design, construction &amp; PMC firms, born from two friends who lived the chaos of running real projects, and set out to fix it with a system.
         </Reveal>
       </div>
     </section>

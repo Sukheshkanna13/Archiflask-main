@@ -12,7 +12,7 @@ export function Pricing() {
             Simple pricing that scales with the firm.
           </h2>
           <p style={{ margin: "18px auto 0", fontSize: 19, lineHeight: 1.55, color: "#6e6e73" }}>
-            Start free with no end date. Upgrade per user when you&apos;re ready to grow — billed monthly, or yearly for a discount.
+            Start free with no end date. Upgrade per user when you&apos;re ready to grow, billed monthly, or yearly for a discount.
           </p>
         </Reveal>
 

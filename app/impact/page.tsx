@@ -6,8 +6,8 @@ import { Domains } from "@/components/sections/impact/Domains";
 import { BottomCta } from "@/components/sections/shared/BottomCta";
 
 export const metadata = {
-  title: "Impact — ArchiFlask",
-  description: "Real change, on real projects — across residential, commercial, interiors, and infrastructure.",
+  title: "Impact, ArchiFlask",
+  description: "Real change, on real projects, across residential, commercial, interiors, and infrastructure.",
 };
 
 export default function ImpactPage() {

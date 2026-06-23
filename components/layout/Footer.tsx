@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/book-demo";
+const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/get-started";
 
 const linkStyle: React.CSSProperties = { cursor: "pointer", color: "rgba(255,255,255,.75)" };
 const colTitle: React.CSSProperties = {

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/Button";
 import { GRAD_PANEL } from "@/lib/tokens";
 import type { PricingTier } from "@/lib/content";
 
-const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/book-demo";
+const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/get-started";
 
 export function PricingCard({ tier }: { tier: PricingTier }) {
   const dark = tier.variant === "dark";

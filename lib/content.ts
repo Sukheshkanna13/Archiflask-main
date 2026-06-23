@@ -44,7 +44,7 @@ export type Problem = { icon: "doc" | "rupee" | "ops"; title: string; body: stri
 export const PROBLEMS: Problem[] = [
   { icon: "doc", title: "Documentation", body: "Drawings get lost across revisions. Nobody can say what changed between R0 and R1, or why." },
   { icon: "rupee", title: "Profitability", body: "Effort and money leak on rework nobody tracked. The real cost of a project stays invisible." },
-  { icon: "ops", title: "Operations", body: "The owner becomes the single point everything routes through — and growth stalls there." },
+  { icon: "ops", title: "Operations", body: "The owner becomes the single point everything routes through, and growth stalls there." },
 ];
 
 // ---------- Home: 5 Questions deck ----------
@@ -70,7 +70,7 @@ export const FEATURES_SPLIT: FeatureSplit[] = [
   {
     eyebrow: "01 · Documentation",
     title: "Drawings & change-request documentation",
-    body: "Every drawing, every revision, every reason it changed — in one trail. See exactly what moved between R0 and R1, compared automatically. No manual checking.",
+    body: "Every drawing, every revision, every reason it changed, in one trail. See exactly what moved between R0 and R1, compared automatically. No manual checking.",
     slotId: "af-feat-drawings",
     placeholder: "Drop: drawing revision compare (R0 → R1) screen",
     reverse: false,
@@ -78,7 +78,7 @@ export const FEATURES_SPLIT: FeatureSplit[] = [
   {
     eyebrow: "02 · Profitability",
     title: "Task management & effort tracking",
-    body: "Track effort to the hour, across every project, per person. Know which projects are eating more time than you quoted — before they eat the margin.",
+    body: "Track effort to the hour, across every project, per person. Know which projects are eating more time than you quoted, before they eat the margin.",
     slotId: "af-feat-effort",
     placeholder: "Drop: task & effort-tracking screen",
     reverse: true,
@@ -87,7 +87,7 @@ export const FEATURES_SPLIT: FeatureSplit[] = [
 
 export type FeatureCard = { num: string; title: string; body: string };
 export const FEATURES_CARDS: FeatureCard[] = [
-  { num: "03", title: "Geo-tagged attendance", body: "On-site presence logged with location — not honour system." },
+  { num: "03", title: "Geo-tagged attendance", body: "On-site presence logged with location, not honour system." },
   { num: "04", title: "Leads & enquiry tracking", body: "Capture and follow enquiries so new business never falls through." },
   { num: "05", title: "Geo-tagged site visits", body: "Site updates with photos and video, pinned to location and time." },
 ];
@@ -110,11 +110,11 @@ export type ImpactCard = { kicker: string; body: string };
 export const IMPACT_CARDS: ImpactCard[] = [
   {
     kicker: "DRAWING CHAOS AT SCALE",
-    body: "A firm running 30+ live projects was losing time hunting for the right drawing and the reason behind each change. Now they pull up any drawing, its full revision history, and what drove every change — in a couple of clicks.",
+    body: "A firm running 30+ live projects was losing time hunting for the right drawing and the reason behind each change. Now they pull up any drawing, its full revision history, and what drove every change, in a couple of clicks.",
   },
   {
     kicker: "EFFORT NO ONE COULD SEE",
-    body: "A firm couldn't see where the team's hours were going across multiple projects. With task management and effort tracking, they now see every person's effort down to the hour, per project — which lets them spot projects running over their planned effort and reallocate people who are free.",
+    body: "A firm couldn't see where the team's hours were going across multiple projects. With task management and effort tracking, they now see every person's effort down to the hour, per project, which lets them spot projects running over their planned effort and reallocate people who are free.",
   },
 ];
 
@@ -172,7 +172,7 @@ export const PRICING: PricingTier[] = [
       { text: "Site Visits & Photos" },
       { text: "Concept Plan & Layout Render" },
     ],
-    addon: "Add Storage — 10GB @ ₹275/mo",
+    addon: "Add Storage, 10GB @ ₹275/mo",
     cta: "Get Started",
     ctaHref: "SIGNUP",
     variant: "outline",
@@ -193,7 +193,7 @@ export const PRICING: PricingTier[] = [
       { text: "Work Orders" },
       { text: "Bill Of Quantity" },
     ],
-    addon: "Add Storage — 10GB @ ₹275/mo",
+    addon: "Add Storage, 10GB @ ₹275/mo",
     cta: "Get Started",
     ctaHref: "SIGNUP",
     variant: "dark",
@@ -224,8 +224,8 @@ export const PRICING_NOTE =
 export type ProductPillar = { icon: "circle" | "doc" | "rupee"; title: string; body: string };
 export const ABOUT_PRODUCT: ProductPillar[] = [
   { icon: "circle", title: "Clarity", body: "Every drawing, revision and decision in one trail. The whole firm sees the same picture." },
-  { icon: "doc", title: "Collaboration", body: "Teams, clients and the site stay in sync — on web and mobile, with their own access." },
-  { icon: "rupee", title: "Control", body: "Effort, deadlines and profitability tracked to the hour and the rupee — per project, per person." },
+  { icon: "doc", title: "Collaboration", body: "Teams, clients and the site stay in sync, on web and mobile, with their own access." },
+  { icon: "rupee", title: "Control", body: "Effort, deadlines and profitability tracked to the hour and the rupee, per project, per person." },
 ];
 
 export type Founder = { slotId: string; name: string; role: string; bio: string };
@@ -234,7 +234,7 @@ export const FOUNDERS: Founder[] = [
     slotId: "af-founder-1",
     name: "Sivaraman Arunachalam",
     role: "Co-Founder & CEO",
-    bio: "15+ years as an architect and interior designer, with a deep, lived understanding of the problems firms face. ArchiFlask — Wallzehn's first product — grew directly out of that experience, and its early success led him to build a technology company solving workflow problems across industries.",
+    bio: "15+ years as an architect and interior designer, with a deep, lived understanding of the problems firms face. ArchiFlask, Wallzehn's first product, grew directly out of that experience, and its early success led him to build a technology company solving workflow problems across industries.",
   },
   {
     slotId: "af-founder-2",
@@ -258,18 +258,18 @@ export type Story = { kicker: string; body: string };
 export const IMPACT_STORIES: Story[] = [
   {
     kicker: "DRAWING CHAOS AT SCALE",
-    body: "A firm running 30+ live projects was losing time hunting for drawings, the right revision, and the reason behind each change. After ArchiFlask, they pull up any drawing, its full revision history, and what drove each change — in a couple of clicks.",
+    body: "A firm running 30+ live projects was losing time hunting for drawings, the right revision, and the reason behind each change. After ArchiFlask, they pull up any drawing, its full revision history, and what drove each change, in a couple of clicks.",
   },
   {
     kicker: "EFFORT NO ONE COULD SEE",
-    body: "A firm couldn't see where the team's hours were going across multiple projects. With task management and effort tracking, they now see every person's effort down to the hour, per project — which lets them spot projects running over their planned effort and reallocate people who are free.",
+    body: "A firm couldn't see where the team's hours were going across multiple projects. With task management and effort tracking, they now see every person's effort down to the hour, per project, which lets them spot projects running over their planned effort and reallocate people who are free.",
   },
 ];
 
 export type Review = { quote: string; who: string; dark?: boolean };
 export const REVIEWS: Review[] = [
-  { quote: "We stopped losing drawings the week we switched. Any revision, the reason it changed — two clicks.", who: "Principal Architect · Residential studio" },
-  { quote: "For the first time I can see which projects are actually making money — before they go sideways.", who: "Founder · Interior design firm" },
+  { quote: "We stopped losing drawings the week we switched. Any revision, the reason it changed, two clicks.", who: "Principal Architect · Residential studio" },
+  { quote: "For the first time I can see which projects are actually making money, before they go sideways.", who: "Founder · Interior design firm" },
   { quote: "My clients stopped calling for updates. They just open the app and follow the project.", who: "Partner · Architecture practice", dark: true },
   { quote: "Site attendance used to be an honour system. Now it's geo-tagged and I actually trust it.", who: "Director · Construction & PMC" },
   { quote: "Onboarding my team of nine took an afternoon. By the next morning we were running on it.", who: "Principal · Multidisciplinary firm" },
@@ -290,7 +290,7 @@ export const BLOG_FEATURED: BlogFeatured = {
   slotId: "af-blog-feat",
   category: "Featured · Growth",
   title: "How to scale an architecture firm without losing control of your projects.",
-  body: "You can't grow a practice you're running out of your head, your inbox, and a dozen WhatsApp groups. Here's how firm owners move from memory to a system — and what changes when they do.",
+  body: "You can't grow a practice you're running out of your head, your inbox, and a dozen WhatsApp groups. Here's how firm owners move from memory to a system, and what changes when they do.",
   meta: ["8 min read", "June 2026"],
 };
 
@@ -302,10 +302,10 @@ export type BlogPost = {
   read: string;
 };
 export const BLOG_POSTS: BlogPost[] = [
-  { slotId: "af-blog-1", category: "Documentation", title: "Drawing revision management: end the hunt for the right R-number.", body: "Why drawings get lost at scale — and how an automatic R0-vs-R1 trail keeps every change accountable.", read: "6 min read" },
+  { slotId: "af-blog-1", category: "Documentation", title: "Drawing revision management: end the hunt for the right R-number.", body: "Why drawings get lost at scale, and how an automatic R0-vs-R1 trail keeps every change accountable.", read: "6 min read" },
   { slotId: "af-blog-2", category: "Profitability", title: "Where project margin actually leaks in a design firm.", body: "Rework nobody tracked, effort nobody quoted. Tracking time to the hour shows where the money really goes.", read: "5 min read" },
   { slotId: "af-blog-3", category: "Operations", title: "From WhatsApp groups to an operating system: a firm owner's playbook.", body: "A practical path off scattered chats and spreadsheets toward one source of truth the whole firm trusts.", read: "7 min read" },
-  { slotId: "af-blog-4", category: "Field", title: "Geo-tagged site attendance: replacing the honour system on site.", body: "Logging presence with location — and what reliable field data does for billing and accountability.", read: "4 min read" },
+  { slotId: "af-blog-4", category: "Field", title: "Geo-tagged site attendance: replacing the honour system on site.", body: "Logging presence with location, and what reliable field data does for billing and accountability.", read: "4 min read" },
   { slotId: "af-blog-5", category: "Clients", title: "Why a client portal wins more repeat business than any pitch.", body: "Giving clients their own window into the project turns transparency from a chore into something you sell.", read: "5 min read" },
   { slotId: "af-blog-6", category: "Growth", title: "The SOP mindset: building a practice that runs without you.", body: "Why the firms that scale cleanly are the ones that turned how they work into a documented standard.", read: "6 min read" },
 ];
@@ -313,7 +313,7 @@ export const BLOG_POSTS: BlogPost[] = [
 // ---------- Book a Demo ----------
 export type DemoExpect = { n: string; title: string; body: string };
 export const DEMO_EXPECT: DemoExpect[] = [
-  { n: "1", title: "A live walkthrough", body: "On your kind of projects — residential, commercial, interiors or infra." },
+  { n: "1", title: "A live walkthrough", body: "On your kind of projects, residential, commercial, interiors or infra." },
   { n: "2", title: "Your questions answered", body: "Onboarding, your team size, how the client app works." },
   { n: "3", title: "Start free, same day", body: "No end date · 1 project · 2 users (1 admin + 1 team)." },
 ];

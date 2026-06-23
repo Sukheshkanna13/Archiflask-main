@@ -12,13 +12,13 @@ export function Origin() {
             A friendship that goes back to childhood.
           </h2>
           <p style={{ margin: "0 0 18px", fontSize: 18, lineHeight: 1.6, color: "#3a3a3c" }}>
-            One of us built software; the other designed and delivered residential villas. After collaborating on several projects — including our own homes and family developments — we ran straight into the same wall over and over: managing communication, approvals, site updates, documents, and coordination.
+            One of us built software; the other designed and delivered residential villas. After collaborating on several projects, including our own homes and family developments, we ran straight into the same wall over and over: managing communication, approvals, site updates, documents, and coordination.
           </p>
           <p style={{ margin: "0 0 18px", fontSize: 18, lineHeight: 1.6, color: "#3a3a3c" }}>
             The turning point was realising these frustrations weren&apos;t ours alone. They were everywhere in architecture and construction. So we set out to solve them with technology.
           </p>
           <p style={{ margin: 0, fontSize: 18, lineHeight: 1.6, color: "#1d1d1f", fontWeight: 500 }}>
-            That conviction became ArchiFlask — a platform built to bring clarity, collaboration, and control to every project.
+            That conviction became ArchiFlask, a platform built to bring clarity, collaboration, and control to every project.
           </p>
         </Reveal>
         <Reveal y={28} duration={1} delay={0.1} style={{ borderRadius: 24, overflow: "hidden", border: "1px solid rgba(0,0,0,.07)", boxShadow: "0 24px 60px rgba(0,0,0,.08)", background: "#fff" }}>

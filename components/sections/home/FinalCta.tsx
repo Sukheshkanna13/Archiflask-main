@@ -11,7 +11,7 @@ export function FinalCta() {
           </h2>
         </Reveal>
         <Reveal delay={0.1} y={24} style={{ margin: "22px auto 0", maxWidth: 520, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
-          Book a 20-minute demo — our team walks you through it, then you can get started free.
+          Book a 20-minute demo, our team walks you through it, then you can get started free.
         </Reveal>
         <Reveal delay={0.18} y={24} style={{ marginTop: 34, display: "flex", gap: 14, justifyContent: "center" }}>
           <div style={{ position: "relative", display: "inline-flex" }}>

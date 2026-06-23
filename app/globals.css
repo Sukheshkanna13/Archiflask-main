@@ -12,8 +12,9 @@
   --color-surface: #f5f5f7;
   --radius-pill: 980px;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-nunito), -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
 }
 
 :root {
@@ -106,9 +107,24 @@ button {
   #af-nav {
     padding: 12px 16px !important;
   }
-  .af-navlink,
-  .af-nav-demo {
+  /* whole desktop link cluster hidden; burger takes over */
+  .af-nav-links {
     display: none !important;
+  }
+  .af-burger {
+    display: inline-flex !important;
+  }
+
+  /* CTA rows wrap and buttons stay their natural width (no full-width stretch) */
+  .af-hero-cta,
+  .af-cta-row {
+    flex-wrap: wrap !important;
+    align-items: stretch !important;
+  }
+  .af-hero-cta a,
+  .af-cta-row a {
+    flex: 1 1 auto;
+    text-align: center;
   }
 
   #af-hero {
@@ -118,10 +134,15 @@ button {
     width: 100% !important;
     left: 0 !important;
     right: auto !important;
-    opacity: 0.26 !important;
+    opacity: 0.12 !important;
   }
   .af-hero-caption {
     display: none !important;
+  }
+  /* keep hero headline clear of screen edges */
+  #af-hero-pin > div:last-of-type {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 
   main > section:not(#af-hero) {
