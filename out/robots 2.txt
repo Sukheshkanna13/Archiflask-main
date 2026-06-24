@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://www.archiflask.com
+Sitemap: https://www.archiflask.com/sitemap.xml
