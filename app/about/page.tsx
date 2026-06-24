@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { AboutHero } from "@/components/sections/about/AboutHero";
 import { Origin } from "@/components/sections/about/Origin";
 import { Product } from "@/components/sections/about/Product";
@@ -5,9 +6,11 @@ import { Founders } from "@/components/sections/about/Founders";
 import { Vision } from "@/components/sections/about/Vision";
 import { BottomCta } from "@/components/sections/shared/BottomCta";
 
-export const metadata = {
-  title: "About, ArchiFlask",
-  description: "Built by people who have actually run the projects. The story behind ArchiFlask and Wallzehn Technologies.",
+export const metadata: Metadata = {
+  title: "About ArchiFlask — Built by Architects & Engineers",
+  description: "Two founders — an architect and a solution architect — built ArchiFlask after 15+ years running real projects. The operating standard for design & build firms.",
+  alternates: { canonical: "/about" },
+  openGraph: { url: "https://www.archiflask.com/about" },
 };
 
 export default function AboutPage() {

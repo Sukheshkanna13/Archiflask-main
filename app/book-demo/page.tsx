@@ -207,9 +207,9 @@ export default function BookDemoPage() {
             <div style={{ width: 62, height: 62, margin: "0 auto", borderRadius: "50%", background: GRAD_DARK, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: INSET_HI }}>
               <span style={{ display: "block", width: 20, height: 11, borderLeft: "3px solid #fff", borderBottom: "3px solid #fff", transform: "rotate(-45deg) translateY(-2px)" }} />
             </div>
-            <h1 style={{ margin: "24px 0 0", fontSize: 38, fontWeight: 600, letterSpacing: "-0.025em" }}>
+            <h2 style={{ margin: "24px 0 0", fontSize: 38, fontWeight: 600, letterSpacing: "-0.025em" }}>
               You&apos;re booked{who ? `, ${who}` : ""}.
-            </h1>
+            </h2>
             <p style={{ margin: "16px auto 0", maxWidth: 420, fontSize: 18, lineHeight: 1.55, color: "#6e6e73" }}>
               Our team will reach out within a day by call or WhatsApp to confirm your slot and set up your free workspace.
             </p>

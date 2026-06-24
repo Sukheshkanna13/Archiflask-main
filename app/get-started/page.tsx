@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Get Started · ArchiFlask",
-  description: "Create your ArchiFlask account and start running your firm on a system.",
+  title: "Get Started Free — ArchiFlask for Design Firms",
+  description: "Start running your firm on a system. Book a demo and we set up a free project the same day — drawings, tasks and effort in one place. Free plan, no end date.",
+  alternates: { canonical: "/get-started" },
+  openGraph: { url: "https://www.archiflask.com/get-started" },
 };
 
 const STEPS = [
