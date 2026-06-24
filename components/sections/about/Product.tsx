@@ -20,7 +20,7 @@ export function Product() {
           <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "#86868b" }}>The product</div>
           <h2 style={{ margin: "14px 0 0", fontSize: 46, lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.028em" }}>One platform for the whole firm.</h2>
           <p style={{ margin: "18px auto 0", fontSize: 19, lineHeight: 1.55, color: "#6e6e73" }}>
-            ArchiFlask brings projects, clients, teams, drawings, site activity, approvals and profitability into one place, so a growing firm runs on a system instead of memory. It&apos;s the Standard Operating Procedure for design and construction practices.
+            ArchiFlask is the architecture firm management software that brings projects, clients, teams, drawings, site activity, approvals and profitability into one place — so a growing firm runs on a system instead of memory. It&apos;s the Standard Operating Procedure for design and construction practices.
           </p>
         </Reveal>
         <div style={{ marginTop: 56, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }} className="af-grid-3">

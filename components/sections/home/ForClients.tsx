@@ -18,13 +18,13 @@ export function ForClients() {
             You stop reporting.
           </h2>
           <p style={{ margin: 0, fontSize: 18, lineHeight: 1.6, color: "rgba(255,255,255,.7)" }}>
-            ArchiFlask gives your client their own window into the project, progress, updates, and deliverables, on web and mobile. No more endless mail chains or &quot;any update?&quot; messages. Transparency becomes a feature you sell, not a chore you manage.
+            ArchiFlask gives every client their own window into the project — progress, updates, and deliverables, on web and mobile. It&apos;s the architect client management app that ends the endless mail chains and &quot;any update?&quot; messages. Transparency becomes a feature you sell, not a chore you manage.
           </p>
         </Reveal>
         <Reveal y={30} delay={0.12} style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ width: 240, borderRadius: 34, background: "#0a0a0a", border: "1px solid rgba(255,255,255,.12)", padding: 10, boxShadow: "0 40px 90px rgba(0,0,0,.5)" }}>
             <div style={{ borderRadius: 26, overflow: "hidden", background: "#f5f5f7" }}>
-              <ImageSlot src={CLIENT_APP_IMAGE} alt="Client mobile app screen" style={{ height: 420 }} />
+              <ImageSlot src={CLIENT_APP_IMAGE} alt="ArchiFlask client app showing project progress on mobile" style={{ height: 420 }} />
             </div>
           </div>
         </Reveal>

@@ -17,7 +17,7 @@ export function Founders() {
           {FOUNDERS.map((f, i) => (
             <Reveal key={f.slotId} y={30} delay={i * 0.1} style={{ padding: 34, borderRadius: 24, background: "#f5f5f7", border: "1px solid rgba(0,0,0,.05)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-                <ImageSlot src={FOUNDER_IMAGES[f.slotId]} alt={f.name} rounded="circle" style={{ width: 84, height: 84, flex: "none" }} />
+                <ImageSlot src={FOUNDER_IMAGES[f.slotId]} alt={f.alt} rounded="circle" style={{ width: 84, height: 84, flex: "none" }} />
                 <div>
                   <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{f.name}</div>
                   <div style={{ marginTop: 3, fontSize: 14.5, fontWeight: 600, color: "#86868b" }}>{f.role}</div>

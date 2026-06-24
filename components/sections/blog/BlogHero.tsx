@@ -14,7 +14,7 @@ export function BlogHero() {
           </h1>
         </Reveal>
         <Reveal delay={0.14} y={24} style={{ margin: "26px auto 0", maxWidth: 640, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
-          Practical writing for firm owners on running, scaling, and systematising a design or construction practice.
+          Practical writing for firm owners on how to manage architecture projects efficiently — and how to scale a practice without losing control of any of it.
         </Reveal>
       </div>
     </section>

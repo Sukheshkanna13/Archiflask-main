@@ -37,7 +37,7 @@ export default function GetStartedPage() {
             </span>
           </h1>
           <p style={{ margin: "26px auto 0", maxWidth: 540, fontSize: 19, lineHeight: 1.55, color: "#6e6e73" }}>
-            Sign-up is opening soon. In the meantime, book a demo and we&apos;ll set your firm up with a free project the same day.
+            ArchiFlask is the free architecture project management tool that gets your first project live the same day. Sign-up is opening soon — in the meantime, book a demo and we&apos;ll set your firm up with a free project right away.
           </p>
           <div style={{ marginTop: 36, display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }} className="af-cta-row">
             <Button href="/book-demo" variant="dark">Book a Demo</Button>

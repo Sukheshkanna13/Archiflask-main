@@ -70,9 +70,9 @@ export const FEATURES_SPLIT: FeatureSplit[] = [
   {
     eyebrow: "01 · Documentation",
     title: "Drawings & change-request documentation",
-    body: "Every drawing, every revision, every reason it changed, in one trail. See exactly what moved between R0 and R1, compared automatically. No manual checking.",
+    body: "Every drawing, every revision, every reason it changed, in one trail. ArchiFlask compares R0 and R1 automatically and highlights exactly what moved — no manual checking, no drawing-version confusion.",
     slotId: "af-feat-drawings",
-    placeholder: "Drop: drawing revision compare (R0 → R1) screen",
+    placeholder: "ArchiFlask drawing revision comparison highlighting changes between R0 and R1",
     reverse: false,
   },
   {
@@ -87,8 +87,8 @@ export const FEATURES_SPLIT: FeatureSplit[] = [
 
 export type FeatureCard = { num: string; title: string; body: string };
 export const FEATURES_CARDS: FeatureCard[] = [
-  { num: "03", title: "Geo-tagged attendance", body: "On-site presence logged with location, not honour system." },
-  { num: "04", title: "Leads & enquiry tracking", body: "Capture and follow enquiries so new business never falls through." },
+  { num: "03", title: "Geo-tagged attendance", body: "On-site presence logged with location, not the honour system." },
+  { num: "04", title: "Leads & enquiry tracking", body: "Capture and follow every enquiry, so new business never falls through the cracks." },
   { num: "05", title: "Geo-tagged site visits", body: "Site updates with photos and video, pinned to location and time." },
 ];
 
@@ -99,10 +99,10 @@ export const CAPABILITIES: Capability[] = [
   { title: "Change-request tickets", body: "Nothing gets actioned without a record." },
   { title: "Concept planning & sketching", body: "Built in, from the first idea." },
   { title: "Screen-sharing", body: "Between team members, in context." },
-  { title: "Calendar", body: "Meetings and reminders, the way you work." },
+  { title: "Calendar", body: "Meetings and reminders, the way you already work." },
   { title: "Team leaderboard", body: "Surface and reward real output." },
   { title: "Geo-tagged site media", body: "Photos & video, pinned to place and time." },
-  { title: "A client app of their own", body: "Web & mobile access for your clients.", dark: true },
+  { title: "A client app of their own", body: "Web and mobile access for your clients, not just an internal tool.", dark: true },
 ];
 
 // ---------- Home: Impact cards ----------
@@ -228,26 +228,28 @@ export const ABOUT_PRODUCT: ProductPillar[] = [
   { icon: "rupee", title: "Control", body: "Effort, deadlines and profitability tracked to the hour and the rupee, per project, per person." },
 ];
 
-export type Founder = { slotId: string; name: string; role: string; bio: string };
+export type Founder = { slotId: string; name: string; role: string; bio: string; alt: string };
 export const FOUNDERS: Founder[] = [
   {
     slotId: "af-founder-1",
     name: "Sivaraman Arunachalam",
     role: "Co-Founder & CEO",
     bio: "15+ years as an architect and interior designer, with a deep, lived understanding of the problems firms face. ArchiFlask, Wallzehn's first product, grew directly out of that experience, and its early success led him to build a technology company solving workflow problems across industries.",
+    alt: "Sivaraman Arunachalam, ArchiFlask co-founder and architect",
   },
   {
     slotId: "af-founder-2",
     name: "Hari Kumaravelu",
     role: "Co-Founder",
     bio: "A solution architect with 15+ years in IT, driven by a lifelong fascination with how things work. He builds products that solve complex problems and deliver real, simplifying value to the people who use them.",
+    alt: "Hari Kumaravelu, ArchiFlask co-founder and solution architect",
   },
 ];
 
 // ---------- Impact ----------
 export type Outcome = { num: string; text: string; dark?: boolean };
 export const IMPACT_OUTCOMES: Outcome[] = [
-  { num: "01", text: "Cut client approval delays." },
+  { num: "01", text: "Cut client approval delays — and the client communication problems that come with them." },
   { num: "02", text: "Surfaced the real cost of revisions and rework." },
   { num: "03", text: "Made profitability visible per project." },
   { num: "04", text: "Held deadlines without slippage." },

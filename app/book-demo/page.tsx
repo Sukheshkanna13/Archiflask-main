@@ -68,7 +68,7 @@ export default function BookDemoPage() {
                 Book a 20-minute demo.
               </h1>
               <p style={{ margin: "18px auto 0", maxWidth: 560, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
-                We walk you through ArchiFlask on your kind of projects, then you can start free, no end date.
+                We walk you through ArchiFlask on your kind of projects — design, construction or PMC — then you can start free, with no end date.
               </p>
             </div>
 

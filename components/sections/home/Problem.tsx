@@ -35,7 +35,7 @@ export function Problem() {
           </h2>
         </Reveal>
         <Reveal delay={0.1} y={24} style={{ margin: "24px auto 0", maxWidth: 640, textAlign: "center", fontSize: 19, lineHeight: 1.55, color: "#6e6e73" }}>
-          As a firm grows, the cracks show up in the same three places every time. ArchiFlask closes those gaps so you can take on more without breaking.
+          As a firm grows, the cracks always show up in the same three places — documentation, profitability, and operations. ArchiFlask closes all three, so you can take on more projects without losing control of any of them.
         </Reveal>
         <div style={{ marginTop: 60, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }} className="af-grid-3">
           {PROBLEMS.map((p, i) => (

@@ -96,7 +96,7 @@ export function Hero() {
               </span>
             </h1>
             <p style={{ animation: "afRise .8s cubic-bezier(.16,1,.3,1) .14s both", margin: "28px 0 0", maxWidth: 520, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
-              ArchiFlask is the operating platform for design, construction &amp; PMC firms, projects, drawings, teams, site activity, approvals and profitability, in one place.
+              ArchiFlask is the architecture project management software that brings projects, drawings, teams, site activity, approvals and profitability into one platform — so design, construction and PMC firms run on a system instead of memory.
             </p>
             <div className="af-hero-cta" style={{ animation: "afRise .8s cubic-bezier(.16,1,.3,1) .22s both", marginTop: 34, display: "flex", gap: 14, alignItems: "center" }}>
               <Button href="/book-demo" variant="dark">Book a Demo</Button>
