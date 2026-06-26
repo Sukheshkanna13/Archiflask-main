@@ -1,36 +1,34 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { CAPABILITIES } from "@/lib/content";
-import { GRAD_PANEL } from "@/lib/tokens";
 
 export function Capabilities() {
   return (
-    <section style={{ padding: "120px 24px", background: "#f5f5f7" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
+      <div className="mx-auto max-w-[1100px]">
         <Reveal y={30}>
-          <h2 style={{ margin: 0, textAlign: "center", fontSize: 48, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em" }}>
+          <h2 className="text-center text-[clamp(34px,5vw,48px)] font-semibold leading-[1.1] tracking-[-0.025em]">
             Built for how design and construction
             <br />
             firms actually work.
           </h2>
         </Reveal>
-        <div style={{ marginTop: 54, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }} className="af-grid-4">
+        <div className="mt-[54px] grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CAPABILITIES.map((c, i) => (
             <Reveal
               key={c.title}
               y={28}
               duration={0.8}
               delay={(i % 4) * 0.06}
-              style={{
-                padding: 24,
-                borderRadius: 18,
-                background: c.dark ? GRAD_PANEL : "#fff",
-                color: c.dark ? "#fff" : "#1d1d1f",
-                border: c.dark ? "none" : "1px solid rgba(0,0,0,.05)",
-                boxShadow: c.dark ? "inset 0 1px 0 rgba(255,255,255,.12)" : undefined,
-              }}
+              className={`rounded-[18px] p-6 ${
+                c.dark
+                  ? "bg-[image:var(--grad-panel)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.12)]"
+                  : "border border-black/[0.05] bg-white text-ink"
+              }`}
             >
-              <h4 style={{ margin: "0 0 7px", fontSize: 17, fontWeight: 600 }}>{c.title}</h4>
-              <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.5, color: c.dark ? "rgba(255,255,255,.66)" : "#86868b" }}>{c.body}</p>
+              <h4 className="mb-[7px] text-[17px] font-semibold">{c.title}</h4>
+              <p className={`text-[14.5px] leading-[1.5] ${c.dark ? "text-white/[0.66]" : "text-gray-2"}`}>
+                {c.body}
+              </p>
             </Reveal>
           ))}
         </div>

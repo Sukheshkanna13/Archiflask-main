@@ -1,6 +1,6 @@
 "use client";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { useCalm } from "@/lib/useReducedMotion";
 
@@ -69,9 +69,34 @@ export function MiniShape({
   style?: React.CSSProperties;
 }) {
   const calm = useCalm();
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [onscreen, setOnscreen] = useState(false);
+
+  // Pause the render loop while offscreen so N stat-card canvases don't run N
+  // requestAnimationFrame loops at once (the audit's WebGL/GPU concern).
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => setOnscreen(entry.isIntersecting),
+      { rootMargin: "120px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // "always" only while visible and motion is allowed; otherwise the canvas
+  // renders one static frame and idles.
+  const frameloop = onscreen && !calm ? "always" : "never";
+
   return (
-    <div className={className} style={{ pointerEvents: "none", ...style }}>
-      <Canvas camera={{ fov: 42, position: [0, 0, 4.4] }} dpr={[1, 2]} gl={{ alpha: true, antialias: true }}>
+    <div ref={wrapRef} className={className} style={{ pointerEvents: "none", ...style }}>
+      <Canvas
+        frameloop={frameloop}
+        camera={{ fov: 42, position: [0, 0, 4.4] }}
+        dpr={[1, 2]}
+        gl={{ alpha: true, antialias: true }}
+      >
         <Solid shape={shape} light={light} calm={calm} index={index} />
       </Canvas>
     </div>

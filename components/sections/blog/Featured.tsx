@@ -7,22 +7,21 @@ import { BLOG_IMAGES } from "@/lib/images";
 export function Featured() {
   const f = BLOG_FEATURED;
   return (
-    <section style={{ padding: "60px 24px 40px", background: "#fff" }}>
-      <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+    <section className="bg-white px-5 pb-10 pt-[60px] md:px-6">
+      <div className="mx-auto max-w-[1140px]">
         <Reveal y={30}>
           <Link
             href="/blog"
-            className="af-grid-2"
-            style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", borderRadius: 26, overflow: "hidden", border: "1px solid rgba(0,0,0,.08)", boxShadow: "0 24px 60px rgba(0,0,0,.07)", background: "#fff" }}
+            className="grid grid-cols-1 overflow-hidden rounded-[26px] border border-black/[0.08] bg-white shadow-[0_24px_60px_rgba(0,0,0,.07)] md:grid-cols-[1.05fr_0.95fr]"
           >
-            <ImageSlot src={BLOG_IMAGES[f.slotId]} alt="Featured article cover" style={{ height: 420 }} />
-            <div style={{ padding: "48px 44px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-              <div style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", color: "#86868b" }}>{f.category}</div>
-              <h2 style={{ margin: "16px 0 0", fontSize: 38, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em" }}>{f.title}</h2>
-              <p style={{ margin: "18px 0 0", fontSize: 17, lineHeight: 1.6, color: "#6e6e73" }}>{f.body}</p>
-              <div style={{ marginTop: 24, display: "flex", alignItems: "center", gap: 14, fontSize: 14, color: "#aeaeb2" }}>
+            <ImageSlot src={BLOG_IMAGES[f.slotId]} alt="Featured article cover" className="h-[280px] md:h-[420px]" />
+            <div className="flex flex-col justify-center px-11 py-12">
+              <div className="text-[12.5px] font-bold uppercase tracking-[0.1em] text-gray-2">{f.category}</div>
+              <h2 className="mt-4 text-[clamp(28px,4vw,38px)] font-semibold leading-[1.1] tracking-[-0.025em]">{f.title}</h2>
+              <p className="mt-[18px] text-[17px] leading-[1.6] text-gray">{f.body}</p>
+              <div className="mt-6 flex items-center gap-3.5 text-[14px] text-gray-3">
                 <span>{f.meta[0]}</span>
-                <span style={{ width: 4, height: 4, borderRadius: "50%", background: "#c2c2c9" }} />
+                <span className="h-1 w-1 rounded-full bg-gray-4" />
                 <span>{f.meta[1]}</span>
               </div>
             </div>

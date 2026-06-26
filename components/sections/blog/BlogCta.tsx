@@ -5,20 +5,20 @@ const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/get-started";
 
 export function BlogCta() {
   return (
-    <section style={{ padding: "30px 24px 200px", background: "#fff", textAlign: "center" }}>
-      <Reveal y={30} style={{ maxWidth: 820, margin: "0 auto" }}>
-        <div style={{ padding: "56px 40px", borderRadius: 28, background: "linear-gradient(160deg,#2c2c2e,#1c1c1e)", color: "#fff", boxShadow: "0 30px 70px rgba(0,0,0,.2)" }}>
-          <h2 style={{ margin: 0, fontSize: 40, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em" }}>
+    <section className="bg-white px-5 pb-[120px] pt-[30px] text-center md:px-6 md:pb-[200px]">
+      <Reveal y={30} className="mx-auto max-w-[820px]">
+        <div className="rounded-[28px] bg-[linear-gradient(160deg,#2c2c2e,#1c1c1e)] px-10 py-14 text-white shadow-[0_30px_70px_rgba(0,0,0,.2)]">
+          <h2 className="text-[clamp(30px,4vw,40px)] font-semibold leading-[1.1] tracking-[-0.025em]">
             Less reading about systems. More running on one.
           </h2>
-          <p style={{ margin: "18px auto 0", maxWidth: 520, fontSize: 18, lineHeight: 1.55, color: "rgba(255,255,255,.7)" }}>
+          <p className="mx-auto mt-[18px] max-w-[520px] text-[18px] leading-[1.55] text-white/70">
             Book a 20-minute demo and see ArchiFlask on your own projects.
           </p>
-          <div style={{ marginTop: 30, display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-            <Button id="af-demo-end" href="/book-demo" variant="white" style={{ fontSize: 16, fontWeight: 600, padding: "14px 32px" }}>
+          <div className="mt-[30px] flex flex-wrap justify-center gap-3.5">
+            <Button id="af-demo-end" href="/book-demo" variant="white" className="px-8 py-3.5 text-[16px] font-semibold">
               Book a Demo
             </Button>
-            <Button href={SIGNUP_URL} variant="darkOnDark" style={{ fontSize: 16, padding: "14px 30px" }}>
+            <Button href={SIGNUP_URL} variant="darkOnDark" className="px-[30px] py-3.5 text-[16px]">
               Get Started
             </Button>
           </div>

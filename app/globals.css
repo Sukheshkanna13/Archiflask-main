@@ -4,7 +4,7 @@
   --color-ink: #1d1d1f;
   --color-ink-2: #3a3a3c;
   --color-gray: #6e6e73;
-  --color-gray-2: #86868b;
+  --color-gray-2: #767679; /* WCAG AA on #fff (≈4.5:1); was #86868b (~3.6:1) */
   --color-gray-3: #aeaeb2;
   --color-gray-4: #c2c2c9;
   --color-line: #9a9aa0;
@@ -55,6 +55,22 @@ button {
   font-family: inherit;
 }
 
+/* Reusable helpers for genuinely complex decorative styling that would be
+   unreadable as long arbitrary Tailwind strings. */
+.af-gradient-text {
+  background-image: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.af-blueprint-grid {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(72% 70% at 72% 42%, #000, transparent);
+  mask-image: radial-gradient(72% 70% at 72% 42%, #000, transparent);
+}
+
 @keyframes afRise {
   0% {
     transform: translateY(26px);
@@ -102,76 +118,12 @@ button {
   }
 }
 
-/* ---------- mobile (same theme, optimized) ---------- */
+/* ---------- mobile ----------
+   Layout responsiveness now lives in each component via Tailwind breakpoints
+   and fluid clamp() type. The only override left is the CardDeck, whose cards
+   are absolutely positioned by motion (inline transforms), so collapsing them
+   to a stacked column on mobile genuinely needs !important to win. */
 @media (max-width: 760px) {
-  #af-nav {
-    padding: 12px 16px !important;
-  }
-  /* whole desktop link cluster hidden; burger takes over */
-  .af-nav-links {
-    display: none !important;
-  }
-  .af-burger {
-    display: inline-flex !important;
-  }
-
-  /* CTA rows wrap and buttons stay their natural width (no full-width stretch) */
-  .af-hero-cta,
-  .af-cta-row {
-    flex-wrap: wrap !important;
-    align-items: stretch !important;
-  }
-  .af-hero-cta a,
-  .af-cta-row a {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-
-  #af-hero {
-    height: 150vh !important;
-  }
-  #af-skel {
-    width: 100% !important;
-    left: 0 !important;
-    right: auto !important;
-    opacity: 0.12 !important;
-  }
-  .af-hero-caption {
-    display: none !important;
-  }
-  /* keep hero headline clear of screen edges */
-  #af-hero-pin > div:last-of-type {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
-
-  main > section:not(#af-hero) {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    padding-top: 72px !important;
-    padding-bottom: 72px !important;
-  }
-
-  h1 {
-    font-size: 42px !important;
-    line-height: 1.05 !important;
-  }
-  h2 {
-    font-size: 32px !important;
-    line-height: 1.15 !important;
-  }
-  h3 {
-    font-size: 21px !important;
-  }
-
-  .af-grid-2,
-  .af-grid-3,
-  .af-grid-4,
-  .af-grid-5 {
-    grid-template-columns: 1fr !important;
-  }
-
-  /* card deck collapses to a static stack */
   .af-deck {
     height: auto !important;
   }

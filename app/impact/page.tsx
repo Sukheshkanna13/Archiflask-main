@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function ImpactPage() {
   return (
-    <main style={{ position: "relative", zIndex: 2 }}>
+    <main className="relative z-[2]">
       <ImpactHero />
       <Outcomes />
       <Stories />

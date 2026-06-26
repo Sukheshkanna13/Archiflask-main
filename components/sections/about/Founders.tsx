@@ -5,29 +5,34 @@ import { FOUNDER_IMAGES } from "@/lib/images";
 
 export function Founders() {
   return (
-    <section style={{ padding: "114px 24px", background: "#fff" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <Reveal y={28} style={{ textAlign: "center" }}>
-          <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "#86868b" }}>The founders</div>
-          <h2 style={{ margin: "14px 0 0", fontSize: 46, lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.028em" }}>
+    <section className="bg-white px-5 py-[72px] md:px-6 md:py-[114px]">
+      <div className="mx-auto max-w-[1100px]">
+        <Reveal y={28} className="text-center">
+          <div className="text-[13px] font-bold uppercase tracking-[0.14em] text-gray-2">The founders</div>
+          <h2 className="mt-3.5 text-[clamp(32px,4.6vw,46px)] font-semibold leading-[1.08] tracking-[-0.028em]">
             Fifteen years of real projects, behind one platform.
           </h2>
         </Reveal>
-        <div style={{ marginTop: 54, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 22 }} className="af-grid-2">
+        <div className="mt-[54px] grid grid-cols-1 gap-[22px] md:grid-cols-2">
           {FOUNDERS.map((f, i) => (
-            <Reveal key={f.slotId} y={30} delay={i * 0.1} style={{ padding: 34, borderRadius: 24, background: "#f5f5f7", border: "1px solid rgba(0,0,0,.05)" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-                <ImageSlot src={FOUNDER_IMAGES[f.slotId]} alt={f.alt} rounded="circle" style={{ width: 84, height: 84, flex: "none" }} />
+            <Reveal
+              key={f.slotId}
+              y={30}
+              delay={i * 0.1}
+              className="rounded-[24px] border border-black/[0.05] bg-surface p-[34px]"
+            >
+              <div className="flex items-center gap-[18px]">
+                <ImageSlot src={FOUNDER_IMAGES[f.slotId]} alt={f.alt} rounded="circle" className="h-[84px] w-[84px] flex-none" />
                 <div>
-                  <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{f.name}</div>
-                  <div style={{ marginTop: 3, fontSize: 14.5, fontWeight: 600, color: "#86868b" }}>{f.role}</div>
+                  <div className="text-[22px] font-semibold tracking-[-0.01em]">{f.name}</div>
+                  <div className="mt-[3px] text-[14.5px] font-semibold text-gray-2">{f.role}</div>
                 </div>
               </div>
-              <p style={{ margin: "22px 0 0", fontSize: 16.5, lineHeight: 1.6, color: "#3a3a3c" }}>{f.bio}</p>
+              <p className="mt-[22px] text-[16.5px] leading-[1.6] text-ink-2">{f.bio}</p>
             </Reveal>
           ))}
         </div>
-        <Reveal y={20} delay={0.15} style={{ marginTop: 26, textAlign: "center", fontSize: 14.5, color: "#86868b" }}>
+        <Reveal y={20} delay={0.15} className="mt-[26px] text-center text-[14.5px] text-gray-2">
           A product of Wallzehn Technologies Pvt. Ltd.
         </Reveal>
       </div>

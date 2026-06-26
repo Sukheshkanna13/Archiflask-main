@@ -5,16 +5,16 @@ const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/get-started";
 
 export function BottomCta({ heading }: { heading: string }) {
   return (
-    <section style={{ padding: "120px 24px 200px", background: "#fff", textAlign: "center" }}>
-      <div style={{ maxWidth: 720, margin: "0 auto" }}>
+    <section className="bg-white px-5 py-[72px] text-center md:px-6 md:pb-[200px] md:pt-[120px]">
+      <div className="mx-auto max-w-[720px]">
         <Reveal y={30}>
-          <h2 style={{ margin: 0, fontSize: 56, lineHeight: 1.05, fontWeight: 600, letterSpacing: "-0.03em" }}>{heading}</h2>
+          <h2 className="text-[clamp(36px,5.6vw,56px)] font-semibold leading-[1.05] tracking-[-0.03em]">{heading}</h2>
         </Reveal>
-        <Reveal delay={0.12} y={24} style={{ marginTop: 32, display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-          <Button id="af-demo-end" href="/book-demo" variant="dark" style={{ fontSize: 17, padding: "15px 34px", boxShadow: "0 2px 12px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.22)" }}>
+        <Reveal delay={0.12} y={24} className="mt-8 flex flex-wrap justify-center gap-3.5">
+          <Button id="af-demo-end" href="/book-demo" variant="dark" className="px-[34px] py-[15px] text-[17px]">
             Book a Demo
           </Button>
-          <Button href={SIGNUP_URL} variant="light" style={{ fontSize: 17, padding: "15px 32px" }}>
+          <Button href={SIGNUP_URL} variant="light" className="px-8 py-[15px] text-[17px]">
             Get Started
           </Button>
         </Reveal>

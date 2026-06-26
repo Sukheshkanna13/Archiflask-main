@@ -1,16 +1,24 @@
 "use client";
-import { useState } from "react";
-import { DEMO_EXPECT, DEMO_DAYS, DEMO_LEADING_BLANKS, DEMO_SLOTS } from "@/lib/content";
-import { GRAD_DARK, INSET_HI } from "@/lib/tokens";
+import { useMemo, useState } from "react";
+import { DEMO_EXPECT, DEMO_SLOTS, buildDemoCalendar } from "@/lib/content";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
+const cardCls =
+  "rounded-[24px] border border-black/[0.07] bg-white p-[34px] shadow-[0_20px_50px_rgba(0,0,0,.06)]";
+const inputCls =
+  "w-full rounded-[12px] border border-black/[0.12] bg-[#fafafa] px-[15px] py-[13px] text-[15px] outline-none focus-visible:ring-2 focus-visible:ring-ink/50";
+const pillBase =
+  "rounded-[11px] border text-[13.5px] font-semibold transition focus-visible:ring-2 focus-visible:ring-ink/50";
+
 export default function BookDemoPage() {
+  const cal = useMemo(() => buildDemoCalendar(), []);
   const [submitted, setSubmitted] = useState(false);
   const [who, setWho] = useState("");
   const [day, setDay] = useState<string | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,94 +27,125 @@ export default function BookDemoPage() {
     const email = String(fd.get("email") || "").trim();
     if (!name || !email) return;
     setBusy(true);
+    setError(null);
     const payload = {
       name,
       email,
       firm: String(fd.get("firm") || ""),
       phone: String(fd.get("phone") || ""),
+      company_website: String(fd.get("company_website") || ""), // honeypot
       day: day || "",
       slot: slot || "",
     };
-    try {
-      await fetch("/api/book-demo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-    } catch {
-      // network failure: still show confirmation (booking captured client-side intent)
+
+    const res = await fetch("/api/book-demo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => null);
+
+    setBusy(false);
+
+    // Only confirm if the server actually accepted the booking — the old code
+    // showed "You're booked" even on a 404/500, silently losing leads.
+    if (!res || !res.ok) {
+      const msg = await res?.json().then((d) => d?.error).catch(() => null);
+      setError(
+        msg ||
+          "We couldn't reach our booking service. Please try again, or email hello@archiflask.com.",
+      );
+      return;
     }
+
     setWho(name.split(" ")[0]);
     setSubmitted(true);
-    setBusy(false);
     window.scrollTo(0, 0);
   };
 
-  const selectedPill = (active: boolean): React.CSSProperties =>
+  const dayPill = (active: boolean, disabled: boolean) =>
+    disabled
+      ? "border-black/[0.08] bg-transparent text-[#d2d2d7]"
+      : active
+        ? "border-transparent bg-[image:var(--grad-dark)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.2)]"
+        : "border-black/10 bg-transparent text-ink";
+
+  const slotPill = (active: boolean) =>
     active
-      ? { background: GRAD_DARK, color: "#fff", borderColor: "transparent", boxShadow: INSET_HI }
-      : { background: "transparent", color: "#1d1d1f", borderColor: "rgba(0,0,0,0.1)" };
+      ? "border-transparent bg-[image:var(--grad-dark)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.2)]"
+      : "border-black/10 bg-transparent text-ink";
 
   return (
-    <main
-      style={{
-        position: "relative",
-        zIndex: 2,
-        padding: "150px 24px 100px",
-        background: "radial-gradient(120% 70% at 50% 0%,#f5f5f7,#fff 60%)",
-        minHeight: "100vh",
-      }}
-    >
-      <div style={{ maxWidth: 1080, margin: "0 auto" }}>
+    <main className="relative z-[2] min-h-screen bg-[radial-gradient(120%_70%_at_50%_0%,#f5f5f7,#fff_60%)] px-6 pt-[150px] pb-[100px]">
+      <div className="mx-auto max-w-[1080px]">
         {!submitted ? (
           <>
-            <div style={{ textAlign: "center", marginBottom: 56 }}>
-              <div style={{ display: "inline-block", fontSize: 13, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#86868b" }}>
+            <div className="mb-14 text-center">
+              <div className="inline-block text-[13px] font-bold uppercase tracking-[0.12em] text-gray-2">
                 Book a Demo
               </div>
-              <h1 style={{ margin: "14px 0 0", fontSize: 62, lineHeight: 1.05, fontWeight: 600, letterSpacing: "-0.03em" }}>
+              <h1 className="mt-3.5 text-[clamp(40px,7vw,62px)] font-semibold leading-[1.05] tracking-[-0.03em]">
                 Book a 20-minute demo.
               </h1>
-              <p style={{ margin: "18px auto 0", maxWidth: 560, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
-                We walk you through ArchiFlask on your kind of projects — design, construction or PMC — then you can start free, with no end date.
+              <p className="mx-auto mt-[18px] max-w-[560px] text-[20px] leading-[1.5] text-gray">
+                We walk you through ArchiFlask on your kind of projects — design,
+                construction or PMC — then you can start free, with no end date.
               </p>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 28, alignItems: "start" }} className="af-grid-2">
+            <div className="grid grid-cols-1 items-start gap-7 md:grid-cols-[0.85fr_1.15fr]">
               {/* What to expect */}
-              <div style={{ padding: 34, borderRadius: 24, background: "#fff", border: "1px solid rgba(0,0,0,.07)", boxShadow: "0 20px 50px rgba(0,0,0,.06)" }}>
-                <h3 style={{ margin: "0 0 18px", fontSize: 21, fontWeight: 600, letterSpacing: "-0.01em" }}>What to expect</h3>
-                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              <div className={cardCls}>
+                <h3 className="mb-[18px] text-[21px] font-semibold tracking-[-0.01em]">
+                  What to expect
+                </h3>
+                <div className="flex flex-col gap-4">
                   {DEMO_EXPECT.map((x) => (
-                    <div key={x.n} style={{ display: "flex", gap: 12 }}>
-                      <span style={{ flex: "none", width: 26, height: 26, borderRadius: "50%", background: GRAD_DARK, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, boxShadow: INSET_HI }}>
+                    <div key={x.n} className="flex gap-3">
+                      <span className="flex h-[26px] w-[26px] flex-none items-center justify-center rounded-full bg-[image:var(--grad-dark)] text-[13px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,.2)]">
                         {x.n}
                       </span>
                       <div>
-                        <div style={{ fontSize: 15.5, fontWeight: 600 }}>{x.title}</div>
-                        <div style={{ fontSize: 14.5, color: "#86868b", lineHeight: 1.5 }}>{x.body}</div>
+                        <div className="text-[15.5px] font-semibold">{x.title}</div>
+                        <div className="text-[14.5px] leading-[1.5] text-gray-2">
+                          {x.body}
+                        </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                <div style={{ marginTop: 24, paddingTop: 20, borderTop: "1px solid rgba(0,0,0,.08)", fontSize: 14, color: "#6e6e73", lineHeight: 1.5 }}>
-                  After you submit, our team reaches out within a day by call or WhatsApp.
+                <div className="mt-6 border-t border-black/[0.08] pt-5 text-[14px] leading-[1.5] text-gray">
+                  After you submit, our team reaches out within a day by call or
+                  WhatsApp.
                 </div>
               </div>
 
               {/* Form */}
-              <form onSubmit={onSubmit} style={{ padding: 34, borderRadius: 24, background: "#fff", border: "1px solid rgba(0,0,0,.07)", boxShadow: "0 20px 50px rgba(0,0,0,.06)" }}>
-                <h3 style={{ margin: "0 0 6px", fontSize: 21, fontWeight: 600, letterSpacing: "-0.01em" }}>Pick a time</h3>
-                <p style={{ margin: "0 0 18px", fontSize: 14, color: "#86868b" }}>June 2026 · IST</p>
+              <form onSubmit={onSubmit} className={cardCls} noValidate>
+                <h3 className="mb-1.5 text-[21px] font-semibold tracking-[-0.01em]">
+                  Pick a time
+                </h3>
+                <p className="mb-[18px] text-[14px] text-gray-2">
+                  {cal.monthLabel} · IST
+                </p>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 8 }}>
+                <div
+                  className="grid grid-cols-7 gap-2"
+                  role="group"
+                  aria-label="Choose a demo date"
+                >
                   {WEEKDAYS.map((w, i) => (
-                    <div key={i} style={{ textAlign: "center", fontSize: 11, fontWeight: 700, color: "#aeaeb2", paddingBottom: 4 }}>{w}</div>
+                    <div
+                      key={i}
+                      aria-hidden="true"
+                      className="pb-1 text-center text-[11px] font-bold text-gray-3"
+                    >
+                      {w}
+                    </div>
                   ))}
-                  {Array.from({ length: DEMO_LEADING_BLANKS }).map((_, i) => (
+                  {Array.from({ length: cal.leadingBlanks }).map((_, i) => (
                     <div key={`b${i}`} />
                   ))}
-                  {DEMO_DAYS.map((d) => {
+                  {cal.days.map((d) => {
                     const disabled = !d.selValue;
                     const active = !!d.selValue && day === d.selValue;
                     return (
@@ -114,17 +153,14 @@ export default function BookDemoPage() {
                         key={d.num}
                         type="button"
                         disabled={disabled}
+                        aria-pressed={active}
+                        aria-label={`${cal.monthLabel} ${d.num}${
+                          disabled ? " (unavailable)" : ""
+                        }`}
                         onClick={() => d.selValue && setDay(d.selValue)}
-                        style={{
-                          border: `1px solid ${disabled ? "rgba(0,0,0,.08)" : "rgba(0,0,0,.1)"}`,
-                          borderRadius: 11,
-                          padding: "11px 0",
-                          fontSize: 14,
-                          fontWeight: 500,
-                          cursor: disabled ? "not-allowed" : "pointer",
-                          color: disabled ? "#d2d2d7" : "#1d1d1f",
-                          ...(disabled ? { background: "transparent" } : selectedPill(active)),
-                        }}
+                        className={`${pillBase} px-0 py-[11px] text-[14px] font-medium ${
+                          disabled ? "cursor-not-allowed" : "cursor-pointer"
+                        } ${dayPill(active, disabled)}`}
                       >
                         {d.num}
                       </button>
@@ -132,24 +168,24 @@ export default function BookDemoPage() {
                   })}
                 </div>
 
-                <div style={{ marginTop: 20, fontSize: 13, fontWeight: 700, letterSpacing: ".04em", textTransform: "uppercase", color: "#86868b" }}>Time slot</div>
-                <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 8 }}>
+                <div className="mt-5 text-[13px] font-bold uppercase tracking-[0.04em] text-gray-2">
+                  Time slot
+                </div>
+                <div
+                  className="mt-2.5 grid grid-cols-4 gap-2"
+                  role="group"
+                  aria-label="Choose a time slot"
+                >
                   {DEMO_SLOTS.map((s) => {
                     const active = slot === s.value;
                     return (
                       <button
                         key={s.value}
                         type="button"
+                        aria-pressed={active}
+                        aria-label={s.value}
                         onClick={() => setSlot(s.value)}
-                        style={{
-                          border: "1px solid rgba(0,0,0,.1)",
-                          borderRadius: 11,
-                          padding: "10px 0",
-                          fontSize: 13.5,
-                          fontWeight: 600,
-                          cursor: "pointer",
-                          ...selectedPill(active),
-                        }}
+                        className={`${pillBase} cursor-pointer px-0 py-2.5 ${slotPill(active)}`}
                       >
                         {s.label}
                       </button>
@@ -157,63 +193,68 @@ export default function BookDemoPage() {
                   })}
                 </div>
 
-                <div style={{ marginTop: 22, display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                  <input name="name" placeholder="Your name" required style={inputStyle} />
-                  <input name="firm" placeholder="Firm name" style={inputStyle} />
-                  <input name="email" type="email" placeholder="Work email" required style={inputStyle} />
-                  <input name="phone" placeholder="Phone / WhatsApp" style={inputStyle} />
+                <div className="mt-[22px] grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <label className="contents">
+                    <span className="sr-only">Your name</span>
+                    <input name="name" placeholder="Your name" required aria-label="Your name" className={inputCls} />
+                  </label>
+                  <label className="contents">
+                    <span className="sr-only">Firm name</span>
+                    <input name="firm" placeholder="Firm name" aria-label="Firm name" className={inputCls} />
+                  </label>
+                  <label className="contents">
+                    <span className="sr-only">Work email</span>
+                    <input name="email" type="email" placeholder="Work email" required aria-label="Work email" className={inputCls} />
+                  </label>
+                  <label className="contents">
+                    <span className="sr-only">Phone or WhatsApp</span>
+                    <input name="phone" placeholder="Phone / WhatsApp" aria-label="Phone or WhatsApp" className={inputCls} />
+                  </label>
                 </div>
+
+                {/* Honeypot — visually hidden, off-screen, not announced. */}
+                <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                  <label>
+                    Company website
+                    <input name="company_website" tabIndex={-1} autoComplete="off" />
+                  </label>
+                </div>
+
+                {error && (
+                  <p role="alert" className="mt-3.5 text-[14px] font-medium text-[#c0392b]">
+                    {error}
+                  </p>
+                )}
 
                 <button
                   type="submit"
                   disabled={busy}
-                  style={{
-                    marginTop: 18,
-                    width: "100%",
-                    border: 0,
-                    cursor: busy ? "default" : "pointer",
-                    fontSize: 16,
-                    fontWeight: 600,
-                    padding: 15,
-                    borderRadius: 14,
-                    color: "#fff",
-                    background: GRAD_DARK,
-                    boxShadow: `0 2px 10px rgba(0,0,0,.22), ${INSET_HI}`,
-                    opacity: busy ? 0.7 : 1,
-                  }}
+                  className="mt-[18px] w-full cursor-pointer rounded-[14px] bg-[image:var(--grad-dark)] p-[15px] text-[16px] font-semibold text-white shadow-[0_2px_10px_rgba(0,0,0,.22),inset_0_1px_0_rgba(255,255,255,.2)] transition disabled:cursor-default disabled:opacity-70 focus-visible:ring-2 focus-visible:ring-ink/50"
                 >
                   {busy ? "Confirming…" : "Confirm my demo"}
                 </button>
-                <p style={{ margin: "12px 0 0", textAlign: "center", fontSize: 12.5, color: "#aeaeb2" }}>
+                <p className="mt-3 text-center text-[12.5px] text-gray-3">
                   By booking you agree to be contacted about ArchiFlask.
                 </p>
               </form>
             </div>
           </>
         ) : (
-          <div
-            style={{
-              maxWidth: 560,
-              margin: "40px auto",
-              textAlign: "center",
-              padding: "48px 40px",
-              borderRadius: 28,
-              background: "#fff",
-              border: "1px solid rgba(0,0,0,.07)",
-              boxShadow: "0 30px 70px rgba(0,0,0,.1)",
-              animation: "afRise .6s cubic-bezier(.16,1,.3,1) both",
-            }}
-          >
-            <div style={{ width: 62, height: 62, margin: "0 auto", borderRadius: "50%", background: GRAD_DARK, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: INSET_HI }}>
-              <span style={{ display: "block", width: 20, height: 11, borderLeft: "3px solid #fff", borderBottom: "3px solid #fff", transform: "rotate(-45deg) translateY(-2px)" }} />
+          <div className="mx-auto my-10 max-w-[560px] animate-[afRise_.6s_cubic-bezier(.16,1,.3,1)_both] rounded-[28px] border border-black/[0.07] bg-white px-10 py-12 text-center shadow-[0_30px_70px_rgba(0,0,0,.1)]">
+            <div className="mx-auto flex h-[62px] w-[62px] items-center justify-center rounded-full bg-[image:var(--grad-dark)] shadow-[inset_0_1px_0_rgba(255,255,255,.2)]">
+              <span className="block h-[11px] w-5 -translate-y-[2px] rotate-[-45deg] border-b-[3px] border-l-[3px] border-white" />
             </div>
-            <h2 style={{ margin: "24px 0 0", fontSize: 38, fontWeight: 600, letterSpacing: "-0.025em" }}>
+            <h2 className="mt-6 text-[38px] font-semibold tracking-[-0.025em]">
               You&apos;re booked{who ? `, ${who}` : ""}.
             </h2>
-            <p style={{ margin: "16px auto 0", maxWidth: 420, fontSize: 18, lineHeight: 1.55, color: "#6e6e73" }}>
-              Our team will reach out within a day by call or WhatsApp to confirm your slot and set up your free workspace.
+            <p className="mx-auto mt-4 max-w-[420px] text-[18px] leading-[1.55] text-gray">
+              Our team will reach out within a day by call or WhatsApp to confirm
+              your slot and set up your free workspace.
             </p>
-            <a href="/" style={{ display: "inline-block", marginTop: 30, cursor: "pointer", fontSize: 16, fontWeight: 500, padding: "13px 28px", borderRadius: 980, color: "#1d1d1f", background: "#f5f5f7" }}>
+            <a
+              href="/"
+              className="mt-[30px] inline-block cursor-pointer rounded-pill bg-surface px-7 py-3.5 text-[16px] font-medium text-ink"
+            >
               ← Back to home
             </a>
           </div>
@@ -222,13 +263,3 @@ export default function BookDemoPage() {
     </main>
   );
 }
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "13px 15px",
-  border: "1px solid rgba(0,0,0,.12)",
-  borderRadius: 12,
-  fontSize: 15,
-  outline: "none",
-  background: "#fafafa",
-};

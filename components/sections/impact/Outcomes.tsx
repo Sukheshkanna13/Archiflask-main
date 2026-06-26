@@ -1,33 +1,30 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { IMPACT_OUTCOMES } from "@/lib/content";
-import { GRAD_PANEL } from "@/lib/tokens";
 
 export function Outcomes() {
   return (
-    <section style={{ padding: "104px 24px", background: "#fff" }}>
-      <div style={{ maxWidth: 1140, margin: "0 auto" }}>
+    <section className="bg-white px-5 py-[72px] md:px-6 md:py-[104px]">
+      <div className="mx-auto max-w-[1140px]">
         <Reveal y={28}>
-          <h2 style={{ margin: "0 0 48px", fontSize: 40, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em", maxWidth: 560 }}>
+          <h2 className="mb-12 max-w-[560px] text-[clamp(30px,4vw,40px)] font-semibold leading-[1.1] tracking-[-0.025em]">
             What firms get back, in the first weeks.
           </h2>
         </Reveal>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 16 }} className="af-grid-5">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {IMPACT_OUTCOMES.map((o, i) => (
             <Reveal
               key={o.num}
               y={30}
               duration={0.8}
               delay={i * 0.07}
-              style={{
-                padding: 26,
-                borderRadius: 20,
-                background: o.dark ? GRAD_PANEL : "#f5f5f7",
-                color: o.dark ? "#fff" : "#1d1d1f",
-                boxShadow: o.dark ? "inset 0 1px 0 rgba(255,255,255,.1)" : undefined,
-              }}
+              className={`rounded-[20px] p-[26px] ${
+                o.dark
+                  ? "bg-[image:var(--grad-panel)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.1)]"
+                  : "bg-surface text-ink"
+              }`}
             >
-              <div style={{ fontSize: 13, fontWeight: 700, color: o.dark ? "rgba(255,255,255,.55)" : "#86868b" }}>{o.num}</div>
-              <p style={{ margin: "14px 0 0", fontSize: 16, lineHeight: 1.45, fontWeight: 500 }}>{o.text}</p>
+              <div className={`text-[13px] font-bold ${o.dark ? "text-white/55" : "text-gray-2"}`}>{o.num}</div>
+              <p className="mt-3.5 text-[16px] font-medium leading-[1.45]">{o.text}</p>
             </Reveal>
           ))}
         </div>

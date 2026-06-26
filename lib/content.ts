@@ -320,23 +320,73 @@ export const DEMO_EXPECT: DemoExpect[] = [
   { n: "3", title: "Start free, same day", body: "No end date · 1 project · 2 users (1 admin + 1 team)." },
 ];
 
-// June 2026 calendar: value=null means disabled; selValue is the label sent on submit.
+// Calendar is generated relative to "now" so it never goes stale (the audit
+// flagged the old hardcoded June-2026 grid). A day is bookable when it's a
+// future weekday in the displayed month; selValue is the label sent on submit.
 export type DemoDay = { num: number; selValue?: string };
-export const DEMO_LEADING_BLANKS = 3; // June 1 2026 is a Monday; grid shows from 19th
-export const DEMO_DAYS: DemoDay[] = [
-  { num: 19 },
-  { num: 20 },
-  { num: 21 },
-  { num: 22 },
-  { num: 23, selValue: "Mon 23" },
-  { num: 24, selValue: "Tue 24" },
-  { num: 25, selValue: "Wed 25" },
-  { num: 26, selValue: "Thu 26" },
-  { num: 27, selValue: "Fri 27" },
-  { num: 28 },
-  { num: 29 },
-  { num: 30, selValue: "Mon 30" },
-];
+export type DemoCalendar = {
+  monthLabel: string; // e.g. "June 2026"
+  leadingBlanks: number; // Monday-first blanks before day 1
+  days: DemoDay[];
+};
+
+const WD_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const MIN_BOOKABLE_DAYS = 3; // roll to next month if fewer slots remain
+
+// Monday-first weekday index (0 = Mon … 6 = Sun).
+const monIndex = (d: Date) => (d.getDay() + 6) % 7;
+
+export function buildDemoCalendar(ref: Date = new Date()): DemoCalendar {
+  // First selectable day is tomorrow (gives the team lead time to reach out).
+  const start = new Date(ref.getFullYear(), ref.getMonth(), ref.getDate() + 1);
+
+  // Decide which month to display: this month, unless too few weekdays remain.
+  let year = start.getFullYear();
+  let month = start.getMonth();
+  const isBookable = (d: Date) =>
+    d.getMonth() === month &&
+    d.getTime() >= start.getTime() &&
+    d.getDay() !== 0 &&
+    d.getDay() !== 6;
+
+  const countBookable = () => {
+    const last = new Date(year, month + 1, 0).getDate();
+    let n = 0;
+    for (let day = 1; day <= last; day++) {
+      if (isBookable(new Date(year, month, day))) n++;
+    }
+    return n;
+  };
+
+  if (countBookable() < MIN_BOOKABLE_DAYS) {
+    month += 1;
+    if (month > 11) {
+      month = 0;
+      year += 1;
+    }
+  }
+
+  const firstOfMonth = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const days: DemoDay[] = [];
+  for (let num = 1; num <= daysInMonth; num++) {
+    const d = new Date(year, month, num);
+    const bookable =
+      d.getTime() >= start.getTime() && d.getDay() !== 0 && d.getDay() !== 6;
+    days.push(
+      bookable ? { num, selValue: `${WD_SHORT[d.getDay()]} ${num}` } : { num },
+    );
+  }
+
+  return {
+    monthLabel: firstOfMonth.toLocaleDateString("en-IN", {
+      month: "long",
+      year: "numeric",
+    }),
+    leadingBlanks: monIndex(firstOfMonth),
+    days,
+  };
+}
 
 export type DemoSlot = { label: string; value: string };
 export const DEMO_SLOTS: DemoSlot[] = [

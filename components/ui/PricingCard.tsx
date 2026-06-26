@@ -1,128 +1,85 @@
 import { Button } from "@/components/ui/Button";
-import { GRAD_PANEL } from "@/lib/tokens";
 import type { PricingTier } from "@/lib/content";
 
 const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/get-started";
 
 export function PricingCard({ tier }: { tier: PricingTier }) {
   const dark = tier.variant === "dark";
-  const muted = dark ? "rgba(255,255,255,.6)" : "#86868b";
-  const strikeColor = dark ? "rgba(255,255,255,.4)" : "#aeaeb2";
-  const divider = dark ? "rgba(255,255,255,.16)" : "rgba(0,0,0,.08)";
+  const muted = dark ? "text-white/60" : "text-gray-2";
+  const strike = dark ? "text-white/40" : "text-gray-3";
+  const divider = dark ? "bg-white/[0.16]" : "bg-black/[0.08]";
   const href = tier.ctaHref === "SIGNUP" ? SIGNUP_URL : tier.ctaHref;
 
-  const cardStyle: React.CSSProperties = {
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    padding: dark ? "34px 26px 30px" : "30px 26px",
-    borderRadius: 24,
-    background: tier.variant === "outline" ? "#fff" : dark ? GRAD_PANEL : "#f5f5f7",
-    color: dark ? "#fff" : "#1d1d1f",
-    border:
-      tier.variant === "outline"
-        ? "1px solid rgba(0,0,0,.12)"
-        : dark
-          ? "none"
-          : "1px solid rgba(0,0,0,.05)",
-    boxShadow:
-      tier.variant === "outline"
-        ? "0 18px 44px rgba(0,0,0,.05)"
-        : dark
-          ? "0 30px 70px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.1)"
-          : undefined,
-  };
+  const surface =
+    tier.variant === "outline"
+      ? "bg-white border border-black/[0.12] shadow-[0_18px_44px_rgba(0,0,0,.05)] text-ink"
+      : dark
+        ? "bg-[image:var(--grad-panel)] text-white shadow-[0_30px_70px_rgba(0,0,0,.32),inset_0_1px_0_rgba(255,255,255,.1)]"
+        : "bg-surface text-ink border border-black/[0.05]";
 
   return (
-    <div style={cardStyle}>
+    <div
+      className={`relative flex h-full flex-col rounded-[24px] ${
+        dark ? "px-[26px] pb-[30px] pt-[34px]" : "px-[26px] py-[30px]"
+      } ${surface}`}
+    >
       {tier.popular && (
-        <div
-          style={{
-            position: "absolute",
-            top: -13,
-            left: "50%",
-            transform: "translateX(-50%)",
-            fontSize: 11,
-            fontWeight: 700,
-            letterSpacing: ".1em",
-            textTransform: "uppercase",
-            padding: "6px 14px",
-            borderRadius: 980,
-            background: "#fff",
-            color: "#1d1d1f",
-            boxShadow: "0 6px 18px rgba(0,0,0,.25)",
-          }}
-        >
+        <div className="absolute -top-[13px] left-1/2 -translate-x-1/2 rounded-pill bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.1em] text-ink shadow-[0_6px_18px_rgba(0,0,0,.25)]">
           Most Popular
         </div>
       )}
 
-      <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: muted }}>
-        {tier.name}
-      </div>
+      <div className={`text-[13px] font-bold uppercase tracking-[0.08em] ${muted}`}>{tier.name}</div>
 
       {/* price line */}
       {tier.price === "Custom" ? (
-        <div style={{ margin: "14px 0 4px", fontSize: 44, fontWeight: 600, letterSpacing: "-0.03em" }}>Custom</div>
+        <div className="mb-1 mt-3.5 text-[44px] font-semibold tracking-[-0.03em]">Custom</div>
       ) : tier.priceCurrency ? (
-        <div style={{ margin: "14px 0 4px", display: "flex", alignItems: "baseline", gap: 3 }}>
-          <span style={{ fontSize: 22, fontWeight: 600 }}>₹</span>
-          <span style={{ fontSize: 48, fontWeight: 600, letterSpacing: "-0.03em" }}>{tier.price}</span>
-          {tier.pricePeriod && <span style={{ fontSize: 15, color: muted, marginLeft: 4 }}>{tier.pricePeriod}</span>}
+        <div className="mb-1 mt-3.5 flex items-baseline gap-[3px]">
+          <span className="text-[22px] font-semibold">₹</span>
+          <span className="text-[48px] font-semibold tracking-[-0.03em]">{tier.price}</span>
+          {tier.pricePeriod && <span className={`ml-1 text-[15px] ${muted}`}>{tier.pricePeriod}</span>}
         </div>
       ) : (
-        <div style={{ margin: "14px 0 4px", display: "flex", alignItems: "baseline", gap: 6 }}>
-          {tier.priceStrike && (
-            <span style={{ fontSize: 18, color: strikeColor, textDecoration: "line-through" }}>{tier.priceStrike}</span>
-          )}
-          <span style={{ fontSize: 48, fontWeight: 600, letterSpacing: "-0.03em" }}>{tier.price}</span>
+        <div className="mb-1 mt-3.5 flex items-baseline gap-1.5">
+          {tier.priceStrike && <span className={`text-[18px] line-through ${strike}`}>{tier.priceStrike}</span>}
+          <span className="text-[48px] font-semibold tracking-[-0.03em]">{tier.price}</span>
         </div>
       )}
 
-      {tier.subline && <div style={{ fontSize: 13.5, color: muted }}>{tier.subline}</div>}
-      {tier.blurb && <div style={{ fontSize: 14, color: muted, lineHeight: 1.4 }}>{tier.blurb}</div>}
+      {tier.subline && <div className={`text-[13.5px] ${muted}`}>{tier.subline}</div>}
+      {tier.blurb && <div className={`text-[14px] leading-[1.4] ${muted}`}>{tier.blurb}</div>}
       {tier.yearly && (
-        <div style={{ marginTop: 8, fontSize: 13, color: dark ? "rgba(255,255,255,.7)" : "#6e6e73" }}>
-          <span style={{ textDecoration: "line-through", color: strikeColor }}>{tier.yearly.strike}</span>{" "}
-          <span style={{ fontWeight: 600, color: dark ? "#fff" : "#1d1d1f" }}>{tier.yearly.now}</span> {tier.yearly.suffix}
+        <div className={`mt-2 text-[13px] ${dark ? "text-white/70" : "text-gray"}`}>
+          <span className={`line-through ${strike}`}>{tier.yearly.strike}</span>{" "}
+          <span className={`font-semibold ${dark ? "text-white" : "text-ink"}`}>{tier.yearly.now}</span>{" "}
+          {tier.yearly.suffix}
         </div>
       )}
 
-      <div style={{ margin: "22px 0 22px", height: 1, background: divider }} />
+      <div className={`my-[22px] h-px ${divider}`} />
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 13, flex: 1 }}>
+      <div className="flex flex-1 flex-col gap-[13px]">
         {tier.features.map((f, i) => (
           <div
             key={i}
-            style={{
-              display: "flex",
-              gap: 9,
-              alignItems: "flex-start",
-              fontSize: 14.5,
-              lineHeight: 1.4,
-              color: f.muted ? "#c2c2c9" : dark ? "#fff" : "#1d1d1f",
-            }}
+            className={`flex items-start gap-[9px] text-[14.5px] leading-[1.4] ${
+              f.muted ? "text-gray-4" : dark ? "text-white" : "text-ink"
+            }`}
           >
-            <span style={{ flex: "none", fontWeight: f.muted ? 400 : 700 }}>{f.muted ? "—" : "✓"}</span>
-            <span style={f.muted ? { textDecoration: "line-through" } : undefined}>{f.text}</span>
+            <span className={`flex-none ${f.muted ? "font-normal" : "font-bold"}`}>{f.muted ? "—" : "✓"}</span>
+            <span className={f.muted ? "line-through" : undefined}>{f.text}</span>
           </div>
         ))}
-        {tier.addon && <div style={{ marginTop: 2, fontSize: 13, color: dark ? "rgba(255,255,255,.5)" : "#aeaeb2" }}>{tier.addon}</div>}
+        {tier.addon && <div className={`mt-0.5 text-[13px] ${dark ? "text-white/50" : "text-gray-3"}`}>{tier.addon}</div>}
       </div>
 
       <Button
         href={href}
         variant={tier.variant === "dark" ? "white" : tier.variant === "outline" ? "dark" : "light"}
-        style={{
-          marginTop: 24,
-          width: "100%",
-          fontSize: 15,
-          fontWeight: 600,
-          padding: "13px",
-          borderRadius: 980,
-          boxShadow: tier.variant === "dark" ? "0 2px 12px rgba(0,0,0,.3)" : undefined,
-        }}
+        className={`mt-6 w-full px-[13px] py-[13px] text-[15px] font-semibold ${
+          tier.variant === "dark" ? "shadow-[0_2px_12px_rgba(0,0,0,.3)]" : ""
+        }`}
       >
         {tier.cta}
       </Button>

@@ -3,19 +3,19 @@ import { CardDeck } from "@/components/motion/CardDeck";
 
 export function Questions() {
   return (
-    <section style={{ padding: "120px 24px", background: "#f5f5f7" }}>
-      <div style={{ maxWidth: 1040, margin: "0 auto", textAlign: "center" }}>
-        <Reveal y={24} style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "#86868b" }}>
+    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
+      <div className="mx-auto max-w-[1040px] text-center">
+        <Reveal y={24} className="text-[13px] font-bold uppercase tracking-[0.14em] text-gray-2">
           The morning check
         </Reveal>
-        <Reveal delay={0.08} y={30} style={{ marginTop: 14 }}>
-          <h2 style={{ margin: 0, fontSize: 48, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em" }}>
+        <Reveal delay={0.08} y={30} className="mt-3.5">
+          <h2 className="text-[clamp(34px,5vw,48px)] font-semibold leading-[1.1] tracking-[-0.025em]">
             The five things you need to know
             <br />
             before 9 a.m., on one screen.
           </h2>
         </Reveal>
-        <div style={{ marginTop: 18, fontSize: 13, fontWeight: 600, color: "#aeaeb2" }}>Hover the deck to fan it out →</div>
+        <div className="mt-[18px] text-[13px] font-semibold text-gray-3">Hover the deck to fan it out →</div>
         <CardDeck />
       </div>
     </section>

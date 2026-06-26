@@ -3,9 +3,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "@/lib/content";
-import { GRAD_DARK, INSET_HI } from "@/lib/tokens";
 
 const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP_URL || "/get-started";
+
+const focusRing = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/50";
 
 export function Nav() {
   const path = usePathname();
@@ -26,48 +27,37 @@ export function Nav() {
   return (
     <nav
       id="af-nav"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 300,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "16px 40px",
-        borderBottom: `1px solid ${showChrome ? "rgba(0,0,0,.08)" : "rgba(0,0,0,0)"}`,
-        background: showChrome ? "rgba(255,255,255,0.72)" : "rgba(255,255,255,0)",
-        backdropFilter: showChrome ? "saturate(180%) blur(20px)" : "none",
-        WebkitBackdropFilter: showChrome ? "saturate(180%) blur(20px)" : "none",
-        transition: "background .35s ease, backdrop-filter .35s ease, border-color .35s ease",
-      }}
+      aria-label="Primary"
+      className={`fixed inset-x-0 top-0 z-[300] flex items-center justify-between px-4 py-3 transition-[background,backdrop-filter,border-color] duration-300 md:px-10 md:py-4 ${
+        showChrome
+          ? "border-b border-black/[0.08] bg-white/[0.72] [backdrop-filter:saturate(180%)_blur(20px)]"
+          : "border-b border-transparent bg-transparent"
+      }`}
     >
-      <Link href="/" style={{ display: "flex", alignItems: "center", gap: 11 }}>
-        <span style={{ position: "relative", display: "inline-block", width: 26, height: 26 }}>
-          <span style={{ position: "absolute", left: 0, top: 2, width: 18, height: 18, borderRadius: 6, border: "2px solid #1d1d1f" }} />
-          <span style={{ position: "absolute", left: 7, top: 7, width: 18, height: 18, borderRadius: 6, background: GRAD_DARK, boxShadow: "inset 0 1px 0 rgba(255,255,255,.22)" }} />
+      <Link
+        href="/"
+        aria-label="ArchiFlask home"
+        className={`flex items-center gap-[11px] rounded-md ${focusRing}`}
+      >
+        <span aria-hidden="true" className="relative inline-block h-[26px] w-[26px]">
+          <span className="absolute left-0 top-0.5 h-[18px] w-[18px] rounded-md border-2 border-ink" />
+          <span className="absolute left-[7px] top-[7px] h-[18px] w-[18px] rounded-md bg-[image:var(--grad-dark)] shadow-[inset_0_1px_0_rgba(255,255,255,.22)]" />
         </span>
-        <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.02em" }}>ArchiFlask</span>
+        <span className="text-[20px] font-bold tracking-[-0.02em]">ArchiFlask</span>
       </Link>
 
       {/* desktop links */}
-      <div className="af-nav-links" style={{ display: "flex", alignItems: "center", gap: 2, fontSize: 14.5, fontWeight: 500 }}>
+      <div className="hidden items-center gap-0.5 text-[14.5px] font-medium md:flex">
         {NAV_LINKS.map((l) => {
           const on = path === l.href;
           return (
             <Link
               key={l.href}
               href={l.href}
-              className="af-navlink"
-              style={{
-                padding: "8px 14px",
-                borderRadius: 980,
-                color: on ? "#1d1d1f" : "#6e6e73",
-                background: on ? "#f5f5f7" : "transparent",
-                fontWeight: on ? 700 : 500,
-                transition: "color .2s ease, background .2s ease",
-              }}
+              aria-current={on ? "page" : undefined}
+              className={`rounded-pill px-3.5 py-2 transition-colors hover:bg-surface hover:text-ink ${focusRing} ${
+                on ? "bg-surface font-bold text-ink" : "font-medium text-gray"
+              }`}
             >
               {l.label}
             </Link>
@@ -75,15 +65,13 @@ export function Nav() {
         })}
         <Link
           href="/book-demo"
-          className="af-nav-demo"
-          style={{ marginLeft: 6, padding: "8px 16px", borderRadius: 980, color: "#1d1d1f", border: "1px solid rgba(0,0,0,.14)", background: "#fff" }}
+          className={`ml-1.5 rounded-pill border border-black/[0.14] bg-white px-4 py-2 text-ink transition-colors hover:bg-surface ${focusRing}`}
         >
           Book a Demo
         </Link>
         <a
           href={SIGNUP_URL}
-          className="af-nav-cta"
-          style={{ marginLeft: 4, padding: "9px 20px", borderRadius: 980, color: "#fff", fontWeight: 600, background: GRAD_DARK, boxShadow: `0 1px 2px rgba(0,0,0,.28), ${INSET_HI}` }}
+          className={`ml-1 rounded-pill bg-[image:var(--grad-dark)] px-5 py-[9px] font-semibold text-white shadow-[0_1px_2px_rgba(0,0,0,.28),inset_0_1px_0_rgba(255,255,255,.2)] transition-opacity hover:opacity-90 ${focusRing}`}
         >
           Get Started
         </a>
@@ -92,64 +80,31 @@ export function Nav() {
       {/* mobile burger */}
       <button
         type="button"
-        className="af-burger"
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
+        aria-controls="af-mobile-menu"
         onClick={() => setOpen((v) => !v)}
-        style={{
-          display: "none",
-          width: 42,
-          height: 42,
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          gap: 5,
-          borderRadius: 12,
-          border: "1px solid rgba(0,0,0,.12)",
-          background: "#fff",
-          cursor: "pointer",
-        }}
+        className={`flex h-[42px] w-[42px] cursor-pointer flex-col items-center justify-center gap-[5px] rounded-xl border border-black/[0.12] bg-white md:hidden ${focusRing}`}
       >
         <span
-          style={{
-            width: 18,
-            height: 2,
-            borderRadius: 2,
-            background: "#1d1d1f",
-            transition: "transform .25s ease",
-            transform: open ? "translateY(3.5px) rotate(45deg)" : "none",
-          }}
+          aria-hidden="true"
+          className={`h-0.5 w-[18px] rounded-sm bg-ink transition-transform duration-[250ms] ${
+            open ? "translate-y-[3.5px] rotate-45" : ""
+          }`}
         />
         <span
-          style={{
-            width: 18,
-            height: 2,
-            borderRadius: 2,
-            background: "#1d1d1f",
-            transition: "transform .25s ease",
-            transform: open ? "translateY(-3.5px) rotate(-45deg)" : "none",
-          }}
+          aria-hidden="true"
+          className={`h-0.5 w-[18px] rounded-sm bg-ink transition-transform duration-[250ms] ${
+            open ? "-translate-y-[3.5px] -rotate-45" : ""
+          }`}
         />
       </button>
 
       {/* mobile dropdown panel */}
       {open && (
         <div
-          className="af-mobile-menu"
-          style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            display: "flex",
-            flexDirection: "column",
-            padding: "10px 16px 18px",
-            gap: 4,
-            background: "rgba(255,255,255,0.98)",
-            backdropFilter: "saturate(180%) blur(24px)",
-            WebkitBackdropFilter: "saturate(180%) blur(20px)",
-            borderBottom: "1px solid rgba(0,0,0,.08)",
-          }}
+          id="af-mobile-menu"
+          className="absolute inset-x-0 top-full flex flex-col gap-1 border-b border-black/[0.08] bg-white/[0.98] px-4 pb-[18px] pt-2.5 [backdrop-filter:saturate(180%)_blur(24px)] md:hidden"
         >
           {NAV_LINKS.map((l) => {
             const on = path === l.href;
@@ -157,14 +112,10 @@ export function Nav() {
               <Link
                 key={l.href}
                 href={l.href}
-                style={{
-                  padding: "13px 14px",
-                  borderRadius: 14,
-                  fontSize: 17,
-                  fontWeight: on ? 700 : 500,
-                  color: on ? "#1d1d1f" : "#3a3a3c",
-                  background: on ? "#f5f5f7" : "transparent",
-                }}
+                aria-current={on ? "page" : undefined}
+                className={`rounded-[14px] px-3.5 py-3 text-[17px] ${
+                  on ? "bg-surface font-bold text-ink" : "font-medium text-ink-2"
+                }`}
               >
                 {l.label}
               </Link>
@@ -172,13 +123,13 @@ export function Nav() {
           })}
           <Link
             href="/book-demo"
-            style={{ marginTop: 8, padding: "14px", borderRadius: 14, textAlign: "center", fontSize: 16, fontWeight: 600, color: "#1d1d1f", border: "1px solid rgba(0,0,0,.14)", background: "#fff" }}
+            className="mt-2 rounded-[14px] border border-black/[0.14] bg-white p-3.5 text-center text-[16px] font-semibold text-ink"
           >
             Book a Demo
           </Link>
           <a
             href={SIGNUP_URL}
-            style={{ marginTop: 4, padding: "14px", borderRadius: 14, textAlign: "center", fontSize: 16, fontWeight: 600, color: "#fff", background: GRAD_DARK, boxShadow: INSET_HI }}
+            className="mt-1 rounded-[14px] bg-[image:var(--grad-dark)] p-3.5 text-center text-[16px] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,.2)]"
           >
             Get Started
           </a>

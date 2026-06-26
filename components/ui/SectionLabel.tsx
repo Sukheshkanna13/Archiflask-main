@@ -1,13 +1,15 @@
-export function SectionLabel({ children, light }: { children: React.ReactNode; light?: boolean }) {
+export function SectionLabel({
+  children,
+  light,
+}: {
+  children: React.ReactNode;
+  light?: boolean;
+}) {
   return (
     <div
-      style={{
-        fontSize: 13,
-        fontWeight: 700,
-        letterSpacing: ".14em",
-        textTransform: "uppercase",
-        color: light ? "rgba(255,255,255,.5)" : "#86868b",
-      }}
+      className={`text-[13px] font-bold uppercase tracking-[0.14em] ${
+        light ? "text-white/50" : "text-gray-2"
+      }`}
     >
       {children}
     </div>

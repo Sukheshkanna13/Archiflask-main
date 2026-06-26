@@ -3,22 +3,27 @@ import { IMPACT_STORIES } from "@/lib/content";
 
 export function Stories() {
   return (
-    <section style={{ padding: "114px 24px", background: "#f5f5f7" }}>
-      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-        <Reveal y={28} style={{ textAlign: "center", fontSize: 13, fontWeight: 700, letterSpacing: ".14em", textTransform: "uppercase", color: "#86868b" }}>
+    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[114px]">
+      <div className="mx-auto max-w-[1100px]">
+        <Reveal y={28} className="text-center text-[13px] font-bold uppercase tracking-[0.14em] text-gray-2">
           Field stories
         </Reveal>
-        <Reveal delay={0.08} y={30} style={{ margin: "14px 0 48px", textAlign: "center" }}>
-          <h2 style={{ margin: 0, fontSize: 46, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em" }}>
+        <Reveal delay={0.08} y={30} className="mb-12 mt-3.5 text-center">
+          <h2 className="text-[clamp(32px,4.6vw,46px)] font-semibold leading-[1.1] tracking-[-0.025em]">
             The way a firm runs is the thing it fixes.
           </h2>
         </Reveal>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="af-grid-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {IMPACT_STORIES.map((s, i) => (
-            <Reveal key={s.kicker} y={30} delay={i * 0.1} style={{ padding: 38, borderRadius: 24, background: "#fff", border: "1px solid rgba(0,0,0,.06)" }}>
-              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".06em", color: "#86868b" }}>{s.kicker}</div>
-              <p style={{ margin: "18px 0 0", fontSize: 18, lineHeight: 1.6, color: "#1d1d1f" }}>{s.body}</p>
-              <div style={{ marginTop: 18, fontSize: 13, color: "#aeaeb2" }}>Anonymised</div>
+            <Reveal
+              key={s.kicker}
+              y={30}
+              delay={i * 0.1}
+              className="rounded-[24px] border border-black/[0.06] bg-white p-[38px]"
+            >
+              <div className="text-[13px] font-bold tracking-[0.06em] text-gray-2">{s.kicker}</div>
+              <p className="mt-[18px] text-[18px] leading-[1.6] text-ink">{s.body}</p>
+              <div className="mt-[18px] text-[13px] text-gray-3">Anonymised</div>
             </Reveal>
           ))}
         </div>

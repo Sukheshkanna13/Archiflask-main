@@ -1,48 +1,36 @@
 import { Reveal } from "@/components/motion/Reveal";
 import { PROBLEMS } from "@/lib/content";
-import { GRAD_DARK } from "@/lib/tokens";
 
 function Icon({ kind }: { kind: "doc" | "rupee" | "ops" }) {
   return (
-    <div
-      style={{
-        width: 44,
-        height: 44,
-        borderRadius: 13,
-        background: GRAD_DARK,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,.2)",
-      }}
-    >
-      {kind === "doc" && <span style={{ width: 18, height: 14, border: "2px solid #fff", borderRadius: 3 }} />}
-      {kind === "rupee" && <span style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>₹</span>}
-      {kind === "ops" && <span style={{ width: 16, height: 16, border: "2px solid #fff", borderRadius: "50%" }} />}
+    <div className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-[image:var(--grad-dark)] shadow-[inset_0_1px_0_rgba(255,255,255,.2)]">
+      {kind === "doc" && <span className="h-[14px] w-[18px] rounded-[3px] border-2 border-white" />}
+      {kind === "rupee" && <span className="text-[20px] font-bold text-white">₹</span>}
+      {kind === "ops" && <span className="h-4 w-4 rounded-full border-2 border-white" />}
     </div>
   );
 }
 
 export function Problem() {
   return (
-    <section style={{ padding: "120px 24px", background: "#fff" }}>
-      <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-        <Reveal y={30} style={{ margin: 0, textAlign: "center", maxWidth: 820, marginLeft: "auto", marginRight: "auto" }}>
-          <h2 style={{ margin: 0, fontSize: 52, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em", textWrap: "balance" }}>
+    <section className="bg-white px-5 py-[72px] md:px-6 md:py-[120px]">
+      <div className="mx-auto max-w-[1040px]">
+        <Reveal y={30} className="mx-auto max-w-[820px] text-center">
+          <h2 className="text-[clamp(32px,5.2vw,52px)] font-semibold leading-[1.1] tracking-[-0.025em] text-balance">
             Most firms don&apos;t have a problem with talent.
             <br />
-            <span style={{ color: "#86868b" }}>They have a problem with system.</span>
+            <span className="text-gray-2">They have a problem with system.</span>
           </h2>
         </Reveal>
-        <Reveal delay={0.1} y={24} style={{ margin: "24px auto 0", maxWidth: 640, textAlign: "center", fontSize: 19, lineHeight: 1.55, color: "#6e6e73" }}>
+        <Reveal delay={0.1} y={24} className="mx-auto mt-6 max-w-[640px] text-center text-[19px] leading-[1.55] text-gray">
           As a firm grows, the cracks always show up in the same three places — documentation, profitability, and operations. ArchiFlask closes all three, so you can take on more projects without losing control of any of them.
         </Reveal>
-        <div style={{ marginTop: 60, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }} className="af-grid-3">
+        <div className="mt-[60px] grid grid-cols-1 gap-5 md:grid-cols-3">
           {PROBLEMS.map((p, i) => (
-            <Reveal key={p.title} y={30} delay={i * 0.1} style={{ padding: 30, borderRadius: 22, background: "#f5f5f7" }}>
+            <Reveal key={p.title} y={30} delay={i * 0.1} className="rounded-[22px] bg-surface p-[30px]">
               <Icon kind={p.icon} />
-              <h3 style={{ margin: "20px 0 8px", fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>{p.title}</h3>
-              <p style={{ margin: 0, fontSize: 16, lineHeight: 1.55, color: "#6e6e73" }}>{p.body}</p>
+              <h3 className="mb-2 mt-5 text-[22px] font-semibold tracking-[-0.01em]">{p.title}</h3>
+              <p className="text-[16px] leading-[1.55] text-gray">{p.body}</p>
             </Reveal>
           ))}
         </div>

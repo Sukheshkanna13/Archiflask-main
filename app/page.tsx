@@ -20,7 +20,7 @@ import { FinalCta } from "@/components/sections/home/FinalCta";
 
 export default function HomePage() {
   return (
-    <main style={{ position: "relative", zIndex: 2 }}>
+    <main className="relative z-[2]">
       <Hero />
       <About />
       <Statement />

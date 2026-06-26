@@ -1,24 +1,35 @@
 "use client";
-import { AnimatePresence, motion } from "motion/react";
+import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
+// App Router note: we deliberately do NOT wrap children in
+// `AnimatePresence mode="wait"`. Doing so keeps the exiting RSC subtree mounted
+// until the exit animation finishes, which stalls the incoming route's
+// streaming/hydration and can cause hydration mismatches. A keyed enter-only
+// animation gives the same feel without fighting the framework.
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const prev = useRef(pathname);
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Only reset scroll on an actual route (path) change — not hash jumps like
+    // /#af-pricing, which should scroll to their anchor instead.
+    if (prev.current !== pathname) {
+      prev.current = pathname;
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
+
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key={pathname}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -8 }}
-        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {children}
-      </motion.div>
-    </AnimatePresence>
+    <motion.div
+      id="main"
+      key={pathname}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
   );
 }

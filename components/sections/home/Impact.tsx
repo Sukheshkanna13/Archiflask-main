@@ -3,21 +3,26 @@ import { IMPACT_CARDS } from "@/lib/content";
 
 export function Impact() {
   return (
-    <section style={{ padding: "120px 24px", background: "#f5f5f7" }}>
-      <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-        <Reveal y={28} style={{ textAlign: "center", fontSize: 13, fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", color: "#86868b" }}>
+    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
+      <div className="mx-auto max-w-[1040px]">
+        <Reveal y={28} className="text-center text-[13px] font-bold uppercase tracking-[0.12em] text-gray-2">
           Impact
         </Reveal>
-        <Reveal delay={0.08} y={30} style={{ margin: "14px 0 48px", textAlign: "center" }}>
-          <h2 style={{ margin: 0, fontSize: 46, lineHeight: 1.1, fontWeight: 600, letterSpacing: "-0.025em" }}>
+        <Reveal delay={0.08} y={30} className="mb-12 mt-3.5 text-center">
+          <h2 className="text-[clamp(32px,4.6vw,46px)] font-semibold leading-[1.1] tracking-[-0.025em]">
             The way a firm runs is the thing it fixes.
           </h2>
         </Reveal>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="af-grid-2">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {IMPACT_CARDS.map((c, i) => (
-            <Reveal key={c.kicker} y={30} delay={i * 0.1} style={{ padding: 34, borderRadius: 22, background: "#fff", border: "1px solid rgba(0,0,0,.06)" }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#86868b" }}>{c.kicker}</div>
-              <p style={{ margin: "16px 0 0", fontSize: 18, lineHeight: 1.55, color: "#1d1d1f" }}>{c.body}</p>
+            <Reveal
+              key={c.kicker}
+              y={30}
+              delay={i * 0.1}
+              className="rounded-[22px] border border-black/[0.06] bg-white p-[34px]"
+            >
+              <div className="text-[13px] font-bold text-gray-2">{c.kicker}</div>
+              <p className="mt-4 text-[18px] leading-[1.55] text-ink">{c.body}</p>
             </Reveal>
           ))}
         </div>

@@ -6,36 +6,36 @@ import { STATS, ORBIT_NODES } from "@/lib/content";
 
 export function About() {
   return (
-    <section id="af-about" style={{ padding: "110px 40px", background: "#fff", borderTop: "1px solid rgba(0,0,0,.06)" }}>
-      <div style={{ maxWidth: 1240, margin: "0 auto" }}>
-        <Reveal style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: 24, flexWrap: "wrap" }}>
+    <section id="af-about" className="border-t border-black/[0.06] bg-white px-5 py-[72px] md:px-10 md:py-[110px]">
+      <div className="mx-auto max-w-[1240px]">
+        <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div style={{ fontSize: 14, fontWeight: 600, color: "#86868b" }}>02, About ArchiFlask</div>
-            <h2 style={{ margin: "14px 0 0", fontSize: 60, lineHeight: 1.0, fontWeight: 600, letterSpacing: "-0.03em" }}>
+            <div className="text-[14px] font-semibold text-gray-2">02, About ArchiFlask</div>
+            <h2 className="mt-3.5 text-[clamp(32px,6vw,60px)] font-semibold leading-[1.0] tracking-[-0.03em]">
               We give firms control.
             </h2>
           </div>
-          <Button href="/book-demo" variant="ghost" style={{ fontSize: 15, padding: "12px 22px" }}>
-            Become a Client <span style={{ fontSize: 17 }}>→</span>
+          <Button href="/book-demo" variant="ghost" className="px-[22px] py-3 text-[15px]">
+            Become a Client <span className="text-[17px]">→</span>
           </Button>
         </Reveal>
-        <div style={{ marginTop: 22, height: 1, background: "rgba(0,0,0,.1)" }} />
+        <div className="mt-[22px] h-px bg-black/10" />
 
-        <div style={{ marginTop: 52, display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: 64, alignItems: "start" }} className="af-grid-2">
+        <div className="mt-[52px] grid grid-cols-1 items-start gap-12 md:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           <div>
-            <Reveal style={{ margin: 0, maxWidth: 560, fontSize: 26, lineHeight: 1.35, fontWeight: 500, letterSpacing: "-0.01em" }}>
-              <span style={{ color: "#1d1d1f" }}>A solid system</span>{" "}
-              <span style={{ color: "#aeaeb2" }}>
+            <Reveal className="m-0 max-w-[560px] text-[26px] font-medium leading-[1.35] tracking-[-0.01em]">
+              <span className="text-ink">A solid system</span>{" "}
+              <span className="text-gray-3">
                 aligned with how design and construction firms actually work is what lets a practice scale, without losing
                 control of a single project.
               </span>
             </Reveal>
 
-            <Reveal delay={0.08} style={{ margin: "40px 0 16px", fontSize: 13, fontWeight: 700, letterSpacing: ".06em", color: "#86868b" }}>
+            <Reveal delay={0.08} className="mb-4 mt-10 text-[13px] font-bold tracking-[0.06em] text-gray-2">
               SOME NUMBERS ABOUT US
             </Reveal>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="af-grid-2">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {STATS.map((s, i) => (
                 <Reveal key={i} y={28} duration={0.8} delay={i * 0.07}>
                   <StatCard stat={s} index={i} delay={0} />
@@ -46,27 +46,27 @@ export function About() {
 
           {/* orbit diagram */}
           <Reveal duration={1}>
-            <div style={{ position: "relative", width: "100%", maxWidth: 480, margin: "0 auto", aspectRatio: "1/1" }}>
-              <div style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "radial-gradient(circle at 38% 32%,#fafafa,#ececef 70%)", boxShadow: "inset 0 0 60px rgba(0,0,0,.04)" }} />
-              <div style={{ position: "absolute", inset: "16%", borderRadius: "50%", background: "radial-gradient(circle at 40% 34%,#ffffff,#e4e4e9)", boxShadow: "0 30px 60px rgba(0,0,0,.06)" }} />
-              <div style={{ position: "absolute", inset: "6%", borderRadius: "50%", border: "1px dashed rgba(0,0,0,.12)", animation: "afSpin 60s linear infinite" }} />
-              <div style={{ position: "absolute", inset: "30%", borderRadius: "50%", border: "1px dashed rgba(0,0,0,.10)", animation: "afSpinR 45s linear infinite" }} />
+            <div className="relative mx-auto aspect-square w-full max-w-[480px]">
+              <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_38%_32%,#fafafa,#ececef_70%)] shadow-[inset_0_0_60px_rgba(0,0,0,.04)]" />
+              <div className="absolute inset-[16%] rounded-full bg-[radial-gradient(circle_at_40%_34%,#ffffff,#e4e4e9)] shadow-[0_30px_60px_rgba(0,0,0,.06)]" />
+              <div className="absolute inset-[6%] animate-[afSpin_60s_linear_infinite] rounded-full border border-dashed border-black/[0.12]" />
+              <div className="absolute inset-[30%] animate-[afSpinR_45s_linear_infinite] rounded-full border border-dashed border-black/10" />
               {ORBIT_NODES.map((n) => (
-                <div key={n.label} style={{ position: "absolute", left: n.left, top: n.top, display: "flex", alignItems: "center", gap: 8 }}>
-                  {n.labelFirst && <span style={{ fontSize: 14, fontWeight: 600 }}>{n.label}</span>}
-                  <span style={{ width: 11, height: 11, borderRadius: "50%", background: "#1d1d1f", boxShadow: "0 0 0 5px rgba(29,29,31,.10)" }} />
-                  {!n.labelFirst && <span style={{ fontSize: 14, fontWeight: 600 }}>{n.label}</span>}
+                <div key={n.label} className="absolute flex items-center gap-2" style={{ left: n.left, top: n.top }}>
+                  {n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
+                  <span className="h-[11px] w-[11px] rounded-full bg-ink shadow-[0_0_0_5px_rgba(29,29,31,.10)]" />
+                  {!n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
                 </div>
               ))}
-              <div style={{ position: "absolute", left: "50%", top: "46%", transform: "translate(-50%,-50%)", textAlign: "center" }}>
-                <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: ".04em", color: "#86868b" }}>ONE SYSTEM</div>
-                <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.02em" }}>ArchiFlask</div>
+              <div className="absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 text-center">
+                <div className="text-[13px] font-bold tracking-[0.04em] text-gray-2">ONE SYSTEM</div>
+                <div className="text-[22px] font-semibold tracking-[-0.02em]">ArchiFlask</div>
               </div>
             </div>
           </Reveal>
         </div>
 
-        <Reveal y={20} style={{ marginTop: 72 }}>
+        <Reveal y={20} className="mt-[72px]">
           <Marquee />
         </Reveal>
       </div>

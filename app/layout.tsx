@@ -36,13 +36,12 @@ export const metadata: Metadata = {
     title: 'ArchiFlask — Run your firm on a system. Not on memory.',
     description:
       'The operating platform for design, construction & PMC firms. Projects, drawings, teams, site activity, approvals and profitability in one place.',
-    images: [{ url: '/og/archiflask-og.png', width: 1200, height: 630, alt: 'ArchiFlask' }],
+    // OG/Twitter images come from app/opengraph-image.tsx (auto-detected).
   },
   twitter: {
     card: 'summary_large_image',
     title: 'ArchiFlask — Run your firm on a system.',
     description: 'The operating platform for design, construction & PMC firms.',
-    images: ['/og/archiflask-og.png'],
   },
   robots: { index: true, follow: true },
 };
@@ -52,7 +51,7 @@ const orgLd = {
   '@type': 'Organization',
   name: 'ArchiFlask',
   url: 'https://www.archiflask.com',
-  logo: 'https://www.archiflask.com/logo.png',
+  logo: 'https://www.archiflask.com/icon',
   description: 'The operating platform for design, construction & PMC firms.',
   parentOrganization: { '@type': 'Organization', name: 'Wallzehn Technologies Pvt. Ltd.' },
   sameAs: [
@@ -79,6 +78,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appLd) }} />
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[400] focus:rounded-pill focus:bg-ink focus:px-5 focus:py-2.5 focus:text-white"
+        >
+          Skip to content
+        </a>
         <Nav />
         <PencilRailClient />
         <PageTransition>{children}</PageTransition>

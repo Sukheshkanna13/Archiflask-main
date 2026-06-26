@@ -24,81 +24,51 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={secRef} id="af-hero" style={{ position: "relative", height: "215vh", background: "transparent" }}>
-      <div id="af-hero-pin" style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}>
+    <section ref={secRef} id="af-hero" className="relative h-[150vh] bg-transparent md:h-[215vh]">
+      <div id="af-hero-pin" className="sticky top-0 h-screen overflow-hidden">
         {/* blueprint grid backdrop (right) */}
         <div
           data-parallax="0.05"
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 0,
-            width: "64%",
-            height: "100%",
-            zIndex: 0,
-            backgroundImage:
-              "linear-gradient(rgba(0,0,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.045) 1px,transparent 1px)",
-            backgroundSize: "48px 48px",
-            WebkitMaskImage: "radial-gradient(72% 70% at 72% 42%,#000,transparent)",
-            maskImage: "radial-gradient(72% 70% at 72% 42%,#000,transparent)",
-            pointerEvents: "none",
-          }}
+          className="af-blueprint-grid pointer-events-none absolute right-0 top-0 z-0 h-full w-[64%]"
         />
 
         {/* live 3D skeletal structure (right) */}
-        <div id="af-skel" style={{ position: "absolute", right: 0, top: 0, width: "58%", height: "100%", zIndex: 1, pointerEvents: "none" }}>
+        <div
+          id="af-skel"
+          className="pointer-events-none absolute right-0 top-0 z-[1] h-full w-full opacity-[0.12] md:w-[58%] md:opacity-100"
+        >
           <HeroSkeleton progressRef={progressRef} />
         </div>
 
         {/* floating caption pinned bottom-right */}
-        <div
-          className="af-hero-caption"
-          style={{
-            position: "absolute",
-            right: 40,
-            bottom: 120,
-            zIndex: 2,
-            display: "flex",
-            alignItems: "center",
-            gap: 11,
-            padding: "11px 16px",
-            borderRadius: 16,
-            background: "rgba(255,255,255,.66)",
-            backdropFilter: "saturate(180%) blur(14px)",
-            WebkitBackdropFilter: "saturate(180%) blur(14px)",
-            border: "1px solid rgba(0,0,0,.07)",
-            boxShadow: "0 12px 34px rgba(0,0,0,.07)",
-          }}
-        >
-          <span style={{ position: "relative", width: 9, height: 9, flex: "none" }}>
-            <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#1d1d1f" }} />
-            <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#1d1d1f", animation: "afPing 2s ease-out infinite" }} />
+        <div className="absolute bottom-[120px] right-10 z-[2] hidden items-center gap-[11px] rounded-2xl border border-black/[0.07] bg-white/[0.66] px-4 py-[11px] shadow-[0_12px_34px_rgba(0,0,0,.07)] [backdrop-filter:saturate(180%)_blur(14px)] md:flex">
+          <span className="relative h-[9px] w-[9px] flex-none">
+            <span className="absolute inset-0 rounded-full bg-ink" />
+            <span className="absolute inset-0 animate-[afPing_2s_ease-out_infinite] rounded-full bg-ink" />
           </span>
           <div>
-            <div style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: "-0.01em" }}>One firm, fully modelled</div>
-            <div style={{ fontSize: 11, color: "#86868b" }}>drawings · effort · site · clients · profit</div>
+            <div className="text-[12.5px] font-bold tracking-[-0.01em]">One firm, fully modelled</div>
+            <div className="text-[11px] text-gray-2">drawings · effort · site · clients · profit</div>
           </div>
         </div>
 
         {/* headline */}
-        <div style={{ position: "relative", zIndex: 2, height: "100%", maxWidth: 1240, margin: "0 auto", padding: "0 40px", display: "flex", alignItems: "center" }}>
-          <div style={{ maxWidth: 660 }}>
-            <div style={{ animation: "afRise .7s cubic-bezier(.16,1,.3,1) both", fontSize: 13, fontWeight: 700, letterSpacing: ".16em", textTransform: "uppercase", color: "#86868b" }}>
+        <div className="relative z-[2] mx-auto flex h-full max-w-[1240px] items-center px-5 md:px-10">
+          <div className="max-w-[660px]">
+            <div className="animate-[afRise_.7s_cubic-bezier(.16,1,.3,1)_both] text-[13px] font-bold uppercase tracking-[0.16em] text-gray-2">
               Architecture · Construction · Software
             </div>
-            <h1 style={{ animation: "afRise .8s cubic-bezier(.16,1,.3,1) .06s both", margin: "18px 0 0", fontSize: 72, lineHeight: 1.0, fontWeight: 600, letterSpacing: "-0.038em" }}>
+            <h1 className="mt-[18px] animate-[afRise_.8s_cubic-bezier(.16,1,.3,1)_.06s_both] text-[clamp(42px,9vw,72px)] font-semibold leading-[1.0] tracking-[-0.038em]">
               Run your firm
               <br />
               on a system.
               <br />
-              <span style={{ backgroundImage: "linear-gradient(120deg,#9a9aa0,#1d1d1f 65%)", WebkitBackgroundClip: "text", backgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Not on memory.
-              </span>
+              <span className="af-gradient-text">Not on memory.</span>
             </h1>
-            <p style={{ animation: "afRise .8s cubic-bezier(.16,1,.3,1) .14s both", margin: "28px 0 0", maxWidth: 520, fontSize: 20, lineHeight: 1.5, color: "#6e6e73" }}>
+            <p className="mt-7 max-w-[520px] animate-[afRise_.8s_cubic-bezier(.16,1,.3,1)_.14s_both] text-[20px] leading-[1.5] text-gray">
               ArchiFlask is the architecture project management software that brings projects, drawings, teams, site activity, approvals and profitability into one platform — so design, construction and PMC firms run on a system instead of memory.
             </p>
-            <div className="af-hero-cta" style={{ animation: "afRise .8s cubic-bezier(.16,1,.3,1) .22s both", marginTop: 34, display: "flex", gap: 14, alignItems: "center" }}>
+            <div className="mt-[34px] flex animate-[afRise_.8s_cubic-bezier(.16,1,.3,1)_.22s_both] flex-wrap items-center gap-3.5">
               <Button href="/book-demo" variant="dark">Book a Demo</Button>
               <Button href="/get-started" variant="light">Get Started</Button>
             </div>
@@ -106,9 +76,9 @@ export function Hero() {
         </div>
 
         {/* scroll hint */}
-        <div style={{ position: "absolute", left: "50%", bottom: 30, transform: "translateX(-50%)", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", gap: 7 }}>
-          <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", color: "#aeaeb2" }}>Scroll to explore</span>
-          <span style={{ width: 22, height: 22, borderRight: "2px solid #c2c2c9", borderBottom: "2px solid #c2c2c9", transform: "rotate(45deg)", animation: "afHint 1.8s ease-in-out infinite" }} />
+        <div className="absolute bottom-[30px] left-1/2 z-[2] flex -translate-x-1/2 flex-col items-center gap-[7px]">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.1em] text-gray-3">Scroll to explore</span>
+          <span className="h-[22px] w-[22px] rotate-45 animate-[afHint_1.8s_ease-in-out_infinite] border-b-2 border-r-2 border-gray-4" />
         </div>
       </div>
     </section>

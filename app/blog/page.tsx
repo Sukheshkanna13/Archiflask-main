@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function BlogPage() {
   return (
-    <main style={{ position: "relative", zIndex: 2 }}>
+    <main className="relative z-[2]">
       <BlogHero />
       <Featured />
       <Grid />
