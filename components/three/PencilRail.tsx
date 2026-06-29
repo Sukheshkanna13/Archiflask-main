@@ -174,7 +174,7 @@ export function PencilRail() {
         ref={wrapRef}
         style={{ position: "fixed", inset: 0, zIndex: 250, pointerEvents: "none", opacity: 0, transition: "opacity .25s ease" }}
       >
-        <Canvas orthographic dpr={[1, 2]} gl={{ alpha: true, antialias: true }} style={{ position: "absolute", inset: 0 }}>
+        <Canvas orthographic dpr={[1, 2]} gl={{ alpha: true, antialias: true }} style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
           <Pencil pathEl={pathRef} canvasWrap={wrapRef} calm={calm} />
         </Canvas>
       </div>

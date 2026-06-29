@@ -7,8 +7,8 @@ import { Vision } from "@/components/sections/about/Vision";
 import { BottomCta } from "@/components/sections/shared/BottomCta";
 
 export const metadata: Metadata = {
-  title: "About ArchiFlask — Built by Architects & Engineers",
-  description: "Two founders — an architect and a solution architect — built ArchiFlask after 15+ years running real projects. The operating standard for design & build firms.",
+  title: "About ArchiFlask | Built by Architects & Engineers",
+  description: "Two founders, an architect and a solution architect, built ArchiFlask after 15+ years of running real projects. It is the operating standard for design and build firms.",
   alternates: { canonical: "/about" },
   openGraph: { url: "https://www.archiflask.com/about" },
 };

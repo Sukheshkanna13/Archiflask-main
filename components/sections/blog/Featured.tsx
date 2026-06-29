@@ -12,7 +12,7 @@ export function Featured() {
         <Reveal y={30}>
           <Link
             href="/blog"
-            className="grid grid-cols-1 overflow-hidden rounded-[26px] border border-black/[0.08] bg-white shadow-[0_24px_60px_rgba(0,0,0,.07)] md:grid-cols-[1.05fr_0.95fr]"
+            className="group grid grid-cols-1 overflow-hidden rounded-[26px] border border-black/[0.08] bg-white shadow-[0_24px_60px_rgba(0,0,0,.07)] md:grid-cols-[1.05fr_0.95fr]"
           >
             <ImageSlot src={BLOG_IMAGES[f.slotId]} alt="Featured article cover" className="h-[280px] md:h-[420px]" />
             <div className="flex flex-col justify-center px-11 py-12">

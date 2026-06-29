@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 // Auto-detected by Next for both Open Graph and Twitter cards (replaces the
 // missing /og/archiflask-og.png the audit flagged). Generated at build time.
-export const alt = "ArchiFlask — the operating platform for design, construction & PMC firms";
+export const alt = "ArchiFlask: the operating platform for design, construction & PMC firms";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

@@ -66,7 +66,7 @@ export function Hero() {
               <span className="af-gradient-text">Not on memory.</span>
             </h1>
             <p className="mt-7 max-w-[520px] animate-[afRise_.8s_cubic-bezier(.16,1,.3,1)_.14s_both] text-[20px] leading-[1.5] text-gray">
-              ArchiFlask is the architecture project management software that brings projects, drawings, teams, site activity, approvals and profitability into one platform — so design, construction and PMC firms run on a system instead of memory.
+              ArchiFlask is the architecture project management software that brings projects, drawings, teams, site activity, approvals and profitability into one platform, allowing design, construction and PMC firms to run on a system instead of memory.
             </p>
             <div className="mt-[34px] flex animate-[afRise_.8s_cubic-bezier(.16,1,.3,1)_.22s_both] flex-wrap items-center gap-3.5">
               <Button href="/book-demo" variant="dark">Book a Demo</Button>

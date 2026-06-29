@@ -32,8 +32,14 @@ function Solid({ shape, light, calm, index }: { shape: Shape; light: boolean; ca
     }
     return { edges, nodes };
   }, [shape]);
-  const lcol = light ? 0xb8b8bf : 0x9a9aa0;
-  const ncol = light ? 0xf2f2f4 : 0x1d1d1f;
+  const isLime = index % 2 === 0;
+  const lcol = isLime
+    ? (light ? "#39ff14" : "#16a34a")
+    : (light ? "#bd00ff" : "#9333ea");
+  const ncol = isLime
+    ? (light ? "#39ff14" : "#15803d")
+    : (light ? "#bd00ff" : "#7e22ce");
+
   useFrame(() => {
     if (!grp.current || calm) return;
     const t = performance.now() / 1000;
@@ -43,7 +49,7 @@ function Solid({ shape, light, calm, index }: { shape: Shape; light: boolean; ca
   return (
     <group ref={grp}>
       <lineSegments geometry={edges}>
-        <lineBasicMaterial color={lcol} transparent opacity={0.85} />
+        <lineBasicMaterial color={lcol} transparent opacity={0.7} />
       </lineSegments>
       {nodes.map((p, i) => (
         <mesh key={i} position={p}>

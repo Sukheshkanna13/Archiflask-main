@@ -23,7 +23,7 @@ export function Problem() {
           </h2>
         </Reveal>
         <Reveal delay={0.1} y={24} className="mx-auto mt-6 max-w-[640px] text-center text-[19px] leading-[1.55] text-gray">
-          As a firm grows, the cracks always show up in the same three places — documentation, profitability, and operations. ArchiFlask closes all three, so you can take on more projects without losing control of any of them.
+          As a firm grows, the cracks always show up in the same three places: documentation, profitability, and operations. ArchiFlask closes all three, so you can take on more projects without losing control.
         </Reveal>
         <div className="mt-[60px] grid grid-cols-1 gap-5 md:grid-cols-3">
           {PROBLEMS.map((p, i) => (

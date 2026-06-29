@@ -7,7 +7,7 @@ import { Domains } from "@/components/sections/impact/Domains";
 import { BottomCta } from "@/components/sections/shared/BottomCta";
 
 export const metadata: Metadata = {
-  title: "ArchiFlask Impact — Real Results for Design Firms",
+  title: "ArchiFlask Impact | Real Results for Design Firms",
   description: "See what firms get back in the first weeks: fewer approval delays, visible project profitability, and field activity they can trust. Real change on real projects.",
   alternates: { canonical: "/impact" },
   openGraph: { url: "https://www.archiflask.com/impact" },

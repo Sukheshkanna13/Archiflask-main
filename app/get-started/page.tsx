@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Get Started Free — ArchiFlask for Design Firms",
-  description: "Start running your firm on a system. Book a demo and we set up a free project the same day — drawings, tasks and effort in one place. Free plan, no end date.",
+  title: "Get Started Free | ArchiFlask for Design Firms",
+  description: "Start running your firm on a system. Book a demo and we set up a free project the same day, with drawings, tasks and effort in one place. Free plan, no end date.",
   alternates: { canonical: "/get-started" },
   openGraph: { url: "https://www.archiflask.com/get-started" },
 };
@@ -28,7 +28,7 @@ export default function GetStartedPage() {
             <span className="af-gradient-text">on a system.</span>
           </h1>
           <p className="mx-auto mt-[26px] max-w-[540px] text-[19px] leading-[1.55] text-gray">
-            ArchiFlask is the free architecture project management tool that gets your first project live the same day. Sign-up is opening soon — in the meantime, book a demo and we&apos;ll set your firm up with a free project right away.
+            ArchiFlask is the free architecture project management tool that gets your first project live the same day. Sign-up is opening soon. In the meantime, book a demo and we&apos;ll set your firm up with a free project right away.
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3.5">
             <Button href="/book-demo" variant="dark">Book a Demo</Button>

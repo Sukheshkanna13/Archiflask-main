@@ -25,7 +25,7 @@ export function Origin() {
           y={28}
           duration={1}
           delay={0.1}
-          className="overflow-hidden rounded-[24px] border border-black/[0.07] bg-white shadow-[0_24px_60px_rgba(0,0,0,.08)]"
+          className="group overflow-hidden rounded-[24px] border border-black/[0.07] bg-white shadow-[0_24px_60px_rgba(0,0,0,.08)]"
         >
           <ImageSlot src={ABOUT_STORY_IMAGE} alt="Founders / studio / early project photo" className="h-[440px]" />
         </Reveal>

@@ -14,7 +14,7 @@ export function BlogHero() {
           </h1>
         </Reveal>
         <Reveal delay={0.14} y={24} className="mx-auto mt-[26px] max-w-[640px] text-[20px] leading-[1.5] text-gray">
-          Practical writing for firm owners on how to manage architecture projects efficiently — and how to scale a practice without losing control of any of it.
+          Practical writing for firm owners on managing architecture projects efficiently and scaling a practice without losing control.
         </Reveal>
       </div>
     </section>

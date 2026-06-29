@@ -21,7 +21,13 @@ export function ImageSlot({ src, alt, className, rounded = "rect" }: Props) {
   if (src) {
     return (
       <div className={wrap}>
-        <Image src={src} alt={alt} fill className="object-cover" sizes="(max-width:760px) 100vw, 50vw" />
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105 hover:scale-105"
+          sizes="(max-width:760px) 100vw, 50vw"
+        />
       </div>
     );
   }

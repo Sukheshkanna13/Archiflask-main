@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/sections/home/Hero";
 
 export const metadata: Metadata = {
-  title: "ArchiFlask — Architecture Project Management Software India",
+  title: "ArchiFlask | Architecture Project Management Software India",
   description: "Run your design or construction firm on a system. ArchiFlask brings projects, drawings, teams, site activity & profitability into one platform. Book a demo.",
   alternates: { canonical: "/" },
   openGraph: { url: "https://www.archiflask.com/" },

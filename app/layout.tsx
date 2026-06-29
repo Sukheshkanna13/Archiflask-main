@@ -18,11 +18,11 @@ const BASE = 'https://www.archiflask.com'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: 'ArchiFlask — Architecture Project Management Software India',
+    default: 'ArchiFlask | Architecture Project Management Software India',
     template: '%s · ArchiFlask',
   },
   description:
-    'ArchiFlask is the operating platform for design, construction & PMC firms — projects, drawings, teams, site activity, approvals and profitability in one place.',
+    'ArchiFlask is the operating platform for design, construction & PMC firms, bringing projects, drawings, teams, site activity, approvals and profitability into one place.',
   applicationName: 'ArchiFlask',
   alternates: { 
     canonical: '/',
@@ -33,14 +33,14 @@ export const metadata: Metadata = {
     siteName: 'ArchiFlask',
     locale: 'en_IN',
     url: BASE,
-    title: 'ArchiFlask — Run your firm on a system. Not on memory.',
+    title: 'ArchiFlask | Run your firm on a system. Not on memory.',
     description:
       'The operating platform for design, construction & PMC firms. Projects, drawings, teams, site activity, approvals and profitability in one place.',
     // OG/Twitter images come from app/opengraph-image.tsx (auto-detected).
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ArchiFlask — Run your firm on a system.',
+    title: 'ArchiFlask: Run your firm on a system.',
     description: 'The operating platform for design, construction & PMC firms.',
   },
   robots: { index: true, follow: true },

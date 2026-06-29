@@ -34,7 +34,7 @@ export function Features() {
               key="i"
               y={30}
               delay={0.1}
-              className="overflow-hidden rounded-[22px] border border-black/[0.07] bg-white shadow-[0_24px_60px_rgba(0,0,0,.08)]"
+              className="group overflow-hidden rounded-[22px] border border-black/[0.07] bg-white shadow-[0_24px_60px_rgba(0,0,0,.08)]"
             >
               <ImageSlot src={FEATURE_IMAGES[f.slotId]} alt={f.placeholder} className="h-[360px]" />
             </Reveal>

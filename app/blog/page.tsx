@@ -5,8 +5,8 @@ import { Grid } from "@/components/sections/blog/Grid";
 import { BlogCta } from "@/components/sections/blog/BlogCta";
 
 export const metadata: Metadata = {
-  title: "ArchiFlask Blog — Scaling & Systematising a Firm",
-  description: "Practical writing for firm owners on running, scaling and systematising a design or construction practice — from drawing control to project profitability.",
+  title: "ArchiFlask Blog | Scaling & Systematising a Firm",
+  description: "Practical writing for firm owners on running, scaling and systematising a design or construction practice, covering everything from drawing control to project profitability.",
   alternates: { canonical: "/blog" },
   openGraph: { url: "https://www.archiflask.com/blog" },
 };

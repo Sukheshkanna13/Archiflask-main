@@ -21,7 +21,7 @@ export function Product() {
             One platform for the whole firm.
           </h2>
           <p className="mt-[18px] text-[19px] leading-[1.55] text-gray">
-            ArchiFlask is the architecture firm management software that brings projects, clients, teams, drawings, site activity, approvals and profitability into one place — so a growing firm runs on a system instead of memory. It&apos;s the Standard Operating Procedure for design and construction practices.
+            ArchiFlask is the architecture firm management software that brings projects, clients, teams, drawings, site activity, approvals and profitability into one place, ensuring a growing firm runs on a system instead of memory. It&apos;s the Standard Operating Procedure for design and construction practices.
           </p>
         </Reveal>
         <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">

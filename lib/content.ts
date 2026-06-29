@@ -70,7 +70,7 @@ export const FEATURES_SPLIT: FeatureSplit[] = [
   {
     eyebrow: "01 · Documentation",
     title: "Drawings & change-request documentation",
-    body: "Every drawing, every revision, every reason it changed, in one trail. ArchiFlask compares R0 and R1 automatically and highlights exactly what moved — no manual checking, no drawing-version confusion.",
+    body: "Every drawing, every revision, every reason it changed, in one trail. ArchiFlask compares R0 and R1 automatically and highlights exactly what moved, eliminating manual checking and drawing-version confusion.",
     slotId: "af-feat-drawings",
     placeholder: "ArchiFlask drawing revision comparison highlighting changes between R0 and R1",
     reverse: false,
@@ -249,7 +249,7 @@ export const FOUNDERS: Founder[] = [
 // ---------- Impact ----------
 export type Outcome = { num: string; text: string; dark?: boolean };
 export const IMPACT_OUTCOMES: Outcome[] = [
-  { num: "01", text: "Cut client approval delays — and the client communication problems that come with them." },
+  { num: "01", text: "Cut client approval delays, and the client communication problems that come with them." },
   { num: "02", text: "Surfaced the real cost of revisions and rework." },
   { num: "03", text: "Made profitability visible per project." },
   { num: "04", text: "Held deadlines without slippage." },

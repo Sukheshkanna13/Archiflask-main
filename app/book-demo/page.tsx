@@ -87,8 +87,8 @@ export default function BookDemoPage() {
                 Book a 20-minute demo.
               </h1>
               <p className="mx-auto mt-[18px] max-w-[560px] text-[20px] leading-[1.5] text-gray">
-                We walk you through ArchiFlask on your kind of projects — design,
-                construction or PMC — then you can start free, with no end date.
+                We walk you through ArchiFlask on your projects, whether design,
+                construction, or PMC, and get you started for free.
               </p>
             </div>
 
