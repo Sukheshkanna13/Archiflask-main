@@ -19,9 +19,8 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
 
   return (
     <div
-      className={`relative flex h-full flex-col rounded-[24px] ${
-        dark ? "px-[26px] pb-[30px] pt-[34px]" : "px-[26px] py-[30px]"
-      } ${surface}`}
+      className={`af-card relative flex h-full flex-col rounded-[24px] ${dark ? "px-[26px] pb-[30px] pt-[34px]" : "px-[26px] py-[30px]"
+        } ${surface}`}
     >
       {tier.popular && (
         <div className="absolute -top-[13px] left-1/2 -translate-x-1/2 rounded-pill bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.1em] text-ink shadow-[0_6px_18px_rgba(0,0,0,.25)]">
@@ -63,9 +62,8 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
         {tier.features.map((f, i) => (
           <div
             key={i}
-            className={`flex items-start gap-[9px] text-[14.5px] leading-[1.4] ${
-              f.muted ? "text-gray-4" : dark ? "text-white" : "text-ink"
-            }`}
+            className={`flex items-start gap-[9px] text-[14.5px] leading-[1.4] ${f.muted ? "text-gray-4" : dark ? "text-white" : "text-ink"
+              }`}
           >
             <span className={`flex-none ${f.muted ? "font-normal" : "font-bold"}`}>{f.muted ? "—" : "✓"}</span>
             <span className={f.muted ? "line-through" : undefined}>{f.text}</span>
@@ -77,9 +75,8 @@ export function PricingCard({ tier }: { tier: PricingTier }) {
       <Button
         href={href}
         variant={tier.variant === "dark" ? "white" : tier.variant === "outline" ? "dark" : "light"}
-        className={`mt-6 w-full px-[13px] py-[13px] text-[15px] font-semibold ${
-          tier.variant === "dark" ? "shadow-[0_2px_12px_rgba(0,0,0,.3)]" : ""
-        }`}
+        className={`mt-6 w-full px-[13px] py-[13px] text-[15px] font-semibold ${tier.variant === "dark" ? "shadow-[0_2px_12px_rgba(0,0,0,.3)]" : ""
+          }`}
       >
         {tier.cta}
       </Button>

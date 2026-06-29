@@ -5,7 +5,7 @@ import { DEMO_EXPECT, DEMO_SLOTS, buildDemoCalendar } from "@/lib/content";
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
 const cardCls =
-  "rounded-[24px] border border-black/[0.07] bg-white p-[34px] shadow-[0_20px_50px_rgba(0,0,0,.06)]";
+  "af-card rounded-[24px] border border-black/[0.07] bg-white p-[34px] shadow-[0_20px_50px_rgba(0,0,0,.06)]";
 const inputCls =
   "w-full rounded-[12px] border border-black/[0.12] bg-[#fafafa] px-[15px] py-[13px] text-[15px] outline-none focus-visible:ring-2 focus-visible:ring-ink/50";
 const pillBase =
@@ -52,7 +52,7 @@ export default function BookDemoPage() {
       const msg = await res?.json().then((d) => d?.error).catch(() => null);
       setError(
         msg ||
-          "We couldn't reach our booking service. Please try again, or email hello@archiflask.com.",
+        "We couldn't reach our booking service. Please try again, or email hello@archiflask.com.",
       );
       return;
     }
@@ -75,7 +75,7 @@ export default function BookDemoPage() {
       : "border-black/10 bg-transparent text-ink";
 
   return (
-    <main className="relative z-[2] min-h-screen bg-[radial-gradient(120%_70%_at_50%_0%,#f5f5f7,#fff_60%)] px-6 pt-[150px] pb-[100px]">
+    <main className="animate-on-scroll relative z-[2] min-h-screen bg-[radial-gradient(120%_70%_at_50%_0%,#f5f5f7,#fff_60%)] px-6 pt-[150px] pb-[100px]">
       <div className="mx-auto max-w-[1080px]">
         {!submitted ? (
           <>
@@ -154,13 +154,11 @@ export default function BookDemoPage() {
                         type="button"
                         disabled={disabled}
                         aria-pressed={active}
-                        aria-label={`${cal.monthLabel} ${d.num}${
-                          disabled ? " (unavailable)" : ""
-                        }`}
+                        aria-label={`${cal.monthLabel} ${d.num}${disabled ? " (unavailable)" : ""
+                          }`}
                         onClick={() => d.selValue && setDay(d.selValue)}
-                        className={`${pillBase} px-0 py-[11px] text-[14px] font-medium ${
-                          disabled ? "cursor-not-allowed" : "cursor-pointer"
-                        } ${dayPill(active, disabled)}`}
+                        className={`${pillBase} px-0 py-[11px] text-[14px] font-medium ${disabled ? "cursor-not-allowed" : "cursor-pointer"
+                          } ${dayPill(active, disabled)}`}
                       >
                         {d.num}
                       </button>

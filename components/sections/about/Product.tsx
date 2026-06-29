@@ -13,7 +13,7 @@ function Icon({ kind }: { kind: "circle" | "doc" | "rupee" }) {
 
 export function Product() {
   return (
-    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[114px]">
+    <section className="animate-on-scroll bg-surface px-5 py-[72px] md:px-6 md:py-[114px]">
       <div className="mx-auto max-w-[1100px]">
         <Reveal y={28} className="mx-auto max-w-[760px] text-center">
           <div className="text-[13px] font-bold uppercase tracking-[0.14em] text-gray-2">The product</div>
@@ -26,7 +26,7 @@ export function Product() {
         </Reveal>
         <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
           {ABOUT_PRODUCT.map((p, i) => (
-            <Reveal key={p.title} y={30} delay={i * 0.1} className="rounded-[22px] border border-black/[0.05] bg-white p-8">
+            <Reveal key={p.title} y={30} delay={i * 0.1} className="af-card rounded-[22px] border border-black/[0.05] bg-white p-8">
               <Icon kind={p.icon} />
               <h3 className="mb-2 mt-5 text-[22px] font-semibold tracking-[-0.01em]">{p.title}</h3>
               <p className="text-[16px] leading-[1.55] text-gray">{p.body}</p>

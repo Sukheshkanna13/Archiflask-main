@@ -5,7 +5,7 @@ import { FOUNDER_IMAGES } from "@/lib/images";
 
 export function Founders() {
   return (
-    <section className="bg-white px-5 py-[72px] md:px-6 md:py-[114px]">
+    <section className="animate-on-scroll bg-white px-5 py-[72px] md:px-6 md:py-[114px]">
       <div className="mx-auto max-w-[1100px]">
         <Reveal y={28} className="text-center">
           <div className="text-[13px] font-bold uppercase tracking-[0.14em] text-gray-2">The founders</div>
@@ -19,7 +19,7 @@ export function Founders() {
               key={f.slotId}
               y={30}
               delay={i * 0.1}
-              className="rounded-[24px] border border-black/[0.05] bg-surface p-[34px]"
+              className="af-card rounded-[24px] border border-black/[0.05] bg-surface p-[34px]"
             >
               <div className="flex items-center gap-[18px]">
                 <ImageSlot src={FOUNDER_IMAGES[f.slotId]} alt={f.alt} rounded="circle" className="h-[84px] w-[84px] flex-none" />

@@ -15,7 +15,7 @@ function SplitText({ eyebrow, title, body }: { eyebrow: string; title: string; b
 
 export function Features() {
   return (
-    <section className="bg-white px-5 py-[72px] md:px-6 md:py-[120px]">
+    <section className="animate-on-scroll bg-white px-5 py-[72px] md:px-6 md:py-[120px]">
       <div className="mx-auto max-w-[1100px]">
         <Reveal y={30}>
           <h2 className="max-w-[680px] text-[clamp(34px,5vw,48px)] font-semibold leading-[1.08] tracking-[-0.025em]">

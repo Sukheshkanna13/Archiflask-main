@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const prev = useRef(pathname);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     // Only reset scroll on an actual route (path) change — not hash jumps like
@@ -19,6 +20,44 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
       prev.current = pathname;
       window.scrollTo(0, 0);
     }
+  }, [pathname]);
+
+  useEffect(() => {
+    // Setup scroll-triggered animations
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            // Only animate once by unobserving after animation triggers
+            observerRef.current?.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    // Wait a brief moment for DOM to be ready, then observe all elements
+    const timer = setTimeout(() => {
+      const elements = document.querySelectorAll('.animate-on-scroll');
+      elements.forEach((el) => {
+        observerRef.current?.observe(el);
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
   }, [pathname]);
 
   return (

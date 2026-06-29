@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/Button";
 
 export function FinalCta() {
   return (
-    <section className="bg-white px-5 py-[72px] text-center md:px-6 md:pb-[200px] md:pt-[130px]">
+    <section className="animate-on-scroll bg-white px-5 py-[72px] text-center md:px-6 md:pb-[200px] md:pt-[130px]">
       <div className="mx-auto max-w-[760px]">
         <Reveal y={30}>
           <h2 className="text-[clamp(40px,6.5vw,64px)] font-semibold leading-[1.05] tracking-[-0.03em]">

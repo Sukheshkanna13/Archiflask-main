@@ -2,7 +2,7 @@ import { Reveal } from "@/components/motion/Reveal";
 
 export function Vision() {
   return (
-    <section className="bg-[linear-gradient(180deg,#1c1c1e,#000)] px-5 py-[72px] text-center text-white md:px-6 md:py-[120px]">
+    <section className="animate-on-scroll bg-[linear-gradient(180deg,#1c1c1e,#000)] px-5 py-[72px] text-center text-white md:px-6 md:py-[120px]">
       <div className="mx-auto max-w-[900px]">
         <Reveal y={24} className="text-[13px] font-bold uppercase tracking-[0.14em] text-white/50">
           Our vision

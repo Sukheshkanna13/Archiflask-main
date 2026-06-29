@@ -3,7 +3,7 @@ import { IMPACT_CARDS } from "@/lib/content";
 
 export function Impact() {
   return (
-    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
+    <section className="animate-on-scroll bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
       <div className="mx-auto max-w-[1040px]">
         <Reveal y={28} className="text-center text-[13px] font-bold uppercase tracking-[0.12em] text-gray-2">
           Impact
@@ -19,7 +19,7 @@ export function Impact() {
               key={c.kicker}
               y={30}
               delay={i * 0.1}
-              className="rounded-[22px] border border-black/[0.06] bg-white p-[34px]"
+              className="af-card rounded-[22px] border border-black/[0.06] bg-white p-[34px]"
             >
               <div className="text-[13px] font-bold text-gray-2">{c.kicker}</div>
               <p className="mt-4 text-[18px] leading-[1.55] text-ink">{c.body}</p>

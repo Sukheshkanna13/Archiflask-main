@@ -3,7 +3,7 @@ import { CardDeck } from "@/components/motion/CardDeck";
 
 export function Questions() {
   return (
-    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
+    <section className="animate-on-scroll bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
       <div className="mx-auto max-w-[1040px] text-center">
         <Reveal y={24} className="text-[13px] font-bold uppercase tracking-[0.14em] text-gray-2">
           The morning check

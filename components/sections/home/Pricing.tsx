@@ -6,7 +6,7 @@ export function Pricing() {
   return (
     <section
       id="af-pricing"
-      className="scroll-mt-20 border-t border-black/[0.06] bg-white px-5 py-[72px] md:px-6 md:py-[120px]"
+      className="animate-on-scroll scroll-mt-20 border-t border-black/[0.06] bg-white px-5 py-[72px] md:px-6 md:py-[120px]"
     >
       <div className="mx-auto max-w-[1260px]">
         <Reveal y={28} className="mx-auto max-w-[720px] text-center">

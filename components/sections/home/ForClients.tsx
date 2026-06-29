@@ -4,7 +4,7 @@ import { CLIENT_APP_IMAGE } from "@/lib/images";
 
 export function ForClients() {
   return (
-    <section className="relative overflow-hidden bg-[linear-gradient(180deg,#1c1c1e,#000)] px-5 py-[72px] text-white md:px-6 md:py-[120px]">
+    <section className="animate-on-scroll relative overflow-hidden bg-[linear-gradient(180deg,#1c1c1e,#000)] px-5 py-[72px] text-white md:px-6 md:py-[120px]">
       <div
         data-parallax="0.04"
         className="pointer-events-none absolute -right-20 -top-[120px] h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(120,120,128,.22),transparent_65%)]"

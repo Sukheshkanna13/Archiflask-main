@@ -111,10 +111,189 @@ button {
   }
 }
 
+/* Custom animations and transitions for enhanced user experience */
+
+/* Base transition utility for consistent animations */
+.af-animate,
+button,
+a,
+.card,
+.af-card,
+input,
+textarea,
+select {
+  transition-property: transform, box-shadow, background-color, border-color, opacity;
+  transition-timing-function: ease-in-out;
+}
+
+/* Button hover animations */
+button:not(#af-nav button),
+a[href*="/book-demo"],
+a[href*="/get-started"],
+.cta-button,
+[type="submit"] {
+  transition-duration: 300ms;
+}
+
+button:hover:not(#af-nav button):not(button[aria-expanded]),
+a[href*="/book-demo"]:hover,
+a[href*="/get-started"]:hover,
+.cta-button:hover,
+[type="submit"]:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Card hover animations */
+.af-card,
+.card {
+  transition-duration: 300ms;
+  transition-property: transform, box-shadow, border-color;
+}
+
+.af-card:hover,
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Image container hover animations for gentle zoom */
+.img-container,
+.image-wrapper,
+[data-animate-image] {
+  overflow: hidden;
+}
+
+.img-container img,
+.image-wrapper img,
+[data-animate-image] img {
+  transition: transform 300ms ease-in-out;
+}
+
+.img-container:hover img,
+.image-wrapper:hover img,
+[data-animate-image]:hover img {
+  transform: scale(1.03);
+}
+
+/* Navigation link animations */
+#af-nav a[href]:not(._link) {
+  position: relative;
+  transition-duration: 250ms;
+}
+
+#af-nav a[href]:not(:first-child):not(.rounded-pill)::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 250ms ease-in-out, left 250ms ease-in-out;
+}
+
+#af-nav a[href]:not(:first-child):not(.rounded-pill):hover::after {
+  width: calc(100% - 28px);
+  left: 14px;
+}
+
+/* Icon hover animations */
+.icon,
+[data-animate-icon] svg {
+  transition: transform 250ms ease-in-out;
+}
+
+.icon:hover,
+[data-animate-icon]:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Form input animations */
+input,
+textarea,
+select {
+  transition-duration: 250ms;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #1d1d1f;
+  box-shadow: 0 0 0 4px rgba(29, 29, 31, 0.1);
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  transition: opacity 250ms ease-in-out, transform 250ms ease-in-out;
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+  opacity: 0.7;
+  transform: translateX(4px);
+}
+
+/* CTA button specific animations */
+.primary-cta,
+#af-nav a[href*="/get-started"] {
+  transition-duration: 300ms;
+}
+
+.primary-cta:hover,
+#af-nav a[href*="/get-started"]:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Scroll-triggered fade-in and slide-up animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.animated {
+  animation: fadeInUp 600ms ease-in-out forwards;
+}
+
+/* Ensure animations work on all devices */
+@media (hover: none) and (pointer: coarse) {
+  button:hover:not(#af-nav button),
+  a[href*="/book-demo"]:hover,
+  a[href*="/get-started"]:hover,
+  .cta-button:hover,
+  [type="submit"]:hover,
+  .af-card:hover,
+  .card:hover,
+  .img-container:hover img,
+  .image-wrapper:hover img,
+  [data-animate-image]:hover img {
+    transform: none;
+  }
+  
+  .icon:hover,
+  [data-animate-icon]:hover svg {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
 

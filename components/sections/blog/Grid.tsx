@@ -4,15 +4,17 @@ import { ImageSlot } from "@/components/ui/ImageSlot";
 import { BLOG_POSTS } from "@/lib/content";
 import { BLOG_IMAGES } from "@/lib/images";
 
+const slugify = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 export function Grid() {
   return (
-    <section className="bg-white px-5 pb-[72px] pt-[30px] md:px-6 md:pb-[120px]">
+    <section className="animate-on-scroll bg-white px-5 pb-[72px] pt-[30px] md:px-6 md:pb-[120px]">
       <div className="mx-auto grid max-w-[1140px] grid-cols-1 gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
         {BLOG_POSTS.map((p, i) => (
           <Reveal key={p.slotId} y={30} duration={0.8} delay={(i % 3) * 0.07} className="flex">
             <Link
-              href="/blog"
-              className="group flex w-full flex-col overflow-hidden rounded-[22px] border border-black/[0.07] bg-white"
+              href={`/blog/${slugify(p.title)}`}
+              className="af-card group flex w-full flex-col overflow-hidden rounded-[22px] border border-black/[0.07] bg-white"
             >
               <ImageSlot src={BLOG_IMAGES[p.slotId]} alt={`${p.category} cover`} className="h-[200px]" />
               <div className="flex flex-1 flex-col px-6 pb-7 pt-[26px]">

@@ -3,7 +3,7 @@ import { CAPABILITIES } from "@/lib/content";
 
 export function Capabilities() {
   return (
-    <section className="bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
+    <section className="animate-on-scroll bg-surface px-5 py-[72px] md:px-6 md:py-[120px]">
       <div className="mx-auto max-w-[1100px]">
         <Reveal y={30}>
           <h2 className="text-center text-[clamp(34px,5vw,48px)] font-semibold leading-[1.1] tracking-[-0.025em]">
@@ -19,11 +19,10 @@ export function Capabilities() {
               y={28}
               duration={0.8}
               delay={(i % 4) * 0.06}
-              className={`rounded-[18px] p-6 ${
-                c.dark
+              className={`af-card rounded-[18px] p-6 ${c.dark
                   ? "bg-[image:var(--grad-panel)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.12)]"
                   : "border border-black/[0.05] bg-white text-ink"
-              }`}
+                }`}
             >
               <h4 className="mb-[7px] text-[17px] font-semibold">{c.title}</h4>
               <p className={`text-[14.5px] leading-[1.5] ${c.dark ? "text-white/[0.66]" : "text-gray-2"}`}>

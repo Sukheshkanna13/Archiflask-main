@@ -4,7 +4,7 @@ import { ABOUT_STORY_IMAGE } from "@/lib/images";
 
 export function Origin() {
   return (
-    <section className="bg-white px-5 py-[72px] md:px-6 md:py-[104px]">
+    <section className="animate-on-scroll bg-white px-5 py-[72px] md:px-6 md:py-[104px]">
       <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-center gap-12 md:grid-cols-[1.02fr_0.98fr] lg:gap-16">
         <Reveal y={28}>
           <div className="text-[13px] font-bold uppercase tracking-[0.14em] text-gray-2">Our story</div>

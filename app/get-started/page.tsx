@@ -17,7 +17,7 @@ const STEPS = [
 export default function GetStartedPage() {
   return (
     <main className="relative z-[2]">
-      <section className="bg-white px-5 pb-[72px] pt-[140px] md:px-10 md:pb-[120px] md:pt-[200px]">
+      <section className="animate-on-scroll bg-white px-5 pb-[72px] pt-[140px] md:px-10 md:pb-[120px] md:pt-[200px]">
         <div className="mx-auto max-w-[960px] text-center">
           <div className="text-[13px] font-bold uppercase tracking-[0.16em] text-gray-2">
             Get Started
@@ -38,7 +38,7 @@ export default function GetStartedPage() {
 
         <div className="mx-auto mt-20 grid max-w-[960px] grid-cols-1 gap-4 md:grid-cols-3">
           {STEPS.map((s) => (
-            <div key={s.n} className="rounded-[20px] border border-black/[0.06] bg-surface px-[26px] py-[30px]">
+            <div key={s.n} className="af-card rounded-[20px] border border-black/[0.06] bg-surface px-[26px] py-[30px]">
               <div className="text-[13px] font-bold text-gray-2">STEP {s.n}</div>
               <div className="mt-3 text-[19px] font-bold tracking-[-0.01em]">{s.title}</div>
               <p className="mt-2 text-[15px] leading-[1.5] text-gray">{s.body}</p>

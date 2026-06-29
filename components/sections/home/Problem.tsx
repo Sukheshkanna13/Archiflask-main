@@ -13,7 +13,7 @@ function Icon({ kind }: { kind: "doc" | "rupee" | "ops" }) {
 
 export function Problem() {
   return (
-    <section className="bg-white px-5 py-[72px] md:px-6 md:py-[120px]">
+    <section className="animate-on-scroll bg-white px-5 py-[72px] md:px-6 md:py-[120px]">
       <div className="mx-auto max-w-[1040px]">
         <Reveal y={30} className="mx-auto max-w-[820px] text-center">
           <h2 className="text-[clamp(32px,5.2vw,52px)] font-semibold leading-[1.1] tracking-[-0.025em] text-balance">
@@ -27,7 +27,7 @@ export function Problem() {
         </Reveal>
         <div className="mt-[60px] grid grid-cols-1 gap-5 md:grid-cols-3">
           {PROBLEMS.map((p, i) => (
-            <Reveal key={p.title} y={30} delay={i * 0.1} className="rounded-[22px] bg-surface p-[30px]">
+            <Reveal key={p.title} y={30} delay={i * 0.1} className="af-card rounded-[22px] bg-surface p-[30px]">
               <Icon kind={p.icon} />
               <h3 className="mb-2 mt-5 text-[22px] font-semibold tracking-[-0.01em]">{p.title}</h3>
               <p className="text-[16px] leading-[1.55] text-gray">{p.body}</p>

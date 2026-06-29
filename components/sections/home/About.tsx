@@ -6,7 +6,7 @@ import { STATS, ORBIT_NODES } from "@/lib/content";
 
 export function About() {
   return (
-    <section id="af-about" className="border-t border-black/[0.06] bg-white px-5 py-[72px] md:px-10 md:py-[110px]">
+    <section id="af-about" className="animate-on-scroll border-t border-black/[0.06] bg-white px-5 py-[72px] md:px-10 md:py-[110px]">
       <div className="mx-auto max-w-[1240px]">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>
