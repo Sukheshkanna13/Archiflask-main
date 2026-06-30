@@ -37,6 +37,8 @@
   ],
   "exclude": [
     "node_modules",
-    "drafts"
+    ".next",
+    "out",
+    "build"
   ]
 }
