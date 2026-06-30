@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1d1d1f;
+  --color-ink-2: #3a3a3c;
+  --color-gray: #6e6e73;
+  --color-gray-2: #767679; /* WCAG AA on #fff (≈4.5:1); was #86868b (~3.6:1) */
+  --color-gray-3: #aeaeb2;
+  --color-gray-4: #c2c2c9;
+  --color-line: #9a9aa0;
+  --color-node-dim: #cfcfd4;
+  --color-surface: #f5f5f7;
+  --radius-pill: 980px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --font-sans: var(--font-nunito), -apple-system, BlinkMacSystemFont,
+    "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+}
+
+:root {
+  --grad-dark: linear-gradient(135deg, #48484a, #1c1c1e);
+  --grad-panel: linear-gradient(135deg, #2c2c2e, #1c1c1e);
+  --grad-text: linear-gradient(120deg, #9a9aa0, #1d1d1f 65%);
+  --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.08);
+  --inset-hi: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    color: var(--color-ink);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: #1d1d1f;
+    color: #fff;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  input,
+  button {
+    font-family: inherit;
+  }
+}
+
+/* Reusable helpers for genuinely complex decorative styling that would be
+   unreadable as long arbitrary Tailwind strings. */
+.af-gradient-text {
+  background-image: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.af-blueprint-grid {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(72% 70% at 72% 42%, #000, transparent);
+  mask-image: radial-gradient(72% 70% at 72% 42%, #000, transparent);
+}
+
+@keyframes afRise {
+  0% {
+    transform: translateY(26px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes afPing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+@keyframes afSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes afSpinR {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes afHint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+/* Custom animations and transitions for enhanced user experience */
+
+/* Base transition utility for consistent animations */
+.af-animate,
+button,
+a,
+.card,
+.af-card,
+input,
+textarea,
+select {
+  transition-property: transform, box-shadow, background-color, border-color, opacity;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Button hover animations */
+button:not(#af-nav button),
+a[href*="/book-demo"],
+a[href*="/get-started"],
+.cta-button,
+[type="submit"] {
+  transition-duration: 700ms;
+}
+
+button:hover:not(#af-nav button):not(button[aria-expanded]),
+a[href*="/book-demo"]:hover,
+a[href*="/get-started"]:hover,
+.cta-button:hover,
+[type="submit"]:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Card hover animations */
+.af-card,
+.card {
+  transition-duration: 700ms;
+  transition-property: transform, box-shadow, border-color;
+}
+
+.af-card:hover,
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Image container hover animations for gentle zoom */
+.img-container,
+.image-wrapper,
+[data-animate-image] {
+  overflow: hidden;
+}
+
+.img-container img,
+.image-wrapper img,
+[data-animate-image] img {
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.img-container:hover img,
+.image-wrapper:hover img,
+[data-animate-image]:hover img {
+  transform: scale(1.03);
+}
+
+/* Navigation link animations */
+#af-nav a[href]:not(._link) {
+  position: relative;
+  transition-duration: 600ms;
+}
+
+#af-nav a[href]:not(:first-child):not(.rounded-pill)::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 600ms cubic-bezier(0.16, 1, 0.3, 1), left 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#af-nav a[href]:not(:first-child):not(.rounded-pill):hover::after {
+  width: calc(100% - 28px);
+  left: 14px;
+}
+
+/* Icon hover animations */
+.icon,
+[data-animate-icon] svg {
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.icon:hover,
+[data-animate-icon]:hover svg {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Form input animations */
+input,
+textarea,
+select {
+  transition-duration: 600ms;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #1d1d1f;
+  box-shadow: 0 0 0 4px rgba(29, 29, 31, 0.1);
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+  opacity: 0.7;
+  transform: translateX(4px);
+}
+
+/* CTA button specific animations */
+.primary-cta,
+#af-nav a[href*="/get-started"] {
+  transition-duration: 700ms;
+}
+
+.primary-cta:hover,
+#af-nav a[href*="/get-started"]:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Scroll-triggered fade-in and slide-up animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.animated {
+  animation: fadeInUp 600ms ease-in-out forwards;
+}
+
+/* Ensure animations work on all devices */
+@media (hover: none) and (pointer: coarse) {
+  button:hover:not(#af-nav button),
+  a[href*="/book-demo"]:hover,
+  a[href*="/get-started"]:hover,
+  .cta-button:hover,
+  [type="submit"]:hover,
+  .af-card:hover,
+  .card:hover,
+  .img-container:hover img,
+  .image-wrapper:hover img,
+  [data-animate-image]:hover img {
+    transform: none;
+  }
+  
+  .icon:hover,
+  [data-animate-icon]:hover svg {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- mobile ----------
+   Layout responsiveness now lives in each component via Tailwind breakpoints
+   and fluid clamp() type. The only override left is the CardDeck, whose cards
+   are absolutely positioned by motion (inline transforms), so collapsing them
+   to a stacked column on mobile genuinely needs !important to win. */
+@media (max-width: 760px) {
+  .af-deck {
+    height: auto !important;
+  }
+  .af-card {
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    margin: 0 0 14px 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08) !important;
+  }
+}

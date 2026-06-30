@@ -1,0 +1,14 @@
+# ArchiFlask
+> The operating platform (SOP) for design, construction, and PMC firms in India —
+> projects, drawings, teams, site activity, approvals, and profitability in one place, one App.
+
+## Core pages
+- [Home](https://www.archiflask.com/): what ArchiFlask is and how they provide software solutions to architects and Construction Domains.
+- [About](https://www.archiflask.com/about): the founders and the firm-runs-on-a-system thesis.
+- [Impact](https://www.archiflask.com/impact): outcomes design & construction firms get in the first weeks over using in our SAAS product.
+- [Blog](https://www.archiflask.com/blog): running, scaling, and systematising a practice over our SAAS.
+- [Book a Demo](https://www.archiflask.com/book-demo): 20-minute walkthrough, then start free.
+
+## Notes
+- Pricing: ₹600/user/month (ex-GST). Free plan, no end date.
+- A product of Wallzehn Technologies Pvt. Ltd.
