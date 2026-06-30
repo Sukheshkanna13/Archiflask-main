@@ -9,12 +9,20 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const LOGOS = [
-  "Studio·Co",
-  "BuildWorks",
-  "Atelier 9",
-  "PMC Group",
-  "Vastu Labs",
-  "Form & Co",
+  "Design Infinity",
+  "EM3RGE",
+  "Monks Palette",
+  "Space Play Design Studio",
+  "Guru Design Studio",
+  "The Storey Collective",
+  "White Edge Architects",
+  "BLJ + Partners",
+  "Box Black Internationals",
+  "WEARCH Studio",
+  "Future Group Distributors",
+  "Adithya Groups",
+  "JeganathJB Architects",
+  "Inspace Design Studio",
 ];
 
 // ---------- Home: About / Numbers ----------
@@ -34,17 +42,23 @@ export const STATS: Stat[] = [
 ];
 
 export const ORBIT_NODES = [
-  { label: "Documentation", left: "74%", top: "14%", labelFirst: false },
-  { label: "Profitability", left: "8%", top: "46%", labelFirst: true },
-  { label: "Operations", left: "44%", top: "80%", labelFirst: false },
+  { label: "Documentation", left: "64%", top: "12%", labelFirst: false, colorType: "green" },
+  { label: "Profitability", left: "8%", top: "54%", labelFirst: true, colorType: "purple" },
+  { label: "Operations", left: "32%", top: "78%", labelFirst: true, colorType: "black" },
+  { label: "Collaboration", left: "24%", top: "28%", labelFirst: true, colorType: "green" },
+  { label: "Client Portal", left: "82%", top: "38%", labelFirst: false, colorType: "purple" },
+  { label: "Site Visits", left: "70%", top: "82%", labelFirst: false, colorType: "black" },
 ];
 
 // ---------- Home: Problem ----------
-export type Problem = { icon: "doc" | "rupee" | "ops"; title: string; body: string };
+export type Problem = { icon: "doc" | "rupee" | "ops" | "collab" | "client" | "site"; title: string; body: string };
 export const PROBLEMS: Problem[] = [
   { icon: "doc", title: "Documentation", body: "Drawings get lost across revisions. Nobody can say what changed between R0 and R1, or why." },
   { icon: "rupee", title: "Profitability", body: "Effort and money leak on rework nobody tracked. The real cost of a project stays invisible." },
   { icon: "ops", title: "Operations", body: "The owner becomes the single point everything routes through, and growth stalls there." },
+  { icon: "collab", title: "Collaboration", body: "Teams work in silos across fragmented chat threads, causing delays and status confusion." },
+  { icon: "client", title: "Client Portal", body: "Constant status calls pull you away from execution to manage client updates and communication." },
+  { icon: "site", title: "Site Visits", body: "Field progress and attendance are based on trust, leading to tracking errors and vendor disputes." },
 ];
 
 // ---------- Home: 5 Questions deck ----------
@@ -95,14 +109,31 @@ export const FEATURES_CARDS: FeatureCard[] = [
 // ---------- Home: Capabilities ----------
 export type Capability = { title: string; body: string; dark?: boolean };
 export const CAPABILITIES: Capability[] = [
-  { title: "Automatic revision compare", body: "R0 vs R1, side by side, change highlighted." },
-  { title: "Change-request tickets", body: "Nothing gets actioned without a record." },
-  { title: "Concept planning & sketching", body: "Built in, from the first idea." },
-  { title: "Screen-sharing", body: "Between team members, in context." },
-  { title: "Calendar", body: "Meetings and reminders, the way you already work." },
-  { title: "Team leaderboard", body: "Surface and reward real output." },
-  { title: "Geo-tagged site media", body: "Photos & video, pinned to place and time." },
-  { title: "A client app of their own", body: "Web and mobile access for your clients, not just an internal tool.", dark: true },
+  {
+    title: "Drawings and GFC Docs",
+    body: "Organize client drawings in dedicated folders for layouts structural plumbing and electrical."
+  },
+  {
+    title: "360° Viewer: Visualize designs in full perspective",
+    body: "Upload panoramic image files to view your designs in immersive 360 perspectives."
+  },
+  {
+    title: "Documented Site Visits",
+    body: "Log site photos with detailed reports to review standards and correct deviations."
+  },
+  {
+    title: "Concept Plan Board: The foundation of every design",
+    body: "Share and approve initial layout concepts early with direct online sketching tools."
+  },
+  {
+    title: "AI-Powered Drawing Revision Comparison",
+    body: "Instantly compare revised drawings with prior versions to highlight all key updates."
+  },
+  {
+    title: "Present, discuss, decide together",
+    body: "Use direct screen sharing to host client walkthroughs and gather instant feedback.",
+    dark: true
+  }
 ];
 
 // ---------- Home: Impact cards ----------
@@ -270,12 +301,32 @@ export const IMPACT_STORIES: Story[] = [
 
 export type Review = { quote: string; who: string; dark?: boolean };
 export const REVIEWS: Review[] = [
-  { quote: "We stopped losing drawings the week we switched. Any revision, the reason it changed, two clicks.", who: "Principal Architect · Residential studio" },
-  { quote: "For the first time I can see which projects are actually making money, before they go sideways.", who: "Founder · Interior design firm" },
-  { quote: "My clients stopped calling for updates. They just open the app and follow the project.", who: "Partner · Architecture practice", dark: true },
-  { quote: "Site attendance used to be an honour system. Now it's geo-tagged and I actually trust it.", who: "Director · Construction & PMC" },
-  { quote: "Onboarding my team of nine took an afternoon. By the next morning we were running on it.", who: "Principal · Multidisciplinary firm" },
-  { quote: "I run the whole firm from my phone now, between site visits. Nothing slips.", who: "Builder · Infrastructure projects" },
+  {
+    quote: "Archiflask has been a major asset in managing vendor relationships and handling files. Its seamless integration for vendor engagement has made coordination effortless, while the advanced file handling capabilities ensure that all documents are organized and easily accessible. The result is a smoother workflow.",
+    who: "Poonam Jain · Landscape Architect, Hyderabad"
+  },
+  {
+    quote: "As a design architect, Archiflask has truly transformed how I work. Its intuitive interface and powerful features streamline the design process, allowing me to visualize projects with stunning clarity and precision. The collaboration tools are fantastic, making it easy to coordinate.",
+    who: "Krishna · Principal Architect, Chennai"
+  },
+  {
+    quote: "Archiflask has revolutionized the way I manage client relationships. Its transparency features have made it incredibly easy to keep clients informed and engaged throughout every stage of the project. The real-time updates and detailed reports ensure that everyone is on the same page.",
+    who: "Neha · Architect, Bengaluru",
+    dark: true
+  },
+  {
+    quote: "The task-tracking features are exceptional, allowing me to assign and monitor tasks effortlessly. It keeps everyone on track with clear deadlines and progress updates, which has greatly improved our project efficiency. Managing tasks in real time has streamlined our workflow.",
+    who: "Raja Subramanian · Senior Architect, Chennai"
+  },
+  {
+    quote: "Archiflask has revolutionized the way I manage client relationships. Its transparency features have made it incredibly easy to keep clients informed. The real-time updates and detailed reports significantly improve client trust and satisfaction. It's a game-changer!",
+    who: "Amit Singh · Interior Designer, Delhi"
+  },
+  {
+    quote: "The task-tracking features are exceptional, allowing us to monitor progress and assign responsibilities with absolute clarity. It keeps our team on schedule and synchronized across site visits and office tasks. An invaluable tool for project delivery.",
+    who: "Sanjay Mehta · Construction Director, Mumbai",
+    dark: true
+  }
 ];
 
 export const DOMAINS = ["Residential", "Commercial", "Interiors", "Infrastructure"];

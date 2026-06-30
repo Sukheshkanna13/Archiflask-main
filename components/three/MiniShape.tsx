@@ -32,13 +32,28 @@ function Solid({ shape, light, calm, index }: { shape: Shape; light: boolean; ca
     }
     return { edges, nodes };
   }, [shape]);
-  const isLime = index % 2 === 0;
-  const lcol = isLime
-    ? (light ? "#39ff14" : "#16a34a")
-    : (light ? "#bd00ff" : "#9333ea");
-  const ncol = isLime
-    ? (light ? "#39ff14" : "#15803d")
-    : (light ? "#bd00ff" : "#7e22ce");
+  const idx = index % 4;
+  let lcol: string;
+  let ncol: string;
+
+  if (idx === 0) {
+    // 1st element: neon green (citrus yellow green shade)
+    lcol = "#a3e600";
+    ncol = "#b5ff00";
+  } else if (idx === 1) {
+    // 2nd element: neon purple
+    lcol = "#be03fd";
+    ncol = "#be03fd";
+  } else if (idx === 2) {
+    // 3rd element: neon green + purple effect
+    lcol = "#be03fd"; // neon purple lines
+    ncol = "#b5ff00"; // neon green nodes
+  } else {
+    // 4th element: white colored
+    lcol = "#ffffff";
+    ncol = "#ffffff";
+  }
+
 
   useFrame(() => {
     if (!grp.current || calm) return;

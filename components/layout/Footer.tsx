@@ -10,12 +10,12 @@ export function Footer() {
     <footer className="relative z-[2] bg-black px-6 pb-12 pt-16 text-white">
       <div className="mx-auto flex max-w-[1100px] flex-wrap items-start justify-between gap-8">
         <div>
-          <div className="flex items-center gap-[11px]">
-            <span aria-hidden="true" className="relative inline-block h-[26px] w-[26px]">
-              <span className="absolute left-0 top-0.5 h-[18px] w-[18px] rounded-md border-2 border-white" />
-              <span className="absolute left-[7px] top-[7px] h-[18px] w-[18px] rounded-md bg-[linear-gradient(135deg,#8e8e93,#48484a)]" />
-            </span>
-            <span className="text-[20px] font-semibold tracking-[-0.02em]">ArchiFlask</span>
+          <div className="flex items-center gap-[11px] mb-4">
+            <img
+              src="/wallzehn-logo.jpeg"
+              alt="Wallzehn Logo"
+              className="h-10 w-auto object-contain rounded-md"
+            />
           </div>
           <p className="mt-4 max-w-[300px] text-[14.5px] leading-[1.5] text-white/55">
             The operating platform for design, construction, and PMC firms. Pan-India.

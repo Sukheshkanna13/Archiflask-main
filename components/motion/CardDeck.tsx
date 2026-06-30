@@ -28,7 +28,7 @@ export function CardDeck() {
             className="af-card"
             onMouseEnter={() => setHovered(i)}
             animate={t}
-            transition={{ duration: 0.5, ease: EASE_OUT }}
+            transition={{ duration: 0.85, ease: EASE_OUT }}
             style={{
               position: "absolute",
               left: "50%",

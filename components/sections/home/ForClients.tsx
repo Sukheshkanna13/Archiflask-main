@@ -20,6 +20,28 @@ export function ForClients() {
           <p className="text-[18px] leading-[1.6] text-white/70">
             ArchiFlask gives every client their own window into the project. They can track progress, updates, and deliverables on web and mobile. It&apos;s the client management app that ends endless mail chains and &quot;any update?&quot; messages. Transparency becomes a feature you sell, not a chore you manage.
           </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <div
+              className="transition-all duration-700 ease-out hover:-translate-y-0.5 select-none cursor-default"
+              aria-label="Download on the App Store"
+            >
+              <img
+                src="/app-store-badge.svg"
+                alt="Download on the App Store"
+                className="h-10 w-auto object-contain"
+              />
+            </div>
+            <div
+              className="transition-all duration-700 ease-out hover:-translate-y-0.5 select-none cursor-default"
+              aria-label="Get it on Google Play"
+            >
+              <img
+                src="/google-play-badge.svg"
+                alt="Get it on Google Play"
+                className="h-10 w-auto object-contain"
+              />
+            </div>
+          </div>
         </Reveal>
         <Reveal y={30} delay={0.12} className="flex justify-center">
           <div className="w-[240px] rounded-[34px] border border-white/[0.12] bg-[#0a0a0a] p-2.5 shadow-[0_40px_90px_rgba(0,0,0,.5)]">

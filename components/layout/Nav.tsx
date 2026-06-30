@@ -28,22 +28,21 @@ export function Nav() {
     <nav
       id="af-nav"
       aria-label="Primary"
-      className={`fixed inset-x-0 top-0 z-[300] flex items-center justify-between px-4 py-3 transition-[background,backdrop-filter,border-color] duration-300 md:px-10 md:py-4 ${
-        showChrome
-          ? "border-b border-black/[0.08] bg-white/[0.72] [backdrop-filter:saturate(180%)_blur(20px)]"
-          : "border-b border-transparent bg-transparent"
-      }`}
+      className={`fixed inset-x-0 top-0 z-[300] flex items-center justify-between px-4 py-3 transition-[background,backdrop-filter,border-color] duration-300 md:px-10 md:py-4 ${showChrome
+        ? "border-b border-black/[0.08] bg-white/[0.72] [backdrop-filter:saturate(180%)_blur(20px)]"
+        : "border-b border-transparent bg-transparent"
+        }`}
     >
       <Link
         href="/"
         aria-label="ArchiFlask home"
-        className={`flex items-center gap-[11px] rounded-md ${focusRing}`}
+        className={`flex items-center rounded-md ${focusRing}`}
       >
-        <span aria-hidden="true" className="relative inline-block h-[26px] w-[26px]">
-          <span className="absolute left-0 top-0.5 h-[18px] w-[18px] rounded-md border-2 border-ink" />
-          <span className="absolute left-[7px] top-[7px] h-[18px] w-[18px] rounded-md bg-[image:var(--grad-dark)] shadow-[inset_0_1px_0_rgba(255,255,255,.22)]" />
-        </span>
-        <span className="text-[20px] font-bold tracking-[-0.02em]">ArchiFlask</span>
+        <img
+          src="/archiflask-logo.png"
+          alt="ArchiFlask Logo"
+          className="h-8 w-auto object-contain rounded-md"
+        />
       </Link>
 
       {/* desktop links */}
@@ -55,9 +54,8 @@ export function Nav() {
               key={l.href}
               href={l.href}
               aria-current={on ? "page" : undefined}
-              className={`rounded-pill px-3.5 py-2 transition-colors hover:bg-surface hover:text-ink ${focusRing} ${
-                on ? "bg-surface font-bold text-ink" : "font-medium text-gray"
-              }`}
+              className={`rounded-pill px-3.5 py-2 transition-colors hover:bg-surface hover:text-ink ${focusRing} ${on ? "bg-surface font-bold text-ink" : "font-medium text-gray"
+                }`}
             >
               {l.label}
             </Link>
@@ -88,15 +86,13 @@ export function Nav() {
       >
         <span
           aria-hidden="true"
-          className={`h-0.5 w-[18px] rounded-sm bg-ink transition-transform duration-[250ms] ${
-            open ? "translate-y-[3.5px] rotate-45" : ""
-          }`}
+          className={`h-0.5 w-[18px] rounded-sm bg-ink transition-transform duration-[250ms] ${open ? "translate-y-[3.5px] rotate-45" : ""
+            }`}
         />
         <span
           aria-hidden="true"
-          className={`h-0.5 w-[18px] rounded-sm bg-ink transition-transform duration-[250ms] ${
-            open ? "-translate-y-[3.5px] -rotate-45" : ""
-          }`}
+          className={`h-0.5 w-[18px] rounded-sm bg-ink transition-transform duration-[250ms] ${open ? "-translate-y-[3.5px] -rotate-45" : ""
+            }`}
         />
       </button>
 
@@ -113,9 +109,8 @@ export function Nav() {
                 key={l.href}
                 href={l.href}
                 aria-current={on ? "page" : undefined}
-                className={`rounded-[14px] px-3.5 py-3 text-[17px] ${
-                  on ? "bg-surface font-bold text-ink" : "font-medium text-ink-2"
-                }`}
+                className={`rounded-[14px] px-3.5 py-3 text-[17px] ${on ? "bg-surface font-bold text-ink" : "font-medium text-ink-2"
+                  }`}
               >
                 {l.label}
               </Link>

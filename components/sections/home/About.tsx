@@ -37,7 +37,7 @@ export function About() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {STATS.map((s, i) => (
-                <Reveal key={i} y={28} duration={0.8} delay={i * 0.07}>
+                <Reveal key={i} y={28} duration={0.8} delay={i * 0.07} className="h-full">
                   <StatCard stat={s} index={i} delay={0} />
                 </Reveal>
               ))}
@@ -51,13 +51,31 @@ export function About() {
               <div className="absolute inset-[16%] rounded-full bg-[radial-gradient(circle_at_40%_34%,#ffffff,#e4e4e9)] shadow-[0_30px_60px_rgba(0,0,0,.06)]" />
               <div className="absolute inset-[6%] animate-[afSpin_60s_linear_infinite] rounded-full border border-dashed border-black/[0.12]" />
               <div className="absolute inset-[30%] animate-[afSpinR_45s_linear_infinite] rounded-full border border-dashed border-black/10" />
-              {ORBIT_NODES.map((n) => (
-                <div key={n.label} className="absolute flex items-center gap-2" style={{ left: n.left, top: n.top }}>
-                  {n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
-                  <span className="h-[11px] w-[11px] rounded-full bg-ink shadow-[0_0_0_5px_rgba(29,29,31,.10)]" />
-                  {!n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
-                </div>
-              ))}
+              {ORBIT_NODES.map((n) => {
+                const colorType = (n as any).colorType as "green" | "purple" | "black";
+                const dotStyles = {
+                  green: {
+                    bg: "bg-[#b5ff00]",
+                    shadow: "shadow-[0_0_0_5px_rgba(181,255,0,0.25)]",
+                  },
+                  purple: {
+                    bg: "bg-[#be03fd]",
+                    shadow: "shadow-[0_0_0_5px_rgba(190,3,253,0.25)]",
+                  },
+                  black: {
+                    bg: "bg-ink",
+                    shadow: "shadow-[0_0_0_5px_rgba(29,29,31,0.10)]",
+                  },
+                };
+                const style = dotStyles[colorType] || dotStyles.black;
+                return (
+                  <div key={n.label} className="absolute flex items-center gap-2" style={{ left: n.left, top: n.top }}>
+                    {n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
+                    <span className={`h-[11px] w-[11px] rounded-full ${style.bg} ${style.shadow}`} />
+                    {!n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
+                  </div>
+                );
+              })}
               <div className="absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 text-center">
                 <div className="text-[13px] font-bold tracking-[0.04em] text-gray-2">ONE SYSTEM</div>
                 <div className="text-[22px] font-semibold tracking-[-0.02em]">ArchiFlask</div>
