@@ -24,6 +24,10 @@ export function BlogCta() {
           </div>
         </div>
       </Reveal>
+      <div className="mt-[38px] flex flex-col items-center gap-[7px] opacity-55">
+        <span className="h-[9px] w-[9px] rounded-full bg-ink" />
+        <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-gray-3">End of the line</span>
+      </div>
     </section>
   );
 }
