@@ -1,5 +1,4 @@
-"use client";
-import { useParams } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { BLOG_FEATURED, BLOG_POSTS } from "@/lib/content";
@@ -60,10 +59,28 @@ const ALL_BLOG_POSTS: BlogPostFull[] = [
 
 const slugify = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
-export default function BlogDetailsPage() {
-    const params = useParams();
-    const slug = params.slug as string;
+type Props = {
+    params: Promise<{ slug: string }>;
+};
 
+export async function generateStaticParams() {
+    return ALL_BLOG_POSTS.map((p) => ({
+        slug: slugify(p.title),
+    }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { slug } = await params;
+    const post = ALL_BLOG_POSTS.find(p => slugify(p.title) === slug);
+    if (!post) return {};
+    return {
+        title: `${post.title} | ArchiFlask Blog`,
+        description: post.body,
+    };
+}
+
+export default async function BlogDetailsPage({ params }: Props) {
+    const { slug } = await params;
     const post = ALL_BLOG_POSTS.find(p => slugify(p.title) === slug);
 
     if (!post) {
@@ -124,7 +141,7 @@ export default function BlogDetailsPage() {
                         <div className="mt-4 flex items-center gap-4 text-[14px] text-gray-500">
                             <span>{post.read || (post.meta && post.meta[0]) || "5 min read"}</span>
                             <span>·</span>
-                            <span>{post.meta && post.meta[1] || "June 2026"}</span>
+                            <span>{(post.meta && post.meta[1]) || "June 2026"}</span>
                         </div>
                     </Reveal>
                 </div>
