@@ -6,7 +6,7 @@ import { STATS, ORBIT_NODES } from "@/lib/content";
 
 export function About() {
   return (
-    <section id="af-about" className="animate-on-scroll border-t border-black/[0.06] bg-white px-5 py-[72px] md:px-10 md:py-[110px]">
+    <section id="af-about" className="animate-on-scroll border-t border-black/[0.06] bg-white px-5 pt-9 pb-[72px] md:px-10 md:pt-[56px] md:pb-[110px]">
       <div className="mx-auto max-w-[1240px]">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -44,41 +44,50 @@ export function About() {
             </div>
           </div>
 
-          {/* orbit diagram */}
+          {/* orbit diagram — nucleus + shells */}
           <Reveal duration={1}>
             <div className="relative mx-auto aspect-square w-full max-w-[480px]">
+              {/* outermost background sphere */}
               <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_38%_32%,#fafafa,#ececef_70%)] shadow-[inset_0_0_60px_rgba(0,0,0,.04)]" />
-              <div className="absolute inset-[16%] rounded-full bg-[radial-gradient(circle_at_40%_34%,#ffffff,#e4e4e9)] shadow-[0_30px_60px_rgba(0,0,0,.06)]" />
-              <div className="absolute inset-[6%] animate-[afSpin_60s_linear_infinite] rounded-full border border-dashed border-black/[0.12]" />
-              <div className="absolute inset-[30%] animate-[afSpinR_45s_linear_infinite] rounded-full border border-dashed border-black/10" />
+              {/* inner sphere (nucleus background) */}
+              <div className="absolute inset-[28%] rounded-full bg-[radial-gradient(circle_at_40%_34%,#ffffff,#e8e8ed)] shadow-[0_30px_60px_rgba(0,0,0,.06)]" />
+              {/* nucleus glow */}
+              <div className="absolute inset-[38%] rounded-full bg-white/80 shadow-[0_0_40px_rgba(255,255,255,.8),inset_0_0_20px_rgba(0,0,0,.02)]" />
+
+              {/* shell ring 1 — outer orbit */}
+              <div className="absolute inset-[6%] animate-[afSpin_90s_linear_infinite] rounded-full border border-dashed border-black/[0.10]" />
+              {/* shell ring 2 — middle orbit */}
+              <div className="absolute inset-[22%] animate-[afSpinR_60s_linear_infinite] rounded-full border border-dashed border-black/[0.08]" />
+              {/* shell ring 3 — inner decorative */}
+              <div className="absolute inset-[36%] animate-[afSpin_45s_linear_infinite] rounded-full border border-dotted border-black/[0.06]" />
+
+              {/* nodes positioned on orbital shells */}
               {ORBIT_NODES.map((n) => {
-                const colorType = (n as any).colorType as "green" | "purple" | "black";
-                const dotStyles = {
-                  green: {
-                    bg: "bg-[#b5ff00]",
-                    shadow: "shadow-[0_0_0_5px_rgba(181,255,0,0.25)]",
-                  },
-                  purple: {
-                    bg: "bg-[#be03fd]",
-                    shadow: "shadow-[0_0_0_5px_rgba(190,3,253,0.25)]",
-                  },
-                  black: {
-                    bg: "bg-ink",
-                    shadow: "shadow-[0_0_0_5px_rgba(29,29,31,0.10)]",
-                  },
-                };
-                const style = dotStyles[colorType] || dotStyles.black;
+                // shell 1 = 39% from center, shell 2 = 47% from center (percentage of container)
+                const radius = n.shell === 1 ? 28 : 44;
+                const rad = (n.angle * Math.PI) / 180;
+                const x = 50 + radius * Math.cos(rad);
+                const y = 50 + radius * Math.sin(rad);
                 return (
-                  <div key={n.label} className="absolute flex items-center gap-2" style={{ left: n.left, top: n.top }}>
-                    {n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
-                    <span className={`h-[11px] w-[11px] rounded-full ${style.bg} ${style.shadow}`} />
-                    {!n.labelFirst && <span className="text-[14px] font-semibold">{n.label}</span>}
+                  <div
+                    key={n.label}
+                    className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-2"
+                    style={{ left: `${x}%`, top: `${y}%` }}
+                  >
+                    {n.labelFirst && <span className="text-[13px] font-semibold tracking-[-0.01em] text-ink/80">{n.label}</span>}
+                    <span className="relative flex-none">
+                      <span className="absolute -inset-[5px] rounded-full bg-ink/[0.07]" />
+                      <span className="relative block h-[10px] w-[10px] rounded-full bg-ink shadow-[0_2px_8px_rgba(29,29,31,0.18)]" />
+                    </span>
+                    {!n.labelFirst && <span className="text-[13px] font-semibold tracking-[-0.01em] text-ink/80">{n.label}</span>}
                   </div>
                 );
               })}
-              <div className="absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 text-center">
-                <div className="text-[13px] font-bold tracking-[0.04em] text-gray-2">ONE SYSTEM</div>
-                <div className="text-[22px] font-semibold tracking-[-0.02em]">ArchiFlask</div>
+
+              {/* nucleus label */}
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                <div className="text-[12px] font-bold tracking-[0.06em] text-gray-2">ONE SYSTEM</div>
+                <div className="mt-0.5 text-[22px] font-semibold tracking-[-0.02em]">ArchiFlask</div>
               </div>
             </div>
           </Reveal>

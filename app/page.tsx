@@ -14,8 +14,8 @@ import { Questions } from "@/components/sections/home/Questions";
 import { Features } from "@/components/sections/home/Features";
 import { Capabilities } from "@/components/sections/home/Capabilities";
 import { ForClients } from "@/components/sections/home/ForClients";
-import { Impact } from "@/components/sections/home/Impact";
 import { Pricing } from "@/components/sections/home/Pricing";
+import { AddOns } from "@/components/sections/home/AddOns";
 import { FinalCta } from "@/components/sections/home/FinalCta";
 
 export default function HomePage() {
@@ -29,8 +29,8 @@ export default function HomePage() {
       <Features />
       <Capabilities />
       <ForClients />
-      <Impact />
       <Pricing />
+      <AddOns />
       <FinalCta />
     </main>
   );

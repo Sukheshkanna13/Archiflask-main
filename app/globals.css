@@ -305,6 +305,10 @@ textarea:focus::placeholder {
    are absolutely positioned by motion (inline transforms), so collapsing them
    to a stacked column on mobile genuinely needs !important to win. */
 @media (max-width: 760px) {
+  /* Let the hero content lead on mobile: the blueprint grid recedes further. */
+  .af-blueprint-grid {
+    opacity: 0.24;
+  }
   .af-deck {
     height: auto !important;
   }

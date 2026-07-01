@@ -45,15 +45,7 @@ export function Problem() {
         </Reveal>
         <div className="mt-[60px] grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {PROBLEMS.map((p, i) => {
-            const shadowType = i % 3 === 0 ? "green" : i % 3 === 1 ? "purple" : "black";
-            let hoverClass = "";
-            if (shadowType === "green") {
-              hoverClass = "hover:shadow-[0_20px_40px_rgba(181,255,0,0.22)] hover:border-[#b5ff00]/40";
-            } else if (shadowType === "purple") {
-              hoverClass = "hover:shadow-[0_20px_40px_rgba(190,3,253,0.18)] hover:border-[#be03fd]/30";
-            } else {
-              hoverClass = "hover:shadow-[0_20px_40px_rgba(29,29,31,0.08)] hover:border-black/15";
-            }
+            const hoverClass = "hover:shadow-[0_20px_40px_rgba(29,29,31,0.08)] hover:border-black/15";
 
             return (
               <Reveal key={p.title} y={30} delay={i * 0.1} className="h-full">

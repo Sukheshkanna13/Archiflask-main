@@ -37,19 +37,19 @@ function Solid({ shape, light, calm, index }: { shape: Shape; light: boolean; ca
   let ncol: string;
 
   if (idx === 0) {
-    // 1st element: neon green (citrus yellow green shade)
-    lcol = "#a3e600";
-    ncol = "#b5ff00";
+    // tonal grey — light lines, dim nodes
+    lcol = "#9a9aa0";
+    ncol = "#cfcfd4";
   } else if (idx === 1) {
-    // 2nd element: neon purple
-    lcol = "#be03fd";
-    ncol = "#be03fd";
+    // tonal grey — mid lines
+    lcol = "#6e6e73";
+    ncol = "#9a9aa0";
   } else if (idx === 2) {
-    // 3rd element: neon green + purple effect
-    lcol = "#be03fd"; // neon purple lines
-    ncol = "#b5ff00"; // neon green nodes
+    // tonal grey — light lines, ink nodes
+    lcol = "#aeaeb2";
+    ncol = "#1d1d1f";
   } else {
-    // 4th element: white colored
+    // 4th element (dark cards): white
     lcol = "#ffffff";
     ncol = "#ffffff";
   }

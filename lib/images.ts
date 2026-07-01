@@ -17,11 +17,11 @@ export const FOUNDER_IMAGES: Record<string, string | undefined> = {
 };
 
 export const BLOG_IMAGES: Record<string, string | undefined> = {
-  "af-blog-feat": "/images/blog-feat.png",
-  "af-blog-1": "/images/blog-1.png",
-  "af-blog-2": "/images/blog-2.png",
-  "af-blog-3": "/images/blog-3.png",
-  "af-blog-4": "/images/blog-4.png",
-  "af-blog-5": "/images/blog-5.png",
-  "af-blog-6": "/images/blog-6.png",
+  "af-blog-feat": "/images/blog-feat-v2.png",
+  "af-blog-1": "/images/blog-1-v2.png",
+  "af-blog-2": "/images/blog-2-v2.png",
+  "af-blog-3": "/images/blog-3-v2.png",
+  "af-blog-4": "/images/blog-4-v2.png",
+  "af-blog-5": "/images/blog-5-v2.png",
+  "af-blog-6": "/images/blog-6-v2.png",
 };

@@ -5,19 +5,10 @@ import type { Stat } from "@/lib/content";
 const numberCls = "text-[52px] font-semibold tracking-[-0.03em]";
 
 export function StatCard({ stat, index, delay }: { stat: Stat; index: number; delay: number }) {
-  // Determine shadow color type based on index
-  const shadowType = index % 3 === 0 ? "green" : index % 3 === 1 ? "purple" : "black";
-
-  let hoverClass = "";
-  if (shadowType === "green") {
-    hoverClass = "hover:shadow-[0_20px_40px_rgba(181,255,0,0.22)] hover:border-[#b5ff00]/40";
-  } else if (shadowType === "purple") {
-    hoverClass = "hover:shadow-[0_20px_40px_rgba(190,3,253,0.18)] hover:border-[#be03fd]/30";
-  } else {
-    hoverClass = stat.dark
-      ? "hover:shadow-[0_20px_40px_rgba(255,255,255,0.06)] hover:border-white/20"
-      : "hover:shadow-[0_20px_40px_rgba(29,29,31,0.08)] hover:border-black/15";
-  }
+  // Neutral grey hover shadow for every card (dark cards get a subtle white one).
+  const hoverClass = stat.dark
+    ? "hover:shadow-[0_20px_40px_rgba(255,255,255,0.06)] hover:border-white/20"
+    : "hover:shadow-[0_20px_40px_rgba(29,29,31,0.08)] hover:border-black/15";
 
   return (
     <div
