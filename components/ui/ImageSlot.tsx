@@ -17,6 +17,7 @@ const ROUND: Record<NonNullable<Props["rounded"]>, string> = {
 
 export function ImageSlot({ src, alt, className, rounded = "rect" }: Props) {
   // Defaults fill the parent; callers override size/radius via `className`.
+  // Always ensure position: relative is set for Next.js Image fill to work correctly
   const wrap = cn("relative h-full w-full overflow-hidden", ROUND[rounded], className);
   if (src) {
     return (
@@ -26,7 +27,7 @@ export function ImageSlot({ src, alt, className, rounded = "rect" }: Props) {
           alt={alt}
           fill
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-105 hover:scale-105"
-          sizes="(max-width:760px) 100vw, 50vw"
+          sizes="(max-width:760px) 100vw, (max-width:1200px) 50vw, 33vw"
         />
       </div>
     );
