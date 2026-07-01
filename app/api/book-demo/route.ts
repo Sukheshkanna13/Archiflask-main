@@ -12,11 +12,12 @@ type Booking = {
   phone?: string;
   day?: string;
   slot?: string;
+  message?: string;
   // Honeypot: real users never fill this hidden field; bots usually do.
   company_website?: string;
 };
 
-const MAX = { name: 120, firm: 160, email: 200, phone: 40, day: 40, slot: 40 } as const;
+const MAX = { name: 120, firm: 160, email: 200, phone: 40, day: 40, slot: 40, message: 1000 } as const;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Simple in-memory rate limiter. Good enough for a single instance; swap for a
@@ -88,6 +89,48 @@ export async function POST(req: Request) {
   const phone = clip(body.phone, MAX.phone);
   const day = clip(body.day, MAX.day);
   const slot = clip(body.slot, MAX.slot);
+  const userMessage = clip(body.message, MAX.message);
+
+  // Integrate with real-time contactUs API
+  try {
+    const combinedMessage = [
+      firm ? `Firm: ${firm}` : "",
+      userMessage ? `Message: ${userMessage}` : "",
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    const apiPayload = {
+      name,
+      email,
+      mobile: phone || undefined,
+      subject: "ArchiFlask Demo Booking",
+      message: combinedMessage || undefined,
+      day: day || undefined,
+      timeSlot: slot || undefined,
+    };
+
+    const apiRes = await fetch("https://wallzehnapi.azurewebsites.net/contactUs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(apiPayload),
+    });
+
+    if (!apiRes.ok) {
+      const errText = await apiRes.text().catch(() => "");
+      console.error("[book-demo] Azure API failed:", apiRes.status, errText);
+      return NextResponse.json(
+        { error: "Our booking server returned an error. Please try again." },
+        { status: 502 },
+      );
+    }
+  } catch (e) {
+    console.error("[book-demo] Azure API request failed:", e);
+    return NextResponse.json(
+      { error: "Unable to reach booking server. Please try again." },
+      { status: 503 },
+    );
+  }
 
   const key = process.env.RESEND_API_KEY;
   const to = process.env.BOOKING_TO_EMAIL;
@@ -99,6 +142,7 @@ export async function POST(req: Request) {
     `Phone: ${phone || "-"}`,
     `Day: ${day || "-"}`,
     `Slot: ${slot || "-"}`,
+    `Message: ${userMessage || "-"}`,
   ].join("\n");
 
   if (key && to) {
@@ -112,16 +156,9 @@ export async function POST(req: Request) {
         text: summary,
       });
     } catch (e) {
-      // Email transport failed — report it so the client doesn't show a false
-      // "you're booked". The lead is still logged for manual recovery.
       console.error("[book-demo] email failed:", e, "\n", summary);
-      return NextResponse.json(
-        { error: "We couldn't send your booking. Please try again or email us." },
-        { status: 502 },
-      );
     }
   } else {
-    // TODO: configure RESEND_API_KEY + BOOKING_TO_EMAIL in env for production email.
     console.log("[book-demo] (no email configured)\n" + summary);
   }
 

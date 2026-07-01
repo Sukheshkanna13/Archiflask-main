@@ -14,12 +14,9 @@ export function FinalCta() {
           Book a 20-minute demo, our team walks you through it, then you can get started free.
         </Reveal>
         <Reveal delay={0.18} y={24} className="mt-[34px] flex flex-wrap justify-center gap-3.5">
-          <div className="relative inline-flex">
-            <span className="pointer-events-none absolute -inset-3.5 rounded-pill border-[1.5px] border-dashed border-black/[0.18]" />
-            <Button id="af-demo-end" href="/book-demo" variant="dark" className="relative px-[34px] py-[15px] text-[17px]">
-              Book a Demo
-            </Button>
-          </div>
+          <Button id="af-demo-end" href="/book-demo" variant="dark" className="px-[34px] py-[15px] text-[17px]">
+            Book a Demo
+          </Button>
           <Button href="/book-demo" variant="light" className="px-8 py-[15px] text-[17px]">
             Get Started
           </Button>

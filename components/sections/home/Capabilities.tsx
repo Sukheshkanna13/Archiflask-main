@@ -12,17 +12,9 @@ export function Capabilities() {
         </Reveal>
         <div className="mt-[54px] grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CAPABILITIES.map((c, i) => {
-            const shadowType = i % 3 === 0 ? "green" : i % 3 === 1 ? "purple" : "black";
-            let hoverClass = "";
-            if (shadowType === "green") {
-              hoverClass = "hover:shadow-[0_20px_40px_rgba(181,255,0,0.18)] hover:border-[#b5ff00]/30";
-            } else if (shadowType === "purple") {
-              hoverClass = "hover:shadow-[0_20px_40px_rgba(190,3,253,0.15)] hover:border-[#be03fd]/20";
-            } else {
-              hoverClass = c.dark
-                ? "hover:shadow-[0_20px_40px_rgba(255,255,255,0.06)] hover:border-white/20"
-                : "hover:shadow-[0_20px_40px_rgba(29,29,31,0.06)] hover:border-black/15";
-            }
+            const hoverClass = c.dark
+              ? "hover:shadow-[0_20px_40px_rgba(255,255,255,0.06)] hover:border-white/20"
+              : "hover:shadow-[0_20px_40px_rgba(29,29,31,0.06)] hover:border-black/15";
 
             return (
               <Reveal

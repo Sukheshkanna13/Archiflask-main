@@ -73,8 +73,8 @@ function Pencil({
     const vh = size.height;
     const sy = window.scrollY || 0;
     const docH = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-    const hero = document.getElementById("af-hero");
-    const gate = hero ? Math.max(0, hero.offsetTop + hero.offsetHeight - vh * 1.05) : 0;
+    // Start the pencil moving from the very first scroll (no hero-length gate).
+    const gate = 0;
     const btn = document.getElementById("af-demo-end");
     let btnDocY = docH;
     if (btn) {
@@ -87,12 +87,21 @@ function Pencil({
     const vis = Math.max(0, Math.min(1, (sy - gate) / Math.max(1, vh * 0.5)));
 
     const btnViewY = btnDocY - sy;
-    const topY = vh * 0.06;
+    // Anchor the rail just under the fixed nav. The pencil renders below the nav
+    // in z-order, so most of it tucks behind the nav and ~25% pokes out as a
+    // visible start point in the top-right corner. From there the rail weaves
+    // back to centre so the pencil still lands on the Book-a-Demo button.
+    const navH = vw < 768 ? 105 : 113;
+    const topY = vw < 768 ? navH + 110 : navH + 70;
     const endY = Math.max(topY + 60, Math.min(btnViewY, vh * 0.94));
     const span = endY - topY;
     const cx = vw * 0.5;
     const amp = Math.min(vw * 0.14, 170);
     const freq = 1.7;
+    // Where the pencil sits at scroll 0 — pulled into the top-right corner. The
+    // offset decays to 0 by the end so the rail's tail stays centred on the CTA.
+    const startX = vw < 768 ? vw * 0.84 : vw * 0.80;
+    const startShift = startX - (cx + amp);
     const N = 90;
     const pts: [number, number][] = [];
     let d = "";
@@ -100,7 +109,7 @@ function Pencil({
     let prev: [number, number] | null = null;
     for (let i = 0; i <= N; i++) {
       const t = i / N;
-      const x = cx + amp * Math.cos(t * Math.PI * freq);
+      const x = cx + amp * Math.cos(t * Math.PI * freq) + startShift * (1 - t);
       const y = topY + t * span;
       pts.push([x, y]);
       d += (i ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
@@ -141,8 +150,11 @@ function Pencil({
       s.spin += 0.014;
       inner.rotation.y = s.spin;
     }
-    pencil.visible = vis > 0;
-    if (canvasWrap.current) canvasWrap.current.style.opacity = (0.55 * vis).toFixed(3);
+    // Keep the start anchor visible from the top of the page (floor the canvas
+    // opacity), then ramp to full as the rail comes into play on scroll.
+    pencil.visible = true;
+    if (canvasWrap.current)
+      canvasWrap.current.style.opacity = Math.max(0.8, 0.55 * vis).toFixed(3);
   });
 
   return <primitive object={pencil} />;

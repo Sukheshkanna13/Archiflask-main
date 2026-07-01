@@ -10,28 +10,17 @@ const focusRing = "focus-visible:outline-none focus-visible:ring-2 focus-visible
 
 export function Nav() {
   const path = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  useEffect(() => {
-    const on = () => setScrolled((window.scrollY || 0) > 18);
-    on();
-    window.addEventListener("scroll", on, { passive: true });
-    return () => window.removeEventListener("scroll", on);
-  }, []);
   // close the mobile menu on navigation
   useEffect(() => {
     setOpen(false);
   }, [path]);
 
-  const showChrome = scrolled || open;
   return (
     <nav
       id="af-nav"
       aria-label="Primary"
-      className={`fixed inset-x-0 top-0 z-[300] flex items-center justify-between px-4 py-3 transition-[background,backdrop-filter,border-color] duration-300 md:px-10 md:py-4 ${showChrome
-        ? "border-b border-black/[0.08] bg-white/[0.72] [backdrop-filter:saturate(180%)_blur(20px)]"
-        : "border-b border-transparent bg-transparent"
-        }`}
+      className="fixed inset-x-0 top-0 z-[300] flex items-center justify-between border-b border-black/[0.08] bg-white/[0.72] px-4 py-[28px] [backdrop-filter:saturate(180%)_blur(20px)] md:px-10 md:py-[32px]"
     >
       <Link
         href="/"
@@ -41,7 +30,7 @@ export function Nav() {
         <img
           src="/archiflask-logo.png"
           alt="ArchiFlask Logo"
-          className="h-8 w-auto object-contain rounded-md"
+          className="h-12 w-auto object-contain rounded-md"
         />
       </Link>
 

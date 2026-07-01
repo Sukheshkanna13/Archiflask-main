@@ -4,6 +4,12 @@ import { DEMO_EXPECT, DEMO_SLOTS, buildDemoCalendar } from "@/lib/content";
 
 const WEEKDAYS = ["M", "T", "W", "T", "F", "S", "S"];
 
+// Where the booking POST goes. Set NEXT_PUBLIC_BOOKING_ENDPOINT to the real API
+// once it's ready; until then we fall back to the internal /api/book-demo route
+// so the form keeps working.
+const BOOKING_ENDPOINT =
+  process.env.NEXT_PUBLIC_BOOKING_ENDPOINT || "/api/book-demo";
+
 const cardCls =
   "af-card rounded-[24px] border border-black/[0.07] bg-white p-[34px] shadow-[0_20px_50px_rgba(0,0,0,.06)]";
 const inputCls =
@@ -33,12 +39,13 @@ export default function BookDemoPage() {
       email,
       firm: String(fd.get("firm") || ""),
       phone: String(fd.get("phone") || ""),
+      message: String(fd.get("message") || ""),
       company_website: String(fd.get("company_website") || ""), // honeypot
       day: day || "",
       slot: slot || "",
     };
 
-    const res = await fetch("/api/book-demo", {
+    const res = await fetch(BOOKING_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -170,7 +177,7 @@ export default function BookDemoPage() {
                   Time slot
                 </div>
                 <div
-                  className="mt-2.5 grid grid-cols-4 gap-2"
+                  className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4"
                   role="group"
                   aria-label="Choose a time slot"
                 >
@@ -207,6 +214,10 @@ export default function BookDemoPage() {
                   <label className="contents">
                     <span className="sr-only">Phone or WhatsApp</span>
                     <input name="phone" placeholder="Phone / WhatsApp" aria-label="Phone or WhatsApp" className={inputCls} />
+                  </label>
+                  <label className="contents">
+                    <span className="sr-only">Message or details</span>
+                    <textarea name="message" placeholder="Message / details (optional)" rows={3} aria-label="Message or details" className={`${inputCls} sm:col-span-2 resize-none`} />
                   </label>
                 </div>
 

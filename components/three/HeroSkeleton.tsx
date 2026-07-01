@@ -33,14 +33,16 @@ function Brain({ progressRef, calm }: { progressRef: MutableRefObject<number>; c
   useFrame(() => {
     const g = grp.current;
     if (!g) return;
-    const p = Math.max(0, Math.min(1, progressRef.current));
+    const rawP = Math.max(0, Math.min(1, progressRef.current));
+    // Start at 20% progress so pencil is partially visible from load
+    const p = 0.2 + rawP * 0.8;
     const tm = (performance.now() - t0.current) / 1000;
     const cf = calm ? 0.4 : 1;
     const W = size.width;
     const H = size.height;
     const it = {
       fx: 0.5,
-      fy: 0.46,
+      fy: 0.47,       // shifted down slightly so it doesn't overlap the navbar text
       base: 1.16,
       start: 1.18,
       shrink: 0.5,
@@ -59,6 +61,7 @@ function Brain({ progressRef, calm }: { progressRef: MutableRefObject<number>; c
     g.rotation.x = it.rx;
     g.rotation.y = it.ry0 + p * it.rySpan + tm * it.spin * cf;
     g.rotation.z = it.rz0 + p * it.rzSpan;
+    // Light up nodes — start at 20% already lit
     const lit = Math.round(p * (nodes.length - 1));
     nodeMats.current.forEach((m, i) => {
       if (m) m.color.setHex(i <= lit ? 0x1d1d1f : 0xcfcfd4);

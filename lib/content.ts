@@ -42,12 +42,12 @@ export const STATS: Stat[] = [
 ];
 
 export const ORBIT_NODES = [
-  { label: "Documentation", left: "64%", top: "12%", labelFirst: false, colorType: "green" },
-  { label: "Profitability", left: "8%", top: "54%", labelFirst: true, colorType: "purple" },
-  { label: "Operations", left: "32%", top: "78%", labelFirst: true, colorType: "black" },
-  { label: "Collaboration", left: "24%", top: "28%", labelFirst: true, colorType: "green" },
-  { label: "Client Portal", left: "82%", top: "38%", labelFirst: false, colorType: "purple" },
-  { label: "Site Visits", left: "70%", top: "82%", labelFirst: false, colorType: "black" },
+  // Outer shell — 2 nodes
+  { label: "Documentation", shell: 2, angle: 78, labelFirst: false },
+  { label: "Profitability", shell: 1, angle: 210, labelFirst: true },
+  // Inner shell — 2 nodes
+  { label: "Collaboration", shell: 1, angle: 140, labelFirst: true },
+  { label: "Operations", shell: 1, angle: 325, labelFirst: false },
 ];
 
 // ---------- Home: Problem ----------
@@ -251,6 +251,18 @@ export const PRICING: PricingTier[] = [
 export const PRICING_NOTE =
   "All paid plans are +GST per user. Add 10GB cloud storage to any business plan for ₹275/mo. The Free plan never expires.";
 
+// ---------- Home: Add-ons ----------
+// Real-time, value-added features priced separately, layered onto any plan.
+export type AddOn = { title: string; body: string; price: string; period?: string };
+export const ADDONS: AddOn[] = [
+  { title: "Extra Cloud Storage", body: "Add 10GB to any business plan when projects pile up.", price: "₹275", period: "/ mo" },
+  { title: "Extra Users", body: "Bring more of the team on without changing your plan.", price: "₹500", period: "/ user / mo" },
+  { title: "AI Drawing Compare", body: "Automatic R0-vs-R1 diffing that highlights exactly what changed.", price: "₹999", period: "/ mo" },
+  { title: "Client Portal Seats", body: "Give clients their own window into project status and approvals.", price: "₹300", period: "/ seat / mo" },
+  { title: "On-Site Support", body: "Hands-on onboarding and field setup with our team.", price: "Custom" },
+  { title: "WhatsApp Alerts", body: "Push task, approval and site updates straight to WhatsApp.", price: "₹499", period: "/ mo" },
+];
+
 // ---------- About ----------
 export type ProductPillar = { icon: "circle" | "doc" | "rupee"; title: string; body: string };
 export const ABOUT_PRODUCT: ProductPillar[] = [
@@ -441,8 +453,12 @@ export function buildDemoCalendar(ref: Date = new Date()): DemoCalendar {
 
 export type DemoSlot = { label: string; value: string };
 export const DEMO_SLOTS: DemoSlot[] = [
-  { label: "10:00", value: "10:00 AM" },
-  { label: "11:30", value: "11:30 AM" },
-  { label: "2:00", value: "2:00 PM" },
-  { label: "4:30", value: "4:30 PM" },
+  { label: "10:00", value: "10:00–11:00 AM" },
+  { label: "11:00", value: "11:00 AM–12:00 PM" },
+  { label: "12:00", value: "12:00–1:00 PM" },
+  { label: "2:00", value: "2:00–3:00 PM" },
+  { label: "3:00", value: "3:00–4:00 PM" },
+  { label: "4:00", value: "4:00–5:00 PM" },
+  { label: "5:00", value: "5:00–6:00 PM" },
+  { label: "6:00", value: "6:00–7:00 PM" },
 ];
