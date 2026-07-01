@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   description:
     'ArchiFlask is the operating platform for design, construction & PMC firms, bringing projects, drawings, teams, site activity, approvals and profitability into one place.',
   applicationName: 'ArchiFlask',
-  alternates: { 
+  alternates: {
     canonical: '/',
     languages: { 'en-IN': '/', 'x-default': '/' }
   },
@@ -75,7 +75,7 @@ const appLd = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={nunito.variable}>
-      <body>
+      <body suppressHydrationWarning>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appLd) }} />
         <a
