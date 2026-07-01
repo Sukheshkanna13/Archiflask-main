@@ -86,7 +86,11 @@ function Pencil({
     const p = Math.max(0, Math.min(1, (sy - gate) / (endScroll - gate)));
     const vis = Math.max(0, Math.min(1, (sy - gate) / Math.max(1, vh * 0.5)));
 
-    const btnViewY = btnDocY - sy;
+    // Clamp the scroll Y used for path coordinate calculation so the path freezes
+    // once the pencil reaches the endScroll landing zone. This keeps the pencil pinned
+    // to the button when scrolling past it into the footer.
+    const pathSy = Math.min(sy, endScroll);
+    const btnViewY = btnDocY - pathSy;
     // Anchor the rail just under the fixed nav. The pencil renders below the nav
     // in z-order, so most of it tucks behind the nav and ~25% pokes out as a
     // visible start point in the top-right corner. From there the rail weaves
@@ -107,10 +111,11 @@ function Pencil({
     let d = "";
     let tot = 0;
     let prev: [number, number] | null = null;
+    const scrollExcess = Math.max(0, sy - endScroll);
     for (let i = 0; i <= N; i++) {
       const t = i / N;
       const x = cx + amp * Math.cos(t * Math.PI * freq) + startShift * (1 - t);
-      const y = topY + t * span;
+      const y = topY + t * span - scrollExcess;
       pts.push([x, y]);
       d += (i ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1);
       if (prev) tot += Math.hypot(x - prev[0], y - prev[1]);

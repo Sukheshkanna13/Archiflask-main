@@ -12,9 +12,9 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-[11px] mb-4">
             <img
-              src="/wallzehn-logo-new.png"
+              src="/walzehn-footer.png"
               alt="Wallzehn Logo"
-              className="h-30 w-auto object-contain rounded-md"
+              className="h-12 w-auto object-contain"
             />
           </div>
           <p className="mt-4 max-w-[300px] text-[14.5px] leading-[1.5] text-white/55">
