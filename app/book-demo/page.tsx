@@ -82,7 +82,7 @@ export default function BookDemoPage() {
       : "border-black/10 bg-transparent text-ink";
 
   return (
-    <main className="animate-on-scroll relative z-[2] min-h-screen bg-[radial-gradient(120%_70%_at_50%_0%,#f5f5f7,#fff_60%)] px-6 pt-[150px] pb-[100px]">
+    <main className="animate-on-scroll relative z-[2] min-h-screen bg-[radial-gradient(120%_70%_at_50%_0%,#f5f5f7,#fff_60%)] px-6 pt-[122px] pb-[100px]">
       <div className="mx-auto max-w-[1080px]">
         {!submitted ? (
           <>

@@ -20,7 +20,7 @@ export function Nav() {
     <nav
       id="af-nav"
       aria-label="Primary"
-      className="fixed inset-x-0 top-0 z-[300] flex items-center justify-between border-b border-black/[0.08] bg-white/[0.72] px-4 py-[28px] [backdrop-filter:saturate(180%)_blur(20px)] md:px-10 md:py-[32px]"
+      className="fixed inset-x-0 top-0 z-[300] flex items-center justify-between border-b border-black/[0.08] bg-white/[0.72] px-4 py-[15px] [backdrop-filter:saturate(180%)_blur(20px)] md:px-10 md:py-[18px]"
     >
       <Link
         href="/"

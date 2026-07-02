@@ -157,7 +157,7 @@ export default async function BlogDetailsPage({ params }: Props) {
     return (
         <main className="relative z-[2]">
             {/* Hero Section */}
-            <section className="animate-on-scroll bg-white mt-18">
+            <section className="animate-on-scroll bg-white mt-[54px]">
                 <div className="relative h-[50vh] min-h-[400px] w-full overflow-hidden">
                     <img
                         src={post.heroImage}
