@@ -17,7 +17,7 @@ const STEPS = [
 export default function GetStartedPage() {
   return (
     <main className="relative z-[2]">
-      <section className="animate-on-scroll bg-white px-5 pb-[72px] pt-[140px] md:px-10 md:pb-[120px] md:pt-[200px]">
+      <section className="animate-on-scroll bg-white px-5 pb-[72px] pt-[114px] md:px-10 md:pb-[120px] md:pt-[172px]">
         <div className="mx-auto max-w-[960px] text-center">
           <div className="text-[13px] font-bold uppercase tracking-[0.16em] text-gray-2">
             Get Started

@@ -3,7 +3,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export function AboutHero() {
   return (
-    <section className="bg-[radial-gradient(120%_70%_at_50%_0%,#f5f5f7,#fff_62%)] px-5 pb-24 pt-[140px] text-center md:px-6 md:pt-[178px]">
+    <section className="bg-[radial-gradient(120%_70%_at_50%_0%,#f5f5f7,#fff_62%)] px-5 pb-24 pt-[114px] text-center md:px-6 md:pt-[150px]">
       <div className="mx-auto max-w-[920px]">
         <Reveal y={24}>
           <SectionLabel>About ArchiFlask</SectionLabel>

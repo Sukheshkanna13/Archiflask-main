@@ -53,7 +53,7 @@ export function Hero() {
         </div> */}
 
         {/* headline */}
-        <div className="relative z-[2] mx-auto flex h-auto max-w-[1240px] items-start px-5 pt-[164px] md:h-full md:items-start md:px-10 md:pt-[172px]">
+        <div className="relative z-[2] mx-auto flex h-auto max-w-[1240px] items-start px-5 pt-[138px] md:h-full md:items-start md:px-10 md:pt-[144px]">
           <div className="max-w-[660px]">
             <div className="animate-[afRise_.7s_cubic-bezier(.16,1,.3,1)_both] text-[13px] font-bold uppercase tracking-[0.16em] text-gray-2">
               Architecture · Construction · Software
