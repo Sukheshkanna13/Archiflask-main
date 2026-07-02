@@ -14,7 +14,7 @@ export function Grid() {
           <Reveal key={p.slotId} y={30} duration={0.8} delay={(i % 3) * 0.07} className="flex">
             <Link
               href={`/blog/${slugify(p.title)}`}
-              className="af-card group flex w-full flex-col overflow-hidden rounded-[22px] border border-black/[0.07] bg-white"
+              className="af-card group relative flex w-full flex-col overflow-hidden rounded-[22px] border border-black/[0.07] bg-white"
             >
               <ImageSlot src={BLOG_IMAGES[p.slotId]} alt={`${p.category} cover`} className="h-[200px]" />
               <div className="flex flex-1 flex-col px-6 pb-7 pt-[26px]">

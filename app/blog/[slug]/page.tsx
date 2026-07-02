@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { BLOG_FEATURED, BLOG_POSTS } from "@/lib/content";
+import { BLOG_IMAGES } from "@/lib/images";
 
 type BlogPostFull = {
     slotId: string;
@@ -14,46 +15,100 @@ type BlogPostFull = {
     fullContent: string;
 };
 
+// Add detailed sectioned content for each blog post
+const BLOG_FULL_CONTENTS: Record<string, string> = {
+    "af-blog-feat": `
+        <p>${BLOG_FEATURED.body}</p>
+        <h2>The Hidden Costs of Scaling Without Systems</h2>
+        <p>When firms try to grow without implementing proper systems, they often encounter a range of hidden costs that eat into profitability. From miscommunicated project requirements to lost documentation, these issues can quickly derail even the most promising growth plans.</p>
+        <h2>Step 1: Document Your Core Processes</h2>
+        <p>The first step to building a scalable firm is to document every core process. This includes everything from client onboarding to project handover. When everyone follows the same documented process, you eliminate guesswork and ensure consistency across all projects.</p>
+        <h2>Step 2: Choose the Right Tools</h2>
+        <p>Investing in the right technology stack is crucial. Look for tools that integrate well with each other and can grow with your firm. A centralized project management platform that handles documentation, communication, and tracking is essential for modern architecture firms.</p>
+        <h2>Step 3: Train Your Team</h2>
+        <p>Even the best systems won't work if your team isn't properly trained. Invest time in training everyone on your new processes and tools. This initial investment will pay off many times over in increased efficiency and reduced errors.</p>
+        <h2>Measuring Success</h2>
+        <p>After implementing your new systems, track key metrics to measure success. Look at project delivery times, client satisfaction scores, and team productivity. You should see measurable improvements within the first few months of implementation.</p>
+    `,
+    "af-blog-1": `
+        <p>${BLOG_POSTS[0].body}</p>
+        <h2>The Cost of Lost Drawings</h2>
+        <p>When drawings get lost or mixed up, the costs can be staggering. Rework, delays, and client dissatisfaction all add up. For many firms, this is one of the biggest drains on profitability that's completely avoidable with the right systems in place.</p>
+        <h2>Implementing an Automatic Revision System</h2>
+        <p>An automatic revision tracking system creates an immutable trail of every change made to a drawing. This means you always know which version is the current one, who made changes, and when. No more hunting through emails and file shares for the "latest" version.</p>
+        <h2>Key Features to Look For</h2>
+        <p>Your revision management system should automatically assign R-numbers, maintain a changelog, and prevent accidental overwrites. Cloud-based systems that integrate with your design tools work best for modern teams.</p>
+        <h2>Getting Buy-In from Your Team</h2>
+        <p>Change can be difficult, but most architects quickly see the value in a system that eliminates the stress of managing revisions. Start with one project as a pilot, demonstrate the benefits, and roll it out to the rest of the firm.</p>
+    `,
+    "af-blog-2": `
+        <p>${BLOG_POSTS[1].body}</p>
+        <h2>The Most Common Margin Leaks</h2>
+        <p>Rework that nobody tracked, effort that nobody quoted, and scope creep that slips through the cracks - these are the most common ways architecture firms lose money on projects. Most firms are leaving 15-20% of potential profit on the table due to these issues.</p>
+        <h2>Tracking Time to the Hour</h2>
+        <p>When you start tracking every team member's time to the hour, you gain incredible visibility into where your money is being spent. You can see which projects are profitable and which are draining resources, allowing you to make better decisions.</p>
+        <h2>Implementing Better Quoting Practices</h2>
+        <p>Accurate quoting starts with understanding your historical data. Use past project data to inform your quotes on new projects. Build in contingencies for scope creep and always get changes in writing before starting work.</p>
+        <h2>Regular Profitability Reviews</h2>
+        <p>Conduct monthly reviews of each project's profitability. Catch issues early before they become major problems. This proactive approach can save your firm thousands of rupees in lost revenue.</p>
+    `,
+    "af-blog-3": `
+        <p>${BLOG_POSTS[2].body}</p>
+        <h2>Why WhatsApp Groups Stop Working</h2>
+        <p>WhatsApp is great for personal communication, but it was never designed for business. As your firm grows, scattered chats lead to missed information, lost context, and team members who can't find critical project details when they need them.</p>
+        <h2>Building Your Operating System Playbook</h2>
+        <p>A practical path off scattered chats starts with documenting every process. Create a playbook that outlines exactly how communication should happen, what tools to use, and what information needs to be captured where.</p>
+        <h2>Choosing Your Central Platform</h2>
+        <p>Your operating system needs a single source of truth. Look for a platform that brings together project management, documentation, and communication in one place. This eliminates the need for multiple tools that don't talk to each other.</p>
+        <h2>One Source of Truth the Whole Firm Trusts</h2>
+        <p>When everyone trusts that the information they're looking for is in the system, adoption rates skyrocket. Invest time in building a system that's intuitive and actually solves real problems for your team.</p>
+    `,
+    "af-blog-4": `
+        <p>${BLOG_POSTS[3].body}</p>
+        <h2>The Problems with the Honour System</h2>
+        <p>Relying on team members to self-report their site attendance leads to inaccurate data at best and fraud at worst. You can't make good decisions about resource allocation and billing when you don't have reliable attendance data.</p>
+        <h2>How Geo-Tagging Works</h2>
+        <p>Modern geo-tagged attendance systems use smartphone GPS to log when team members are on site. This creates an immutable record of presence that can be used for billing, payroll, and project tracking. It's impossible to "clock in" when you're not actually there.</p>
+        <h2>Benefits Beyond Accountability</h2>
+        <p>Reliable field data does more than just keep everyone honest. It helps you identify patterns, optimize resource allocation, and even improve safety by knowing exactly who is on site at any given time.</p>
+        <h2>Addressing Privacy Concerns</h2>
+        <p>Some team members may have privacy concerns about location tracking. Be transparent about what data you're collecting and why. Limit tracking to work hours only and emphasize that this is a business tool, not a way to monitor employees outside of work.</p>
+    `,
+    "af-blog-5": `
+        <p>${BLOG_POSTS[4].body}</p>
+        <h2>Transparency as a Selling Point</h2>
+        <p>Most firms treat client transparency as a chore, but forward-thinking firms are turning it into a competitive advantage. A client portal that gives clients real-time access to their project's status becomes a key differentiator in the marketplace.</p>
+        <h2>What to Include in Your Client Portal</h2>
+        <p>Your client portal should provide access to current drawings, project timelines, billing information, and communication logs. Clients love being able to check on their project whenever they want, without having to wait for an update email.</p>
+        <h2>Reducing the Communication Burden</h2>
+        <p>A good client portal reduces the number of status update emails and calls your team needs to handle. Clients can self-serve most of their questions, freeing up your team to focus on what they do best - great architecture.</p>
+        <h2>Building Long-Term Client Relationships</h2>
+        <p>When clients feel informed and involved throughout the project, they're much more likely to work with you again and refer your firm to others. The investment in a client portal pays off through repeat business and referrals.</p>
+    `,
+    "af-blog-6": `
+        <p>${BLOG_POSTS[5].body}</p>
+        <h2>Why SOPs Matter for Architecture Firms</h2>
+        <p>The Standard Operating Procedure (SOP) mindset is what separates firms that scale successfully from those that hit a ceiling. SOPs document how you work, creating consistency across all projects and team members.</p>
+        <h2>Documenting Your Firm's Unique Way of Working</h2>
+        <p>Every firm has its own approach to projects. Your SOPs should capture that unique approach and make it repeatable. This means you can take on more projects without sacrificing quality or losing control.</p>
+        <h2>Creating SOPs That Actually Get Used</h2>
+        <p>The worst SOPs are those that sit unused in a shared drive. Create living documents that are integrated into your daily workflow. Train every new team member on your SOPs and update them regularly based on feedback.</p>
+        <h2>A Practice That Runs Without You</h2>
+        <p>The ultimate goal of SOPs is to build a firm that can run successfully without the owner being involved in every detail. This gives you the freedom to focus on growth and strategy, while your team executes consistently.</p>
+    `
+};
+
+// Combine featured and regular posts, use the same images from the blog grid page
 const ALL_BLOG_POSTS: BlogPostFull[] = [
     {
         ...BLOG_FEATURED,
-        heroImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&h=800&fit=crop",
-        fullContent: `
-      <p>Architecture firms are facing unprecedented pressure to scale while maintaining the quality and control that made them successful. In today's fast-paced environment, many owners find themselves drowning in emails, WhatsApp messages, and scattered project information.</p>
-      
-      <h2>The Problem with Running a Firm from Your Head</h2>
-      <p>When you start an architecture practice, it's just you and maybe a small team. You can keep track of everything in your head. But as you grow, this model breaks down. Projects multiply, deadlines stack up, and critical information gets lost in translation.</p>
-      
-      <p>You can't grow a practice you're running out of your head, your inbox, and a dozen WhatsApp groups. Here's how firm owners move from memory to a system, and what changes when they do.</p>
-      
-      <h2>Moving from Chaos to a System</h2>
-      <p>The first step toward scaling successfully is implementing a centralized system that captures all project information, communication, and documentation in one place. This eliminates the need to rely on individual memory or scattered communication channels.</p>
-      
-      <p>Firms that make this transition report a 40% reduction in miscommunication and a 35% improvement in project delivery timelines. The investment in a proper system pays for itself many times over in saved time and reduced errors.</p>
-      
-      <h2>What Changes When You Systematize</h2>
-      <p>When everything is in one place, you gain visibility across all your projects. You can track progress, identify bottlenecks, and allocate resources effectively. Your team knows exactly what they need to do, and clients are always in the loop.</p>
-      
-      <p>Perhaps most importantly, you free up your time as an owner to focus on what you do best – creating great architecture – rather than spending hours every day managing communication and chasing information.</p>
-    `
+        heroImage: BLOG_IMAGES["af-blog-feat"] || "", // Use same image from blog grid
+        fullContent: BLOG_FULL_CONTENTS["af-blog-feat"]
     },
-    ...BLOG_POSTS.map((post, index) => ({
+    ...BLOG_POSTS.map((post) => ({
         ...post,
-        heroImage: `https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1600&h=800&fit=crop&sig=${index}`,
-        fullContent: `
-      <p>${post.body}</p>
-      <p>This comprehensive guide takes you through everything you need to know about implementing these practices in your own architecture firm. We've worked with dozens of firms that have successfully transformed their operations by following this framework.</p>
-      
-      <h2>Why This Matters for Your Firm</h2>
-      <p>In today's competitive landscape, firms that can operate efficiently and scale without losing control are the ones that will thrive. The old ways of managing projects simply don't work as you take on more work and grow your team.</p>
-      
-      <p>By implementing the strategies outlined in this article, you'll be able to take on more projects, maintain quality, and keep your team aligned – all while reducing stress and improving profitability.</p>
-      
-      <h2>Getting Started Today</h2>
-      <p>The best time to start systematizing your firm is now. Pick one area where you're experiencing the most pain, whether that's drawing revisions, communication, or project tracking, and implement a solution for that first. Once you see the improvements, you can expand to other areas.</p>
-      
-      <p>Many firm owners are surprised at how quickly these changes transform their operations. Within weeks, you'll wonder how you ever managed without a centralized system.</p>
-    `
+        heroImage: BLOG_IMAGES[post.slotId] || "", // Use same images from blog grid
+        fullContent: BLOG_FULL_CONTENTS[post.slotId] || post.body
     }))
 ];
 
@@ -152,7 +207,7 @@ export default async function BlogDetailsPage({ params }: Props) {
                 <div className="mx-auto max-w-[750px] px-5 md:px-6">
                     <Reveal y={30} delay={0.25} duration={0.8}>
                         <div
-                            className="prose prose-lg max-w-none text-gray-700"
+                            className="blog-content max-w-none"
                             dangerouslySetInnerHTML={{ __html: post.fullContent }}
                             style={{
                                 lineHeight: '1.8',
@@ -160,6 +215,27 @@ export default async function BlogDetailsPage({ params }: Props) {
                             }}
                         />
                     </Reveal>
+                    {/* We'll add the styles as a style tag since App Router doesn't support styled-jsx */}
+                    <style>{`
+                        .blog-content h2 {
+                            margin-top: 40px !important;
+                            margin-bottom: 16px !important;
+                            font-size: 24px !important;
+                            font-weight: 600 !important;
+                            color: #111827 !important;
+                            line-height: 1.4 !important;
+                        }
+                        .blog-content p {
+                            margin-bottom: 20px !important;
+                            color: #4b5563 !important;
+                        }
+                        .blog-content p:first-child {
+                            margin-top: 0 !important;
+                        }
+                        .blog-content h2:first-of-type {
+                            margin-top: 0 !important;
+                        }
+                    `}</style>
 
                     <Reveal y={30} delay={0.3} duration={0.8}>
                         <div className="mt-16 border-t border-gray-200 pt-12">
