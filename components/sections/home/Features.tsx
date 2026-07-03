@@ -29,6 +29,13 @@ export function Features() {
               <SplitText eyebrow={f.eyebrow} title={f.title} body={f.body} />
             </Reveal>
           );
+          let imageClassName = "h-[360px]";
+          if (f.slotId === "af-feat-drawings") {
+            imageClassName = "aspect-[3/2] h-auto w-full"; // 3:2 for drawings
+          } else if (f.slotId === "af-feat-effort") {
+            imageClassName = "aspect-[2820/1412] h-auto w-full"; // 2:1 for taskboard
+          }
+
           const image = (
             <Reveal
               key="i"
@@ -36,7 +43,7 @@ export function Features() {
               delay={0.1}
               className="group overflow-hidden rounded-[22px] border border-black/[0.07] bg-white shadow-[0_24px_60px_rgba(0,0,0,.08)]"
             >
-              <ImageSlot src={FEATURE_IMAGES[f.slotId]} alt={f.placeholder} className="h-[360px]" />
+              <ImageSlot src={FEATURE_IMAGES[f.slotId]} alt={f.placeholder} className={imageClassName} />
             </Reveal>
           );
           return (

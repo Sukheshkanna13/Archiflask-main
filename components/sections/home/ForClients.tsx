@@ -46,7 +46,7 @@ export function ForClients() {
         <Reveal y={30} delay={0.12} className="flex justify-center">
           <div className="w-[240px] rounded-[34px] border border-white/[0.12] bg-[#0a0a0a] p-2.5 shadow-[0_40px_90px_rgba(0,0,0,.5)]">
             <div className="group overflow-hidden rounded-[26px] bg-surface">
-              <ImageSlot src={CLIENT_APP_IMAGE} alt="ArchiFlask client app showing project progress on mobile" className="h-[420px]" />
+              <ImageSlot src={CLIENT_APP_IMAGE} alt="ArchiFlask client app showing project progress on mobile" className="aspect-[1320/2868] h-auto w-full" />
             </div>
           </div>
         </Reveal>

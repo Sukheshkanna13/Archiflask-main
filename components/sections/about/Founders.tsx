@@ -1,7 +1,5 @@
 import { Reveal } from "@/components/motion/Reveal";
-import { ImageSlot } from "@/components/ui/ImageSlot";
 import { FOUNDERS } from "@/lib/content";
-import { FOUNDER_IMAGES } from "@/lib/images";
 
 export function Founders() {
   return (
@@ -22,7 +20,6 @@ export function Founders() {
               className="af-card rounded-[24px] border border-black/[0.05] bg-surface p-[34px]"
             >
               <div className="flex items-center gap-[18px]">
-                <ImageSlot src={FOUNDER_IMAGES[f.slotId]} alt={f.alt} rounded="circle" className="h-[84px] w-[84px] flex-none" />
                 <div>
                   <div className="text-[22px] font-semibold tracking-[-0.01em]">{f.name}</div>
                   <div className="mt-[3px] text-[14.5px] font-semibold text-gray-2">{f.role}</div>

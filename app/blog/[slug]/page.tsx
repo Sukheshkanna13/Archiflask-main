@@ -95,6 +95,33 @@ const BLOG_FULL_CONTENTS: Record<string, string> = {
         <p>The worst SOPs are those that sit unused in a shared drive. Create living documents that are integrated into your daily workflow. Train every new team member on your SOPs and update them regularly based on feedback.</p>
         <h2>A Practice That Runs Without You</h2>
         <p>The ultimate goal of SOPs is to build a firm that can run successfully without the owner being involved in every detail. This gives you the freedom to focus on growth and strategy, while your team executes consistently.</p>
+    `,
+    "af-blog-7": `
+        <p>Managing vendors across multiple construction projects is often a logistical nightmare. Disconnected emails, loose contracts, and unrecorded agreements lead to supply chain chaos and massive invoice disputes down the road.</p>
+        <h2>The High Cost of Fragmented Procurement</h2>
+        <p>When procurement doesn't talk to project management, teams end up double-ordering materials or waiting weeks for crucial supplies. Unmanaged vendor relationships can easily erode profit margins through hidden fees and delayed deliverables.</p>
+        <h2>Centralizing Vendor Contracts</h2>
+        <p>By bringing all vendor contracts and purchase orders into a single platform, builders can instantly track who owes what, and when. Digital procurement systems automatically link materials to project budgets, ensuring that every purchase aligns with the planned financials.</p>
+        <h2>Automating the Approval Workflow</h2>
+        <p>Streamline procurement by setting up automated approvals for purchase orders. This not only speeds up the acquisition of critical materials but also provides an indisputable paper trail for every transaction, eliminating the "he said, she said" of vendor management.</p>
+    `,
+    "af-blog-8": `
+        <p>In construction, relying on month-end financial reports means you are driving looking in the rearview mirror. By the time you realize a project is bleeding money, the damage is already done, and corrective action is nearly impossible.</p>
+        <h2>Moving Beyond the Post-Mortem Budget</h2>
+        <p>A budget that only gets reviewed at project close isn't a control system — it's an autopsy. What builders need is real-time visibility into planned versus actual spend, updated daily based on on-site material consumption and labor hours.</p>
+        <h2>The Power of Real-Time Financial Dashboards</h2>
+        <p>Real-time dashboards aggregate data across all project phases, giving owners an instant read on cash flow and variance. When actual spend approaches the planned threshold, automated alerts can flag the issue before it spirals out of control.</p>
+        <h2>Proactive Financial Control</h2>
+        <p>With real-time data, project managers can make informed decisions mid-execution. Whether it's renegotiating a supplier rate or reallocating labor, immediate financial insights empower teams to protect their margins proactively.</p>
+    `,
+    "af-blog-9": `
+        <p>One of the most persistent challenges in construction is the disconnect between the design studio and the active site. When architects and site engineers operate in silos, the result is miscommunication, rework, and costly delays.</p>
+        <h2>The Cost of Siloed Information</h2>
+        <p>If the site team is working off an outdated drawing while the design studio has already issued a revision, materials get wasted and deadlines are missed. Ensuring that everyone has access to the single source of truth is critical.</p>
+        <h2>A Unified Collaboration Platform</h2>
+        <p>Bridging this gap requires a unified platform where drawings, RFIs, and site photos live in the same ecosystem. When a site engineer raises a query, the design team should see it instantly, pinned to the exact location on the blueprint.</p>
+        <h2>Synchronizing the Build</h2>
+        <p>By connecting the office and the field, builders can ensure that the physical structure matches the design intent perfectly. Seamless collaboration not only accelerates the project timeline but also significantly improves the final build quality.</p>
     `
 };
 
