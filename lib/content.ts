@@ -373,6 +373,9 @@ export const BLOG_POSTS: BlogPost[] = [
   { slotId: "af-blog-4", category: "Field", title: "Geo-tagged site attendance: replacing the honour system on site.", body: "Logging presence with location, and what reliable field data does for billing and accountability.", read: "4 min read" },
   { slotId: "af-blog-5", category: "Clients", title: "Why a client portal wins more repeat business than any pitch.", body: "Giving clients their own window into the project turns transparency from a chore into something you sell.", read: "5 min read" },
   { slotId: "af-blog-6", category: "Growth", title: "The SOP mindset: building a practice that runs without you.", body: "Why the firms that scale cleanly are the ones that turned how they work into a documented standard.", read: "6 min read" },
+  { slotId: "af-blog-7", category: "Procurement", title: "The Hidden Costs of Unmanaged Vendor Relationships.", body: "How digital procurement and centralized contracts save builders from supply chain chaos and invoice disputes.", read: "5 min read" },
+  { slotId: "af-blog-8", category: "Finance", title: "Why Real-Time Financial Dashboards Are Replacing Month-End Reporting.", body: "A budget that only gets reviewed at project close isn't a control system — it's a post-mortem.", read: "6 min read" },
+  { slotId: "af-blog-9", category: "Collaboration", title: "Bridging the Gap Between the Site Office and the Design Studio.", body: "Connecting architects and site engineers through a single unified platform to prevent miscommunications.", read: "4 min read" },
 ];
 
 // ---------- Book a Demo ----------
