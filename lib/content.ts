@@ -106,33 +106,33 @@ export const FEATURES_CARDS: FeatureCard[] = [
   { num: "05", title: "Geo-tagged site visits", body: "Site updates with photos and video, pinned to location and time." },
 ];
 
-// ---------- Home: Capabilities ----------
-export type Capability = { title: string; body: string; dark?: boolean };
+// ---------- Home: Capabilities (Builder Features) ----------
+export type Capability = { num: string; title: string; body: string };
 export const CAPABILITIES: Capability[] = [
   {
-    title: "Drawings and GFC Docs",
-    body: "Organize client drawings in dedicated folders for layouts structural plumbing and electrical."
+    num: "01",
+    title: "Daily Progress Reports that build themselves",
+    body: "Site engineers log the day's work once. ArchiFlask pulls labour attendance, material consumption, and site expenses into one daily report automatically — so nobody's compiling a separate update at the end of the day."
   },
   {
-    title: "360° Viewer: Visualize designs in full perspective",
-    body: "Upload panoramic image files to view your designs in immersive 360 perspectives."
+    num: "02",
+    title: "GPS-verified attendance, not an honour system",
+    body: "Every check-in is location-tagged, on-site or in-office. Firms see exactly who was where, and when — with leave and work-from-home requests handled in the same place."
   },
   {
-    title: "Documented Site Visits",
-    body: "Log site photos with detailed reports to review standards and correct deviations."
+    num: "03",
+    title: "Material requests, tracked from ask to arrival",
+    body: "Site engineers raise material requests from the field with quantity and delivery date attached. As materials arrive, inventory updates instantly — so procurement sees demand before it becomes a shortage."
   },
   {
-    title: "Concept Plan Board: The foundation of every design",
-    body: "Share and approve initial layout concepts early with direct online sketching tools."
+    num: "04",
+    title: "Budgets that flag overruns while there's still time to act",
+    body: "Plan a budget by category — materials, labour, other costs — and ArchiFlask compares actual spend against it in real time, flagging drift early instead of at project close-out."
   },
   {
-    title: "AI-Powered Drawing Revision Comparison",
-    body: "Instantly compare revised drawings with prior versions to highlight all key updates."
-  },
-  {
-    title: "Present, discuss, decide together",
-    body: "Use direct screen sharing to host client walkthroughs and gather instant feedback.",
-    dark: true
+    num: "05",
+    title: "On-site changes, approved before the crew moves on",
+    body: "A client asks for a change at the site. The engineer raises it from the app with cost and schedule impact attached — the client approves with one tap, and the record is permanent. No paperwork, no waiting on email."
   }
 ];
 
