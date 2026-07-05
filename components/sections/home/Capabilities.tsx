@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Reveal } from "@/components/motion/Reveal";
-import { CAPABILITIES } from "@/lib/content";
+import { CAPABILITIES, BUILDER_CAPABILITIES } from "@/lib/content";
 
 export function Capabilities() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -11,18 +11,22 @@ export function Capabilities() {
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % CAPABILITIES.length);
+      setActiveIndex((prev) => (prev + 1) % BUILDER_CAPABILITIES.length);
     }, 6000);
     return () => clearInterval(interval);
   }, [isPaused]);
 
   return (
     <section 
-      className="animate-on-scroll bg-surface px-5 py-[72px] md:px-6 md:py-[120px]"
+      className="bg-surface px-5 py-[72px] md:px-6 md:py-[120px] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="mx-auto max-w-[1150px]">
+        {/* ========================================================== */}
+        {/* 1. BUILDER SHOWCASE SECTION */}
+        {/* ========================================================== */}
+        
         {/* Title and Subhead */}
         <div className="mx-auto max-w-[850px] text-center mb-16">
           <Reveal y={30}>
@@ -41,7 +45,7 @@ export function Capabilities() {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 items-stretch">
           {/* Left Column: Interactive Tabs */}
           <div className="lg:col-span-5 flex flex-col justify-center gap-4">
-            {CAPABILITIES.map((cap, i) => {
+            {BUILDER_CAPABILITIES.map((cap, i) => {
               const isActive = activeIndex === i;
               return (
                 <Reveal key={cap.num} y={20} delay={i * 0.05} className="w-full">
@@ -406,7 +410,7 @@ export function Capabilities() {
         </div>
 
         {/* Closing Line Section */}
-        <Reveal y={24} delay={0.2} className="mt-20 border-t border-black/[0.06] pt-12 text-center">
+        <Reveal y={24} delay={0.2} className="mt-20 border-b border-black/[0.06] pb-16 text-center">
           <div className="flex flex-col items-center justify-center">
             {/* Minimal Connecting Line/Indicator */}
             <div className="w-1.5 h-10 bg-[image:var(--grad-dark)] rounded-full mb-6 opacity-30" />
@@ -416,6 +420,50 @@ export function Capabilities() {
             </h3>
           </div>
         </Reveal>
+
+        {/* ========================================================== */}
+        {/* 2. ORIGINAL CAPABILITIES GRID SECTION (DESIGNER FEATURES) */}
+        {/* ========================================================== */}
+        
+        <div className="mt-20">
+          <Reveal y={30}>
+            <h2 className="text-center text-[clamp(30px,4.8vw,44px)] font-bold leading-[1.1] tracking-[-0.03em] text-ink">
+              Revolutionary features that blend cutting-edge technology with seamless usability
+            </h2>
+          </Reveal>
+          
+          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {CAPABILITIES.map((c, i) => {
+              const hoverClass = c.dark
+                ? "hover:shadow-[0_20px_40px_rgba(255,255,255,0.06)] hover:border-white/20"
+                : "hover:shadow-[0_20px_40px_rgba(29,29,31,0.06)] hover:border-black/15";
+
+              return (
+                <Reveal
+                  key={c.title}
+                  y={28}
+                  duration={0.8}
+                  delay={(i % 3) * 0.07}
+                  className="h-full"
+                >
+                  <div
+                    className={`h-full rounded-[22px] p-8 border border-black/[0.04] transition-all duration-700 ease-out hover:-translate-y-1.5 ${hoverClass} ${
+                      c.dark
+                        ? "bg-[image:var(--grad-panel)] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.12)]"
+                        : "bg-white text-ink"
+                    }`}
+                  >
+                    <h4 className="mb-3 text-[18px] font-bold tracking-tight">{c.title}</h4>
+                    <p className={`text-[14.5px] leading-[1.55] ${c.dark ? "text-white/[0.66]" : "text-gray-2"}`}>
+                      {c.body}
+                    </p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+
       </div>
     </section>
   );

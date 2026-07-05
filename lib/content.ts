@@ -107,8 +107,8 @@ export const FEATURES_CARDS: FeatureCard[] = [
 ];
 
 // ---------- Home: Capabilities (Builder Features) ----------
-export type Capability = { num: string; title: string; body: string };
-export const CAPABILITIES: Capability[] = [
+export type BuilderCapability = { num: string; title: string; body: string };
+export const BUILDER_CAPABILITIES: BuilderCapability[] = [
   {
     num: "01",
     title: "Daily Progress Reports that build themselves",
@@ -133,6 +133,36 @@ export const CAPABILITIES: Capability[] = [
     num: "05",
     title: "On-site changes, approved before the crew moves on",
     body: "A client asks for a change at the site. The engineer raises it from the app with cost and schedule impact attached — the client approves with one tap, and the record is permanent. No paperwork, no waiting on email."
+  }
+];
+
+// ---------- Home: Capabilities (Original Features) ----------
+export type Capability = { title: string; body: string; dark?: boolean };
+export const CAPABILITIES: Capability[] = [
+  {
+    title: "Drawings and GFC Docs",
+    body: "Organize client drawings in dedicated folders for layouts structural plumbing and electrical."
+  },
+  {
+    title: "360° Viewer: Visualize designs in full perspective",
+    body: "Upload panoramic image files to view your designs in immersive 360 perspectives."
+  },
+  {
+    title: "Documented Site Visits",
+    body: "Log site photos with detailed reports to review standards and correct deviations."
+  },
+  {
+    title: "Concept Plan Board: The foundation of every design",
+    body: "Share and approve initial layout concepts early with direct online sketching tools."
+  },
+  {
+    title: "AI-Powered Drawing Revision Comparison",
+    body: "Instantly compare revised drawings with prior versions to highlight all key updates."
+  },
+  {
+    title: "Present, discuss, decide together",
+    body: "Use direct screen sharing to host client walkthroughs and gather instant feedback.",
+    dark: true
   }
 ];
 
