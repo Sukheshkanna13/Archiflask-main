@@ -32,26 +32,28 @@ function Solid({ shape, light, calm, index }: { shape: Shape; light: boolean; ca
     }
     return { edges, nodes };
   }, [shape]);
-  const idx = index % 4;
   let lcol: string;
   let ncol: string;
 
-  if (idx === 0) {
-    // tonal grey — light lines, dim nodes
-    lcol = "#9a9aa0";
-    ncol = "#cfcfd4";
-  } else if (idx === 1) {
-    // tonal grey — mid lines
-    lcol = "#6e6e73";
-    ncol = "#9a9aa0";
-  } else if (idx === 2) {
-    // tonal grey — light lines, ink nodes
-    lcol = "#aeaeb2";
-    ncol = "#1d1d1f";
-  } else {
-    // 4th element (dark cards): white
+  if (light) {
+    // dark cards: white lines and nodes
     lcol = "#ffffff";
     ncol = "#ffffff";
+  } else {
+    const idx = index % 3;
+    if (idx === 0) {
+      // tonal grey — light lines, dim nodes
+      lcol = "#9a9aa0";
+      ncol = "#cfcfd4";
+    } else if (idx === 1) {
+      // tonal grey — mid lines
+      lcol = "#6e6e73";
+      ncol = "#9a9aa0";
+    } else {
+      // tonal grey — light lines, ink nodes
+      lcol = "#aeaeb2";
+      ncol = "#1d1d1f";
+    }
   }
 
 
